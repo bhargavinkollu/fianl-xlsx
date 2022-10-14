@@ -1,0 +1,30 @@
+.AddFlex{
+    display: flex;
+    flex-direction: row;
+}
+
+  .file-upload {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    size: 16px;
+    border-radius: 3px;
+    padding: 3px;
+    margin-left: 150px; 
+    margin-top: 218px;
+  }
+  
+  .file-upload input {
+    overflow: hidden;
+    width: 0;
+  }
+  #buttonupload{
+    width: 170px;
+    height: 52px;
+    border-radius: 10px;
+    background-color: rgba(68, 68, 68, 1);
+    margin-left: 68px;
+ 
+}
+.file-upload:hover{
+cursor: pointer;
+}

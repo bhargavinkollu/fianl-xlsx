@@ -1,0 +1,65 @@
+.navbox{
+    width: 20%;
+    background-color: #eaeaea;
+    height: 100vh;
+    position: fixed;
+   padding-top: 204px;
+}
+.navbar-link{
+    text-decoration: none;
+    color: black;
+}
+.flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: context-menu;
+    height: 54px;
+    padding-left: 40px;
+    padding-right: 44px;
+    padding-top: 18px;
+   
+    
+}
+.flex h4{
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+}
+.flex h5{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    cursor: pointer;
+}
+.flexA{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+   height: 54px;
+   padding-top: 17px;
+    padding-left: 40px;
+    padding-right: 44px;
+  
+}
+.flexA h4{
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+}
+.flexA h5{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    
+}
+.flex:hover{
+    background-color: rgba(217, 217, 217, 1);
+    transition: all 0.5s;
+
+}
+.flexA:hover{
+    background-color: rgba(217, 217, 217, 1);
+    transition: all 0.5s;
+}
