@@ -11,7 +11,7 @@ import { SideNavigation } from "./SideNavigation";
 import "./viewlist.css";
 
 export const Viewlist = () => {
-  const { loading,filedata} = useSelector((state) =>state.apidata);
+  const { loading, filedata } = useSelector((state) => state.apidata);
   const [editdata, seteditdata] = useState([]);
 
   const [keys, setKeys] = useState([]);
@@ -30,7 +30,6 @@ export const Viewlist = () => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
 
   const getdata = async () => {
-    dispatch(apidata())
     // setdata(res.data);
     // res.data.map((items, index) => {
     //   // console.log(items);
@@ -68,10 +67,15 @@ export const Viewlist = () => {
         // console.log(row);
         return (
           <tr>
-            {Object.keys(currentRecords[0]).map((key, index) => {
-              // console.log([key]);
-              return <td>{row[key]}</td>;
-            })}
+            {Object.keys(currentRecords[0])
+              .filter((item, index) => {
+                console.log(item);
+                return item !== "_id";
+              })
+              .map((key, index) => {
+                console.log([key]);
+                return <td>{row[key]}</td>;
+              })}
             <button
               type="button"
               className="btn btn-primary m-2"
@@ -93,7 +97,10 @@ export const Viewlist = () => {
   };
   const hmap = () => {
     try {
-      const hhmap = Object.keys(currentRecords[0]).map((heading) => {
+      const hhmap = Object.keys(currentRecords[0]).filter((item, index) => {
+        console.log(item);
+        return item !== "_id";
+      }).map((heading) => {
         // console.log(heading);
         return <th>{heading}</th>;
       });
@@ -132,22 +139,23 @@ export const Viewlist = () => {
             <form onSubmit={update}>
               <div className="form-group">
                 {Object.keys(currentRecords[0]).map((heading) => {
-                  return<>
-                  <>
-                  <label htmlFor={`example${heading}`}>{heading}</label>
-                  <input
-                    type="name"
-                    className="form-control"
-                    name={heading}
-                    id={`example${heading}`}
-                    value={editdata[heading]}
-                    onChange={edithandle}
-                    aria-describedby="emailHelp"
-                    placeholder="Enter email"
-                  />
-                  
-                  </></>
-
+                  return (
+                    <>
+                      <>
+                        <label htmlFor={`example${heading}`}>{heading}</label>
+                        <input
+                          type="name"
+                          className="form-control"
+                          name={heading}
+                          id={`example${heading}`}
+                          value={editdata[heading]}
+                          onChange={edithandle}
+                          aria-describedby="emailHelp"
+                          placeholder="Enter email"
+                        />
+                      </>
+                    </>
+                  );
                 })}
               </div>
 
@@ -176,7 +184,9 @@ export const Viewlist = () => {
       <Header />
 
       <SideNavigation />
-      {loading?(<LOader/>):
+      {loading ? (
+        <LOader />
+      ) : (
         <>
           <div className="AddFlex">
             <div style={{ width: "100%" }}>
@@ -210,7 +220,7 @@ export const Viewlist = () => {
                     setCurrentPage={setCurrentPage}
                     disabledClass
                   />
-                {modeldata()}
+                  {modeldata()}
                 </>
               ) : (
                 ""
@@ -218,7 +228,7 @@ export const Viewlist = () => {
             </div>
           </div>
         </>
-      }
+      )}
     </div>
   );
 };
