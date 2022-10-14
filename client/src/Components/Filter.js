@@ -118,9 +118,6 @@ export const Filter = () => {
     });
     setfilterdata(res.data);
   };
-  let namess = ["John", "Paul", "George", "Ringo", "John"];
-  let x = (namess) => namess.filter((v, i) => namess.indexOf(v) === i);
-  console.log(suggestionstlf);
   const handledistrictSuggestionClick = async (suggest) => {
     let vl = suggest.suggest;
     let nam = suggest.name;

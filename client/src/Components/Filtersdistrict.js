@@ -14,43 +14,39 @@ export const Filtersdistrict = () => {
   };
 
   const searchdistrict = async (e) => {
-    
-    const res = await axios.post(
-      "/api/auth/slumidsearch"
-    );
+    const res = await axios.post("/api/auth/slumidsearch");
     setfilterdata(res.data);
-    
   };
   useEffect(() => {
     api();
     searchdistrict();
   }, []);
-  
-  const fmap = () => {
-  console.log(filterdata);
-  const getUniqueBy = (arr, prop) => {
-    const set = new Set;
-    return arr.filter(o => !set.has(o[prop]) && set.add(o[prop]));
-  };
-  console.log(getUniqueBy(filterdata, 'Name_of_the_District'));
-    try {
-     
-    // console.log(data);
 
-    const ffmap = getUniqueBy(filterdata, 'Name_of_the_District').map((row, index) => {
+  const fmap = () => {
+    console.log(filterdata);
+    const getUniqueBy = (arr, prop) => {
+      const set = new Set();
+      return arr.filter((o) => !set.has(o[prop]) && set.add(o[prop]));
+    };
+    console.log(getUniqueBy(filterdata, "Name_of_the_District"));
+    try {
+      // console.log(data);
       
-      console.log(row.Name_of_the_District);
-        return (
-          // {Object}.key(filterdata[0]),
-          <tr>
-            <Link to={row.Name_of_the_District}>
-            <td>{row.Name_of_the_District}</td>
-            </Link>
-          </tr>
-        )
-      })
-      return ffmap;
-    } catch (error) {
+      const ffmap = getUniqueBy(filterdata, "Name_of_the_District").map(
+        (row, index) => {
+          console.log(row.Name_of_the_District);
+          return (
+            // {Object}.key(filterdata[0]),
+            <tr>
+              <Link to={row.Name_of_the_District}>
+                <td>{row.Name_of_the_District}</td>
+              </Link>
+            </tr>
+          );
+        }
+        );
+        return ffmap;
+      } catch (error) {
       console.log(error);
     }
   };
@@ -66,26 +62,35 @@ export const Filtersdistrict = () => {
     }
   };
   return (
-
     <div>
-      <Header/>
+      <Header />
       <SideNavigation />
       <div className="AddFlex">
-        <div style={{ width: "70%", marginLeft: "23%",marginTop:"10%" }}>
-       
-
-        
-
-          <div style={{ width: "20%" }}>
-            {filterdata.length >=1 ? (
+        <div style={{ width: "70%", marginLeft: "23%", marginTop: "10%" }}>
+          <div style={{ width: "30%" }}>
+            {filterdata.length >= 1 ? (
               <>
+              <div className="breadcum">
+
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <Link to="/filter">
+                      <li class="breadcrumb-item active" aria-current="page">
+                        Home
+                      </li>
+                    </Link>
+                  </ol>
+                </nav>
+              </div>
                 <div
                   style={{ overflow: "scroll" }}
                   className="table-responsive"
-                  >
+                >
                   <table className="table" responsive="true">
                     <thead>
-                      <tr><td>Name_of_the_District</td></tr>
+                      <tr>
+                        <td>Name_of_the_District</td>
+                      </tr>
                     </thead>
                     <tbody>{fmap()}</tbody>
                   </table>
@@ -98,5 +103,5 @@ export const Filtersdistrict = () => {
         </div>
       </div>
     </div>
-)
+  );
 };

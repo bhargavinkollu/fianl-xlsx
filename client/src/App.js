@@ -67,7 +67,7 @@ dispatch(apidata())
           <Route path="/filter/:district" element={<FIlterulb/>}/>
           <Route path="/filter/:district/:ulb" element={<Filtertlf/>}/>
           <Route path="/filter/:district/:ulb/:tlfname" element={<Filterslf/>}/>
-          <Route path="/filter/:district/:ulb/:slfname/:slf" element={<Filtershg/>}/>
+          <Route path="/filter/:district/:ulb/:tlfname/:slf" element={<Filtershg/>}/>
         </Routes>
       </BrowserRouter>
     </div>
