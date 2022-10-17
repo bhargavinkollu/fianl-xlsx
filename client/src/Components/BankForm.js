@@ -32,7 +32,8 @@ export const BankForm = () => {
   useEffect(() => {
     
     if (error) {
-      alert.error(error.message);
+      // console.log(error);
+      alert.error(error);
       dispatch(clearErrors());
     }
     if (isUpdated) {
@@ -291,9 +292,9 @@ export const BankForm = () => {
     parseInt(openingBankBalance.closing_cash) +
     parseInt(iml_total_loan_outstanding);
   let variation = total_fund_Available - Total_fund_Recived;
-  console.log(openingBankBalance.closing_bank_balance);
-  console.log(openingBankBalance.closing_cash);
-  console.log(internalMemberLoan);
+  // console.log(openingBankBalance.closing_bank_balance);
+  // console.log(openingBankBalance.closing_cash);
+  // console.log(internalMemberLoan);
 
   let Total_Bank_Loan_Outstanding =
     parseInt(bankloan.bank_opening_bank_loan) +
@@ -309,7 +310,7 @@ export const BankForm = () => {
     );
   let bank_linkage_variation =
     Total_Bank_Loan_Outstanding - Total_Bank_Member_Loan_Outstanding;
-  console.log(Total_Bank_Loan_Outstanding, Total_Bank_Member_Loan_Outstanding);
+  // console.log(Total_Bank_Loan_Outstanding, Total_Bank_Member_Loan_Outstanding);
   // const inputsgh=(e)=>{setSHGID(e.target.value);searchSHG()}
   const inputA = (e) => {
     setBankdetail({ ...bankdetail, [e.target.name]: e.target.value });
@@ -322,7 +323,7 @@ export const BankForm = () => {
   };
   const inputC = (e) => {
     setBankloan({ ...bankloan, [e.target.name]: e.target.value });
-    console.log(bankloan);
+    // console.log(bankloan);
   };
   const inputC_c = (e) => {
     setSrinidhiLoan({ ...srinidhiLoan, [e.target.name]: e.target.value });
@@ -345,8 +346,8 @@ export const BankForm = () => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log();
-  console.log();
+  // console.log();
+  // console.log();
   const inputF = (e) => {
     setSrinidhiMemberLoan({
       ...srinidhiMemberLoan,
@@ -366,8 +367,8 @@ export const BankForm = () => {
     });
    
   };
-  console.log(Grade);
-  console.log(variation);
+  // console.log(Grade);
+  // console.log(variation);
   const chkb1 = (e) => {
     let checkboxB1 = document.getElementById("chkB1");
     if (checkboxB1.checked === true) {
@@ -762,7 +763,7 @@ export const BankForm = () => {
     setChecked10(false);
   };
 
-  console.log(bankloan.bank_total_loan_outstanding);
+  // console.log(bankloan.bank_total_loan_outstanding);
   const uppercaseWords = (str) =>
     str.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
   const logoutUser = () => {
@@ -772,17 +773,17 @@ export const BankForm = () => {
   useEffect(() => {
     if (variation >= -10000) {
       setGrade("A");
-      console.log(Grade);
+      // console.log(Grade);
     } else if ((variation >= -20000) && (variation < -10000)) {
       setGrade("B");
-      console.log(Grade);
+      // console.log(Grade);
     } else if ((variation >= -30000) & (variation < -20000)) {
       setGrade("C");
-      console.log(Grade);
+      // console.log(Grade);
     }
      else if (variation < -30000) {
       setGrade("D");
-      console.log(Grade);
+      // console.log(Grade);
     }
   }, [variation]);
   return (
@@ -1100,7 +1101,7 @@ export const BankForm = () => {
                         name="blml_total_loan_outstanding"
                         readOnly
                         onChangeCapture={() => {
-                          console.log(bankloan);
+                          // console.log(bankloan);
                         }}
                         value={
                           parseInt(bankLinkageMemberLoan.blml_opening_loan) +
