@@ -80,6 +80,7 @@ export const Viewlist = () => {
               type="button"
               className="btn btn-primary m-2"
               data-toggle="modal"
+              style={{color:"black"}}
               data-target="#exampleModal"
               onClick={() => {
                 edit(row["_id"]);
@@ -97,13 +98,15 @@ export const Viewlist = () => {
   };
   const hmap = () => {
     try {
-      const hhmap = Object.keys(currentRecords[0]).filter((item, index) => {
-        console.log(item);
-        return item !== "_id";
-      }).map((heading) => {
-        // console.log(heading);
-        return <th>{heading}</th>;
-      });
+      const hhmap = Object.keys(currentRecords[0])
+        .filter((item, index) => {
+          console.log(item);
+          return item !== "_id";
+        })
+        .map((heading) => {
+          // console.log(heading);
+          return <th>{heading}</th>;
+        });
       return hhmap;
     } catch (error) {
       console.log(error);
@@ -138,25 +141,30 @@ export const Viewlist = () => {
           <div className="modal-content">
             <form onSubmit={update}>
               <div className="form-group">
-                {Object.keys(currentRecords[0]).map((heading) => {
-                  return (
-                    <>
+                {Object.keys(currentRecords[0])
+                  .filter((item, index) => {
+                    console.log(item);
+                    return item !== "_id";
+                  })
+                  .map((heading) => {
+                    return (
                       <>
-                        <label htmlFor={`example${heading}`}>{heading}</label>
-                        <input
-                          type="name"
-                          className="form-control"
-                          name={heading}
-                          id={`example${heading}`}
-                          value={editdata[heading]}
-                          onChange={edithandle}
-                          aria-describedby="emailHelp"
-                          placeholder="Enter email"
-                        />
+                        <>
+                          <label htmlFor={`example${heading}`}>{heading}</label>
+                          <input
+                            type="name"
+                            className="form-control"
+                            name={heading}
+                            id={`example${heading}`}
+                            value={editdata[heading]}
+                            onChange={edithandle}
+                            aria-describedby="emailHelp"
+                            placeholder="Enter email"
+                          />
+                        </>
                       </>
-                    </>
-                  );
-                })}
+                    );
+                  })}
               </div>
 
               <button type="submit" className="btn btn-primary">
