@@ -13,6 +13,7 @@ import "./viewlist.css";
 export const Viewlist = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
   const [editdata, seteditdata] = useState([]);
+const [sghfilter, setsghfilter] = useState([]);
 
   const [keys, setKeys] = useState([]);
   const [object, setObject] = useState();
@@ -21,10 +22,10 @@ export const Viewlist = () => {
   const [recordsPerPage] = useState(10);
   const indexOfLastRecord = currentPage * recordsPerPage;
 
-  const nPages = Math.ceil(filedata.length / recordsPerPage);
+  const nPages = Math.ceil(sghfilter.length / recordsPerPage);
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
 
-  let currentRecords = filedata.slice(indexOfFirstRecord, indexOfLastRecord);
+  let currentRecords = sghfilter.slice(indexOfFirstRecord, indexOfLastRecord);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -38,7 +39,26 @@ export const Viewlist = () => {
     //   }
     //   // console.log(keys);
     // });
+    sgg();
+
   };
+  ////
+  const [value, setValue] = useState("'0900890040032");
+  
+  const suggestions = filedata.filter((option) =>
+  option["SHG ID"].includes(value)
+  );
+  const sgg=()=>{
+    const sghidfilter=filedata.filter((key,index)=>{
+      return  key["SHG ID"].includes(value)
+      // return row
+      
+    })
+    setsghfilter(sghidfilter);
+  }
+  console.log(suggestions);
+  ////
+  console.log(sghfilter);
   let pagelimit = 20;
   if (isAuthenticated === false) {
     navigate("/");
@@ -47,12 +67,10 @@ export const Viewlist = () => {
     dispatch(logout());
     navigate("/employeelogin");
   }
-  console.log(filedata);
-  useEffect(() => {
-    getdata();
-  }, []);
+  // console.log(filedata);
+
+  console.log(currentRecords);
   const edit = async (id) => {
-    console.log(id);
     let res = await axios.post(`http://localhost:5000/edit`, { id });
     let datat = await res.data;
     console.log(datat);
@@ -64,16 +82,14 @@ export const Viewlist = () => {
     try {
       // console.log(data);
       const ffmap = currentRecords.map((row, index) => {
-        // console.log(row);
+        // console.log(row["SHG ID"]);
         return (
           <tr>
             {Object.keys(currentRecords[0])
               .filter((item, index) => {
-                console.log(item);
-                return item !== "_id";
+                return item !== "_id"
               })
               .map((key, index) => {
-                console.log([key]);
                 return <td>{row[key]}</td>;
               })}
             <button
@@ -100,8 +116,8 @@ export const Viewlist = () => {
     try {
       const hhmap = Object.keys(currentRecords[0])
         .filter((item, index) => {
-          console.log(item);
-          return item !== "_id";
+          // console.log(item);
+          return item !== "_id"
         })
         .map((heading) => {
           // console.log(heading);
@@ -117,7 +133,7 @@ export const Viewlist = () => {
     const { name, value } = e.target;
     seteditdata({ ...editdata, [name]: value });
   };
-  console.log(editdata);
+  // console.log(editdata);
 
   const update = async (e) => {
     e.preventDefault();
@@ -143,7 +159,7 @@ export const Viewlist = () => {
               <div className="form-group">
                 {Object.keys(currentRecords[0])
                   .filter((item, index) => {
-                    console.log(item);
+                    // console.log(item);
                     return item !== "_id";
                   })
                   .map((heading) => {
@@ -191,6 +207,8 @@ export const Viewlist = () => {
     <div>
       <Header />
 
+      <button onClick={sgg}>asa</button>
+      
       <SideNavigation />
       {loading ? (
         <LOader />
@@ -198,7 +216,7 @@ export const Viewlist = () => {
         <>
           <div className="AddFlex">
             <div style={{ width: "100%" }}>
-              {filedata.length !== 0 ? (
+              {sghfilter.length!== 0 ? (
                 <>
                   <div
                     style={{
@@ -237,6 +255,7 @@ export const Viewlist = () => {
           </div>
         </>
       )}
+
     </div>
   );
 };
