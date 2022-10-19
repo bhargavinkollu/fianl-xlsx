@@ -1,15 +1,22 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { Header } from "./Components/Header";
 import { SideNavigation } from "./Components/SideNavigation";
 export const Filtertlf = () => {
+  const { loading, filedata } = useSelector((state) => state.apidata);
+
   const { ulb, district } = useParams();
   console.log(ulb);
   const getUniqueBy = (arr, prop) => {
     const set = new Set();
     return arr.filter((o) => !set.has(o[prop]) && set.add(o[prop]));
   };
+  
+  const [year, setYear] = useState("");
+  
+  
   const [data, setData] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
 
@@ -21,23 +28,83 @@ export const Filtertlf = () => {
   useEffect(() => {
     searchdistrict();
   }, []);
+  let obj = {};
 
+  filterdata.forEach((item) => {
+    //console.log(obj[item.name]) this return as undefined
+    if (!obj[item.TLF_NAME]) {
+      obj[item.TLF_NAME] = 1;
+    } else {
+      obj[item.TLF_NAME] += 1;
+    }
+  });
+
+  console.log(obj);
+  let loanobj = {};
+
+  filedata.forEach((item) => {
+    //console.log(loanobj[item.name]) this return as undefined
+    if (!loanobj[item["TLF Name"]]) {
+      loanobj[item["TLF Name"]] = 1;
+    } else {
+      loanobj[item["TLF Name"]] += 1;
+    }
+  });
+
+  console.log(loanobj);
+  
   const fmap = () => {
     try {
       // console.log(data);
-      const ffmap = getUniqueBy(filterdata, "TLF_NAME").map((row, index) => {
-        console.log(row.TLF_NAME);
-        return (
-          // {Object}.key(filterdata[0]),
-          <tr>
-            <Link to={row.TLF_NAME}>
-              <td>{row.TLF_NAME}</td>
-            </Link>
-          </tr>
-        );
-      });
-      return ffmap;
-    } catch (error) {
+   
+    
+       if(year !== "year"){
+        console.log("asd",year);
+
+        const ffmap = getUniqueBy(filterdata, "TLF_NAME")
+        .filter((item, index) => {
+          console.log(item);
+          return item.year === year;
+        })
+        .map((row, index) => {
+          console.log(obj[row]);
+          console.log(row.TLF_NAME);
+          return (
+            // {Object}.key(filterdata[0]),
+            <tr>
+              <Link to={row.TLF_NAME}>
+                <td>{row.TLF_NAME}</td>
+              </Link>
+              <td>{obj[row.TLF_NAME]}</td>
+              <td>{loanobj[row.TLF_NAME]}</td>
+            </tr>
+          );
+        });
+      return ffmap; 
+      
+       }
+       else if (year ==="year"){
+        console.log(year);
+        const ffmap = getUniqueBy(filterdata, "TLF_NAME")
+        
+        .map((row, index) => {
+          console.log(obj[row]);
+          console.log(row.TLF_NAME);
+          return (
+            // {Object}.key(filterdata[0]),
+            <tr>
+              <Link to={row.TLF_NAME}>
+                <td>{row.TLF_NAME}</td>
+              </Link>
+              <td>{obj[row.TLF_NAME]}</td>
+              <td>{loanobj[row.TLF_NAME]}</td>
+            </tr>
+          );
+        });
+      return ffmap; 
+      
+       }
+    }catch (error) {
       console.log(error);
     }
   };
@@ -52,6 +119,12 @@ export const Filtertlf = () => {
       console.log(error);
     }
   };
+  const searchdis = async (event) => {
+   setYear(event.target.value);
+    const filterdat = filterdata;
+    console.log(filterdat);
+    setfilterdata(filterdat);
+  };
   return (
     <div>
       <Header />
@@ -59,8 +132,6 @@ export const Filtertlf = () => {
       <div className="AddFlex">
         <div style={{ width: "70%", marginLeft: "23%", marginTop: "10%" }}>
           <div style={{ width: "30%" }}>
-            {filterdata.length >= 1 ? (
-              <>
               <div className="breadcum">
 
                 <ol class="breadcrumb">
@@ -85,19 +156,39 @@ export const Filtertlf = () => {
                   style={{ overflow: "scroll" }}
                   className="table-responsive"
                 >
+                  <select required onChange={searchdis}>
+                    <option selected value={""} >
+                      year
+                    </option>
+                    <option>2020</option>
+                    <option>2021</option>
+                    <option>2022</option>
+                    <option>2023</option>
+                    <option>2024</option>
+                    <option>2025</option>
+                    <option>2026</option>
+                    <option>2027</option>
+                    <option>2028</option>
+                    <option>2029</option>
+                    <option>2030</option>
+                  </select>
                   <table className="table" responsive="true">
                     <thead>
                       <tr>
                         <td>TLF_NAME</td>
+                        <td>Count</td>
+                        <td>Count</td>
                       </tr>
                     </thead>
+            {filterdata.length >= 1 ? (
+              <>
                     <tbody>{fmap()}</tbody>
-                  </table>
-                </div>
               </>
             ) : (
-              ""
-            )}
+              "no data found"
+              )}
+              </table>
+            </div>
           </div>
         </div>
       </div>
