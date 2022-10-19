@@ -13,10 +13,8 @@ import "./viewlist.css";
 export const Viewlist = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
   const [editdata, seteditdata] = useState([]);
-const [sghfilter, setsghfilter] = useState([]);
+  const [sghfilter, setsghfilter] = useState(filedata);
 
-  const [keys, setKeys] = useState([]);
-  const [object, setObject] = useState();
   const [currentPage, setCurrentPage] = useState(1);
 
   const [recordsPerPage] = useState(10);
@@ -29,36 +27,39 @@ const [sghfilter, setsghfilter] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, isAuthenticated } = useSelector((state) => state.user);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const getdata = async () => {
-    // setdata(res.data);
-    // res.data.map((items, index) => {
-    //   // console.log(items);
-    //   if (index === 1) {
-    //     setKeys(Object.keys(items));
-    //   }
-    //   // console.log(keys);
-    // });
-    sgg();
-
-  };
   ////
-  const [value, setValue] = useState("'0900890040032");
-  
+  const [value, setValue] = useState("");
+
   const suggestions = filedata.filter((option) =>
-  option["SHG ID"].includes(value)
+    option["SHG ID"].includes(value)
   );
-  const sgg=()=>{
-    const sghidfilter=filedata.filter((key,index)=>{
-      return  key["SHG ID"].includes(value)
+  const handleChange = (name) => {
+    setValue(name.valued);
+
+    const sghidfilter = filedata.filter((key, index) => {
+      return key["SHG ID"].includes(name.valued);
       // return row
-      
-    })
+    });
     setsghfilter(sghidfilter);
-  }
-  console.log(suggestions);
+  };
+  // console.log(suggestions);
+  const handledistrictSuggestionClick = async (suggest) => {
+    let vl = suggest.suggest;
+    let nam = suggest.name;
+    console.log(vl, nam);
+
+    console.log(nam);
+
+    setValue(suggest.suggest);
+    setShowSuggestions(false);
+  };
+  useEffect(() => {
+    setsghfilter(filedata)
+  }, [filedata]);
+  
   ////
-  console.log(sghfilter);
   let pagelimit = 20;
   if (isAuthenticated === false) {
     navigate("/");
@@ -67,7 +68,6 @@ const [sghfilter, setsghfilter] = useState([]);
     dispatch(logout());
     navigate("/employeelogin");
   }
-  // console.log(filedata);
 
   console.log(currentRecords);
   const edit = async (id) => {
@@ -80,14 +80,12 @@ const [sghfilter, setsghfilter] = useState([]);
   };
   const fmap = () => {
     try {
-      // console.log(data);
       const ffmap = currentRecords.map((row, index) => {
-        // console.log(row["SHG ID"]);
         return (
           <tr>
             {Object.keys(currentRecords[0])
               .filter((item, index) => {
-                return item !== "_id"
+                return item !== "_id";
               })
               .map((key, index) => {
                 return <td>{row[key]}</td>;
@@ -96,7 +94,7 @@ const [sghfilter, setsghfilter] = useState([]);
               type="button"
               className="btn btn-primary m-2"
               data-toggle="modal"
-              style={{color:"black"}}
+              style={{ color: "black" }}
               data-target="#exampleModal"
               onClick={() => {
                 edit(row["_id"]);
@@ -116,11 +114,9 @@ const [sghfilter, setsghfilter] = useState([]);
     try {
       const hhmap = Object.keys(currentRecords[0])
         .filter((item, index) => {
-          // console.log(item);
-          return item !== "_id"
+          return item !== "_id";
         })
         .map((heading) => {
-          // console.log(heading);
           return <th>{heading}</th>;
         });
       return hhmap;
@@ -133,7 +129,6 @@ const [sghfilter, setsghfilter] = useState([]);
     const { name, value } = e.target;
     seteditdata({ ...editdata, [name]: value });
   };
-  // console.log(editdata);
 
   const update = async (e) => {
     e.preventDefault();
@@ -207,8 +202,43 @@ const [sghfilter, setsghfilter] = useState([]);
     <div>
       <Header />
 
-      <button onClick={sgg}>asa</button>
-      
+      {/* <button onClick={sgg}>asa</button> */}
+      <input
+        className="form-control"
+        list="list"
+        value={value}
+        autoComplete="off"
+        onChange={(e) => {
+          handleChange({
+            name: "SHG ID",
+            valued: e.target.value,
+          });
+        }}
+        placeholder="Search"
+        onFocus={() => setShowSuggestions(true)}
+      />
+      {showSuggestions && (
+        <datalist id="list" className="suggestions">
+          {suggestions.map((suggestion) => {
+            // console.log(suggestion["SHG ID"]);
+            return (
+              <option
+                style={{ listStyleType: "none" }}
+                onClick={() =>
+                  handledistrictSuggestionClick({
+                    suggest: suggestion["SHG ID"],
+                    name: "SHG ID",
+                  })
+                }
+                // key={suggestion["SHG ID"]}
+              >
+                {suggestion["SHG ID"]}
+              </option>
+            );
+          })}
+        </datalist>
+      )}
+
       <SideNavigation />
       {loading ? (
         <LOader />
@@ -216,7 +246,7 @@ const [sghfilter, setsghfilter] = useState([]);
         <>
           <div className="AddFlex">
             <div style={{ width: "100%" }}>
-              {sghfilter.length!== 0 ? (
+              {sghfilter.length !== 0 ? (
                 <>
                   <div
                     style={{
@@ -255,7 +285,6 @@ const [sghfilter, setsghfilter] = useState([]);
           </div>
         </>
       )}
-
     </div>
   );
 };

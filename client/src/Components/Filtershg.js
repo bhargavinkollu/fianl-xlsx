@@ -7,6 +7,8 @@ import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
 export const Filtershg = () => {
   const [data, setData] = useState([]);
+  const [year, setYear] = useState();
+  console.log(year);
   const [filterdata, setfilterdata] = useState([]);
   const { slf, district, ulb, tlfname } = useParams();
   console.log(slf);
@@ -14,8 +16,20 @@ export const Filtershg = () => {
     const res = await axios.get("http://localhost:5000/api/auth/searchall");
     setData(res.data);
   };
-  const searchdistrict = async (e) => {
-    const res = await axios.post("/api/auth/searchall", { SLF_NAME: slf });
+  const searchdistrict = async (event) => {
+    const res = await axios.post("/api/auth/searchall", {
+      SLF_NAME: slf,
+      year,
+    });
+    console.log(res.data);
+    setfilterdata(res.data);
+  };
+  const searchdis = async (event) => {
+    console.log(event.target.value);
+    const res = await axios.post("/api/auth/searchall", {
+      SLF_NAME: slf,
+      year:event.target.value,
+    });
     console.log(res.data);
     setfilterdata(res.data);
   };
@@ -79,8 +93,7 @@ export const Filtershg = () => {
             <button className="btn" onClick={downloadExcel}>
               <i class="fa fa-download" aria-hidden="true"></i>
             </button>
-            {filterdata.length >= 1 ? (
-              <>
+          
                 <div className="breadcum">
                   <ol class="breadcrumb">
                     <Link to="/filter">
@@ -111,8 +124,26 @@ export const Filtershg = () => {
                       {slf}
                     </li>
                   </ol>
+                  <select required onChange={searchdis}>
+                    <option selected disabled value="">
+                      year
+                    </option>
+                    <option>2020</option>
+                    <option>2021</option>
+                    <option>2022</option>
+                    <option>2023</option>
+                    <option>2024</option>
+                    <option>2025</option>
+                    <option>2026</option>
+                    <option>2027</option>
+                    <option>2028</option>
+                    <option>2029</option>
+                    <option>2030</option>
+                  </select>
                 </div>
-                <div
+                {filterdata.length >= 1 ? (
+                  <>
+                  <div
                   style={{ overflow: "scroll" }}
                   className="table-responsive"
                 >
@@ -125,7 +156,7 @@ export const Filtershg = () => {
                 </div>
               </>
             ) : (
-              ""
+              "no data found"
             )}
           </div>
         </div>
