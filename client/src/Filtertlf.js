@@ -13,10 +13,9 @@ export const Filtertlf = () => {
     const set = new Set();
     return arr.filter((o) => !set.has(o[prop]) && set.add(o[prop]));
   };
-  
+
   const [year, setYear] = useState("");
-  
-  
+
   const [data, setData] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
 
@@ -31,7 +30,6 @@ export const Filtertlf = () => {
   let obj = {};
 
   filterdata.forEach((item) => {
-    //console.log(obj[item.name]) this return as undefined
     if (!obj[item.TLF_NAME]) {
       obj[item.TLF_NAME] = 1;
     } else {
@@ -52,78 +50,40 @@ export const Filtertlf = () => {
   });
 
   console.log(loanobj);
-  
+
   const fmap = () => {
     try {
-      // console.log(data);
-   
-    
-       if(year !== "year"){
-        console.log("asd",year);
+      console.log(year);
+      const ffmap = getUniqueBy(filterdata, "TLF_NAME").map(
+        (row, index) => {
+          console.log(obj[row]);
+          console.log(row.TLF_NAME);
+          return (
+            // {Object}.key(filterdata[0]),
+            <tr>
+              <Link to={row.TLF_NAME}>
+                <td>{row.TLF_NAME}</td>
+              </Link>
+              <td>{obj[row.TLF_NAME]}</td>
+              <td>{loanobj[row.TLF_NAME]}</td>
+            </tr>
+          );
+        }
+      );
+      return ffmap;
+    }  catch (error) {
+      console.log(error);
+    }
+  };
 
-        const ffmap = getUniqueBy(filterdata, "TLF_NAME")
-        .filter((item, index) => {
-          console.log(item);
-          return item.year === year;
-        })
-        .map((row, index) => {
-          console.log(obj[row]);
-          console.log(row.TLF_NAME);
-          return (
-            // {Object}.key(filterdata[0]),
-            <tr>
-              <Link to={row.TLF_NAME}>
-                <td>{row.TLF_NAME}</td>
-              </Link>
-              <td>{obj[row.TLF_NAME]}</td>
-              <td>{loanobj[row.TLF_NAME]}</td>
-            </tr>
-          );
-        });
-      return ffmap; 
-      
-       }
-       else if (year ==="year"){
-        console.log(year);
-        const ffmap = getUniqueBy(filterdata, "TLF_NAME")
-        
-        .map((row, index) => {
-          console.log(obj[row]);
-          console.log(row.TLF_NAME);
-          return (
-            // {Object}.key(filterdata[0]),
-            <tr>
-              <Link to={row.TLF_NAME}>
-                <td>{row.TLF_NAME}</td>
-              </Link>
-              <td>{obj[row.TLF_NAME]}</td>
-              <td>{loanobj[row.TLF_NAME]}</td>
-            </tr>
-          );
-        });
-      return ffmap; 
-      
-       }
-    }catch (error) {
-      console.log(error);
-    }
-  };
-  const hmap = () => {
-    try {
-      const hhmap = Object.keys(filterdata[0]).map((heading) => {
-        console.log(heading);
-        return <th>{heading[13]}</th>;
-      });
-      return hhmap;
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const searchdis = async (event) => {
-   setYear(event.target.value);
-    const filterdat = filterdata;
-    console.log(filterdat);
-    setfilterdata(filterdat);
+    console.log(event.target.value);
+    const res = await axios.post("/api/auth/searchall", {
+      Name_of_ulb: ulb,
+      year: event.target.value,
+    });
+    console.log(res.data);
+    setfilterdata(res.data);
   };
   return (
     <div>
@@ -132,61 +92,57 @@ export const Filtertlf = () => {
       <div className="AddFlex">
         <div style={{ width: "70%", marginLeft: "23%", marginTop: "10%" }}>
           <div style={{ width: "30%" }}>
-              <div className="breadcum">
-
-                <ol class="breadcrumb">
-                  <Link to="/filter">
-                    <li class="breadcrumb-item active" aria-current="page">
-                      Home
-                    </li>
-                  </Link>
-                  /
-                  <Link to={`/filter/${district}`}>
-                    <li class="breadcrumb-item active" aria-current="page">
-                      {district}
-                    </li>
-                  </Link>
-                  /
+            <div className="breadcum">
+              <ol class="breadcrumb">
+                <Link to="/filter">
                   <li class="breadcrumb-item active" aria-current="page">
-                    {ulb}
+                    Home
                   </li>
-                </ol>
-              </div>
-                <div
-                  style={{ overflow: "scroll" }}
-                  className="table-responsive"
-                >
-                  <select required onChange={searchdis}>
-                    <option selected value={""} >
-                      year
-                    </option>
-                    <option>2020</option>
-                    <option>2021</option>
-                    <option>2022</option>
-                    <option>2023</option>
-                    <option>2024</option>
-                    <option>2025</option>
-                    <option>2026</option>
-                    <option>2027</option>
-                    <option>2028</option>
-                    <option>2029</option>
-                    <option>2030</option>
-                  </select>
-                  <table className="table" responsive="true">
-                    <thead>
-                      <tr>
-                        <td>TLF_NAME</td>
-                        <td>Count</td>
-                        <td>Count</td>
-                      </tr>
-                    </thead>
-            {filterdata.length >= 1 ? (
-              <>
+                </Link>
+                /
+                <Link to={`/filter/${district}`}>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    {district}
+                  </li>
+                </Link>
+                /
+                <li class="breadcrumb-item active" aria-current="page">
+                  {ulb}
+                </li>
+              </ol>
+            </div>
+            <div style={{ overflow: "scroll" }} className="table-responsive">
+            <select required onChange={searchdis}>
+              <option selected disabled value="">
+                year
+              </option>
+              <option>2020</option>
+              <option>2021</option>
+              <option>2022</option>
+              <option>2023</option>
+              <option>2024</option>
+              <option>2025</option>
+              <option>2026</option>
+              <option>2027</option>
+              <option>2028</option>
+              <option>2029</option>
+              <option>2030</option>
+            </select>
+              <table className="table" responsive="true">
+                <thead>
+                  <tr>
+                    <td>TLF_NAME</td>
+                    <td>Count</td>
+                    <td>Count</td>
+                  </tr>
+                </thead>
+                {filterdata.length >= 1 ? (
+                  <>
                     <tbody>{fmap()}</tbody>
-              </>
-            ) : (
-              "no data found"
-              )}
+                  </>
+                ) : (
+                  "no data found"
+                )}
               </table>
             </div>
           </div>

@@ -11,7 +11,7 @@ export const Filterslf = () => {
   const { tlfname, district, ulb } = useParams();
   console.log(tlfname);
   const [data, setData] = useState([]);
-  const [year, setYear] = useState("2020");
+  const [year, setYear] = useState("");
 
   const [filterdata, setfilterdata] = useState([]);
 
@@ -52,15 +52,9 @@ export const Filterslf = () => {
   console.log(loanobj);
   const fmap = () => {
     try {
-      // console.log(data);
-   
-    
-        const ffmap = getUniqueBy(filterdata, "SLF_NAME")
-        .filter((item, index) => {
-          console.log(item);
-          return item.year === year;
-        })
-        .map((row, index) => {
+      console.log(year);
+      const ffmap = getUniqueBy(filterdata, "SLF_NAME").map(
+        (row, index) => {
           console.log(obj[row]);
           console.log(row.SLF_NAME);
           return (
@@ -73,19 +67,22 @@ export const Filterslf = () => {
               <td>{loanobj[row.SLF_NAME]}</td>
             </tr>
           );
-        });
-      return ffmap; 
-      
-    }
+        }
+      );
+      return ffmap;
+    } 
     catch (error) {
       console.log(error);
     }
   };
   const searchdis = async (event) => {
     console.log(event.target.value);
-    const filterdat = filterdata;
-    console.log(filterdat);
-    setfilterdata(filterdat);
+    const res = await axios.post("/api/auth/searchall", {
+      TLF_NAME: tlfname,
+      year: event.target.value,
+    });
+    console.log(res.data);
+    setfilterdata(res.data);
   };
 
   return (
@@ -120,28 +117,23 @@ export const Filterslf = () => {
                 </li>
               </ol>
             </div>
+            <select required onChange={searchdis}>
+              <option selected disabled value="">
+                year
+              </option>
+              <option>2020</option>
+              <option>2021</option>
+              <option>2022</option>
+              <option>2023</option>
+              <option>2024</option>
+              <option>2025</option>
+              <option>2026</option>
+              <option>2027</option>
+              <option>2028</option>
+              <option>2029</option>
+              <option>2030</option>
+            </select>
             <div style={{ overflow: "scroll" }} className="table-responsive">
-              <select
-                required
-                onChange={(e) => {
-                  setYear(e.target.value);
-                }}
-              >
-                <option selected disabled value="">
-                  year
-                </option>
-                <option>2020</option>
-                <option>2021</option>
-                <option>2022</option>
-                <option>2023</option>
-                <option>2024</option>
-                <option>2025</option>
-                <option>2026</option>
-                <option>2027</option>
-                <option>2028</option>
-                <option>2029</option>
-                <option>2030</option>
-              </select>
               <table className="table" responsive="true">
                 <thead>
                   <tr>

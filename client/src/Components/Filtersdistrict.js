@@ -70,11 +70,9 @@ export const Filtersdistrict = () => {
     };
     console.log(getUniqueBy(filterdata, "Name_of_the_District"));
     try {
-      console.log("year aasas");
       console.log(year);
-      const ffmap = getUniqueBy(filterdata, "Name_of_the_District")
-        
-        .map((row, index) => {
+      const ffmap = getUniqueBy(filterdata, "Name_of_the_District").map(
+        (row, index) => {
           console.log(obj[row]);
           console.log(row.Name_of_the_District);
           return (
@@ -87,25 +85,14 @@ export const Filtersdistrict = () => {
               <td>{loanobj[row.Name_of_the_District]}</td>
             </tr>
           );
-        });
+        }
+      );
       return ffmap;
-    
-
-  }catch (error) {
-      console.log(error);
-    }
-  };
-  const hmap = () => {
-    try {
-      const hhmap = Object.keys(filterdata[0]).map((heading) => {
-        console.log(heading);
-        return <th>{heading[13]}</th>;
-      });
-      return hhmap;
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <div>
       <Header />
@@ -125,7 +112,7 @@ export const Filtersdistrict = () => {
               </nav>
             </div>
             <select required onChange={searchdis}>
-              <option selected value="">
+              <option selected disabled value="">
                 year
               </option>
               <option>2020</option>
