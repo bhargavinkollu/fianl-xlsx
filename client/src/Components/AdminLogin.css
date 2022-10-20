@@ -1,7 +1,8 @@
 .contentAdmin{
   width: 100%;  
-
-  margin-top: 97px;
+align-items: center;
+text-align: center;
+  /* margin-top: 97px; */
 
 }
 .contentAdmin h3{
@@ -23,64 +24,20 @@
 .flexbox h5{
 margin-right: 70px;
 text-align: left;
-font-size: 25px;
+font-size: 2px;
 font-family: 'Inter', sans-serif;
 font-weight: 400;
 padding-top: 13px;
 }
-.flexbox input{
-width: 437px;
-height: 52px;
-border-radius: 10px;
-background-color: rgba(241, 241, 241, 1);
-padding-left: 20px;
-padding-top: 16px;
-border: none;
-padding-bottom: 16px;
-font-family: 'Inter', sans-serif;
-font-weight: 400;
-}
-.flexboxA{
-    display: flex;
-    flex-direction: row;  
-    margin: 0 auto;
-    margin-top: 40px;
-    width: 670px;
-    justify-content: space-between;
-    
-}
-.flexboxA h5{
-    margin-right: 70px;
-    text-align: left;
-    font-size: 25px;
-    padding-top: 13px;
-    font-family: 'Inter', sans-serif;
-font-weight: 400;
-}
-.flexboxA input{
-width: 437px;
-height: 52px;
-border-radius: 10px;
-background-color: rgba(241, 241, 241, 1);
-padding-left: 20px;
-padding-top: 16px;
-border: none;
-padding-bottom: 16px;
-font-family: 'Inter', sans-serif;
-font-weight: 400;
-}
+
+
+
 .buton{
     width: 100%;
     justify-content: center;
     text-align: center;
 }
-#buttonSubmit{
-    width: 185px;
-    height: 52px;
-    border-radius: 10px;
-    background-color: rgba(68, 68, 68, 1);
-    margin-top: 60px;   
-}
+
 
 @media (max-width : 767px){
     .contentAdmin{

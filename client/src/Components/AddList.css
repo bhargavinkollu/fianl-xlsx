@@ -1,30 +1,59 @@
-.AddFlex{
-    display: flex;
-    flex-direction: row;
+.addlisttop .AddFlex {
+  display: flex;
+  flex-direction: row;
 }
 
-  .file-upload {
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    size: 16px;
-    border-radius: 3px;
-    padding: 3px;
-    margin-left: 150px; 
-    margin-top: 218px;
-  }
+.addlisttop .file-upload {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  size: 16px;
+  border-radius: 3px;
+  padding: 3px;
+  margin-left: 150px;
+  margin-top: 218px;
+}
+
+.addlisttop .file-upload input {
+  overflow: hidden;
+  width: 0;
+}
+.addlisttop #buttonupload {
+  width: 170px;
+  height: 52px;
+  border-radius: 10px;
+  background-color: rgba(68, 68, 68, 1);
+  margin-left: 68px;
+}
+.addlisttop .file-upload:hover {
+  cursor: pointer;
+}
+.addlisttop input[type="file"] .file_input {
+  top: 10px;
+  left: 8px;
+  font-size: 17px;
+  background-color: aqua;
+  color: #b8b8b8;
+}
+.addlisttop{
+ 
+    background: url("../Image/addlist.jpg") no-repeat center center
+      fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: baseline;
   
-  .file-upload input {
-    overflow: hidden;
-    width: 0;
-  }
-  #buttonupload{
-    width: 170px;
-    height: 52px;
-    border-radius: 10px;
-    background-color: rgba(68, 68, 68, 1);
-    margin-left: 68px;
  
 }
-.file-upload:hover{
-cursor: pointer;
+.addlisttop .addlistborder {
+  height: 88vh;
+  background-color: white;
+  /* overflow: hidden; */
+  width: 95%;
+  border-radius: 20px;
+  margin: 0 auto;
 }
+
+

@@ -11,22 +11,20 @@ import { clearErrors, logout, uploadsheet } from "../action/useraction";
 
 export const AddList = () => {
   const [selectedfile, setselectedfile] = useState();
-  const { user, isAuthenticated,error,loading ,success,isUpdated} = useSelector(
-    (state) => state.user
-  );
+  const { user, isAuthenticated, error, loading, success, isUpdated } =
+    useSelector((state) => state.user);
   const navigate = useNavigate();
   const alert = useAlert();
   const dispatch = useDispatch();
   if (isAuthenticated === false) {
     navigate("/");
   }
-  if(user.role==="user"){
-    dispatch(logout())
-    navigate("/employeelogin")
+  if (user.role === "user") {
+    dispatch(logout());
+    navigate("/employeelogin");
   }
   useEffect(() => {
- 
-    if (isUpdated === false ) {
+    if (isUpdated === false) {
       alert.error(error);
       dispatch(clearErrors());
     }
@@ -34,7 +32,7 @@ export const AddList = () => {
       alert.success(success);
       dispatch(clearErrors());
     }
-  }, [ success,error]);
+  }, [success, error]);
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
@@ -46,37 +44,53 @@ export const AddList = () => {
           "Content-type": "multipart/form-data",
         },
       };
-     
+
       dispatch(uploadsheet(formdata));
     } catch (error) {
       alert.error(error);
-      dispatch(clearErrors())
+      dispatch(clearErrors());
       console.log(error);
     }
   };
   console.log(loading);
   return (
     <>
-      <Header />
 
+      <div className="addlisttop">
+      <div className="addlistborder">
       <div className="AddFlex">
         <SideNavigation />
+        <div style={{ margin: "5% auto auto" }}>
+        <Header />
         {loading !== false ? (
           <LOader />
-        ) : (
-          <>
-            <div style={{ margin: "5% auto auto" }}>
-              <form onSubmit={handlesubmit} action="">
+          ) : (
+            <>
+              <form
+                style={{ display: "flex", flexDirection: "column" }}
+                onSubmit={handlesubmit}
+                action=""
+              >
+                <span class="btn btn-primary btn-file">
+                  Browse...
+                  <input
+                    type="file"
+                    accept=".xlsx"
+                    onChange={(e) => setselectedfile(e.target.files[0])}
+                  />
+                </span>
+
                 <input
-                  type="file" 
-                  accept='.xlsx'
-                  onChange={(e) => setselectedfile(e.target.files[0])}
+                  type="submit"
+                  style={{ color: "white", backgroundColor: "#3689EB" }}
+                  value="Upload"
                 />
-                <input type="submit" value="Upload" />
               </form>
-            </div>
           </>
         )}
+        </div>
+      </div>
+      </div>
       </div>
     </>
   );

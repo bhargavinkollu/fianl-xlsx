@@ -1,9 +1,13 @@
 .navbox{
-    width: 20%;
-    background-color: #eaeaea;
-    height: 100vh;
+    width: 25%;
+    background-color: #3689EB;
+    height: 85vh;
     position: fixed;
    padding-top: 204px;
+   margin-top: 12px;
+    margin-bottom: 19px;
+    margin-left: 10px;
+    border-radius: 10px;
 }
 .navbar-link{
     text-decoration: none;

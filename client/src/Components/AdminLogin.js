@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login } from "../action/useraction";
 import { useAlert } from "react-alert";
 import { LOader } from "./LOader";
-
+import styles from "./Adminlogin.css";
+import logo from "../Image/adminloginlogo.png"
 export const AdminLogin = () => {
   const alert = useAlert();
   const { user, isAuthenticated, loading, error } = useSelector(
@@ -53,11 +54,16 @@ export const AdminLogin = () => {
       {loading ? (
         <LOader />
       ) : (
-        <div className="container">
+      <div className ={ `adminlogintop `} >
+      <div className ={ `adminlogin `} >
+        <nav class="navbar container navbar-light ">
+  <a class="navbar-brand" href="#"><img src={logo} width="50%" height="50%"/></a>
+</nav>
+          <div className="">
           <div className="contentAdmin">
-            <h3>Admin Login</h3>
+            <h4 style={{paddingTop:"10%"}}>Login to your account</h4>
             <form action="" onSubmit={Submittion}>
-              <div className="flexboxA  mb-3">
+              <div className="flexboxA">
                 <h5>User name</h5>
                 <input
                   type="text"
@@ -69,8 +75,10 @@ export const AdminLogin = () => {
                   value={adminData.username}
                 />
               </div>
-              <div className="flexboxA  mb-3">
+              <div className="flexboxA">
                 <h5>Password</h5>
+                <label htmlFor="floatingPassword" style={{display:"flex"}}>
+
                 <input
                   type="password"
                   id="floatingPassword"
@@ -78,25 +86,28 @@ export const AdminLogin = () => {
                   onChange={Input_Handler}
                   className="form-control"
                   value={adminData.userpwd}
-                />
+                  />
 
-                <i
+                <i id="floatingPassword"
                   className="fa fa-eye"
                   style={{margin:"20px -31px"}}
                   onClick={myFunction}
-                ></i>
+                  ></i>
+                  </label>
               </div>
               <div className="buton">
+              </div>
                 <input
                   type="submit"
                   value="Login"
                   className="btn btn-success"
                   id="buttonSubmit"
                 />
-              </div>
             </form>
           </div>
         </div>
+      </div>
+      </div>
       )}
     </>
   );
