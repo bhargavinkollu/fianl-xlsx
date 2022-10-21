@@ -125,7 +125,7 @@ export const Filtershg = () => {
                       {slf}
                     </li>
                   </ol>
-                  <select required onChange={searchdis}>
+                  <select className="form-select-bg"required onChange={searchdis}>
               <option selected disabled value="">
                 year
               </option>
@@ -145,7 +145,7 @@ export const Filtershg = () => {
                 {filterdata.length >= 1 ? (
                   <>
                   <div
-                  style={{ overflow: "scroll" }}
+                  style={{ overflow: "scroll" ,overflowY:"hidden"}}
                   className="table-responsive"
                 >
                   <table className="table" responsive="true">

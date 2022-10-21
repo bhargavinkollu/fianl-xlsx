@@ -91,8 +91,8 @@ export const Filterslf = () => {
       <SideNavigation />
       <Header />
       <div className="AddFlex">
-        <div style={{ width: "70%", marginLeft: "30%", marginTop: "10%" }}>
-          <div style={{ width: "40%" }}>
+        <div style={{ width: "70%", marginLeft: "30%" }}>
+          <div style={{ width: "50%" }}>
             <div className="breadcum">
               <ol class="breadcrumb">
                 <Link to="/filter">
@@ -134,7 +134,7 @@ export const Filterslf = () => {
               <option>2029</option>
               <option>2030</option>
             </select>
-            <div style={{ overflow: "scroll" }} className="table-responsive">
+            <div style={{ overflow: "scroll",overflowY:"hidden" ,overflowY:"hidden"}} className="table-responsive">
               <table className="table" responsive="true">
                 <thead>
                   <tr>
