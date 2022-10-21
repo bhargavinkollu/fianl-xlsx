@@ -20,8 +20,7 @@ export const Header = () => {
   };
   return (
     <div 
-    style={{ position: "relative", top: "-40px" ,width:"120%"}
-    }
+   className="headertop1"
     >
       {" "}
       <span className="home_btn">

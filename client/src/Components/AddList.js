@@ -58,16 +58,16 @@ export const AddList = () => {
 
       <div className="addlisttop">
       <div className="addlistborder">
-      <div className="AddFlex">
-        <SideNavigation />
-        <div style={{ margin: "5% auto auto" }}>
+        
         <Header />
         {loading !== false ? (
           <LOader />
           ) : (
             <>
-              <form
-                style={{ display: "flex", flexDirection: "column" }}
+            <div className="AddFlex">
+            <SideNavigation />
+              <form 
+                style={{ display: "flex", flexDirection: "column", margin: "5% auto auto" }}
                 onSubmit={handlesubmit}
                 action=""
               >
@@ -86,11 +86,10 @@ export const AddList = () => {
                   value="Upload"
                 />
               </form>
+        </div>
           </>
         )}
         </div>
-      </div>
-      </div>
       </div>
     </>
   );

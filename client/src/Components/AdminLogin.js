@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login } from "../action/useraction";
 import { useAlert } from "react-alert";
 import { LOader } from "./LOader";
-import styles from "./Adminlogin.css";
+import styles from "./adminlogin1.css";
 import logo from "../Image/adminloginlogo.png"
 export const AdminLogin = () => {
   const alert = useAlert();
