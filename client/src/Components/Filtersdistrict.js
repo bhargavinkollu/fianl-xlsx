@@ -94,11 +94,12 @@ export const Filtersdistrict = () => {
   };
 
   return (
-    <div>
-      <Header />
+    <div className="viewlisttop">
+    <div className="viewlistboarder">
       <SideNavigation />
+      <Header />
       <div className="AddFlex">
-        <div style={{ width: "70%", marginLeft: "23%", marginTop: "10%" }}>
+        <div style={{ width: "70%", marginLeft: "30%", marginTop: "10%" }}>
           <div style={{ width: "50%" }}>
             <div className="breadcum">
               <nav aria-label="breadcrumb">
@@ -144,6 +145,7 @@ export const Filtersdistrict = () => {
                   "No data found "
                 )}
               </table>
+            </div>
             </div>
           </div>
         </div>

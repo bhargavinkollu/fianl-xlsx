@@ -84,11 +84,12 @@ export const Filtershg = () => {
     FileSaver.saveAs(data, "excel" + fileExtension);
   };
   return (
-    <div>
-      <Header />
+    <div className="viewlisttop">
+    <div className="viewlistboarder">
       <SideNavigation />
+      <Header />
       <div className="AddFlex">
-        <div style={{ width: "70%", marginLeft: "23%", marginTop: "10%" }}>
+        <div style={{ width: "70%", marginLeft: "30%"}}>
           <div style={{ width: "100%" }}>
             <button className="btn" onClick={downloadExcel}>
               <i class="fa fa-download" aria-hidden="true"></i>
@@ -160,6 +161,7 @@ export const Filtershg = () => {
             )}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

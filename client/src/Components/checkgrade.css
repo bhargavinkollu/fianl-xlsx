@@ -1,0 +1,21 @@
+.checkgradetop{
+ 
+    background: url("../Image/addlist.jpg") no-repeat center center
+      fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: baseline;
+  
+ 
+}
+.checkgradetop .checkgradeboader {
+  height: 88vh;
+  background-color: white;
+  overflow-x: hidden;
+  width: 95%;
+  border-radius: 20px;
+  margin: 0 auto;
+}

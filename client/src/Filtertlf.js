@@ -86,11 +86,12 @@ export const Filtertlf = () => {
     setfilterdata(res.data);
   };
   return (
-    <div>
-      <Header />
+    <div className="viewlisttop">
+    <div className="viewlistboarder">
       <SideNavigation />
+      <Header />
       <div className="AddFlex">
-        <div style={{ width: "70%", marginLeft: "23%", marginTop: "10%" }}>
+        <div style={{ width: "70%", marginLeft: "30%", marginTop: "10%" }}>
           <div style={{ width: "30%" }}>
             <div className="breadcum">
               <ol class="breadcrumb">
@@ -148,6 +149,7 @@ export const Filtertlf = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

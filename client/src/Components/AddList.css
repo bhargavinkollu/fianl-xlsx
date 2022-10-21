@@ -1,6 +1,6 @@
 .addlisttop .AddFlex {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .addlisttop .file-upload {
@@ -33,6 +33,13 @@
   font-size: 17px;
   background-color: aqua;
   color: #b8b8b8;
+}
+.addlistform {
+  display: flex;
+    flex-direction: column;
+    /* width: 60%; */
+    align-items: center;
+    align-content: flex-end;
 }
 .addlisttop{
  
