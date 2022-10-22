@@ -32,6 +32,12 @@ export const SideNavigation = () => {
             <h5>{`>`}</h5>
           </div>
         </Link>
+        <Link to="/bankform" className="nav-link navbar-link">
+          <div className="flexA">
+            <h4>Bankform</h4>
+            <h5>{`>`}</h5>
+          </div>
+        </Link>
       </div>
     </>
   );

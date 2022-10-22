@@ -131,9 +131,10 @@ export const Filter = () => {
     setShowSuggestions(false);
   };
   return (
-    <div>
-      <Header />
+    <div className="viewlisttop">
+    <div className="viewlistboarder">
       <SideNavigation />
+      <Header />
       <div className="AddFlex">
         <div style={{ width: "70%", marginLeft: "23%", marginTop: "10%" }}>
           <select
@@ -441,6 +442,7 @@ export const Filter = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./AdminLogin.css";
+import "./Adminlogin1.css";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login } from "../action/useraction";
 import { useAlert } from "react-alert";
 import { LOader } from "./LOader";
-import styles from "./Adminlogin.css";
 import logo from "../Image/adminloginlogo.png"
 export const AdminLogin = () => {
   const alert = useAlert();
@@ -57,7 +57,7 @@ export const AdminLogin = () => {
       <div className ={ `adminlogintop `} >
       <div className ={ `adminlogin `} >
         <nav class="navbar container navbar-light ">
-  <a class="navbar-brand" href="#"><img src={logo} width="50%" height="50%"/></a>
+  <a class="navbar-brand" href="/"><img src={logo} width="50%"alt="loading" height="50%"/></a>
 </nav>
           <div className="">
           <div className="contentAdmin">

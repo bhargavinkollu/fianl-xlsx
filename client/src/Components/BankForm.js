@@ -26,7 +26,7 @@ export const BankForm = () => {
   if (user === null) {
     navigate("/employeelogin");
   }
-
+console.log(isAuthenticated);
 
   
   useEffect(() => {
@@ -120,7 +120,7 @@ export const BankForm = () => {
         surplus: "",
       });
     }
-  }, [isAuthenticated, user, error, isUpdated, alert, dispatch]);
+  }, [ error, isUpdated, alert, dispatch]);
   const [checked, setChecked] = useState(false);
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(false);
@@ -788,17 +788,20 @@ export const BankForm = () => {
   }, [variation]);
   return (
     <>
+      <div className="bankformtop">
+    <div className="bankformboarder">
+
       {loading ? (
         <LOader />
       ) : (
         <>
-          <div style={{ position: "absolute", right: "40px" }}>
+          <div style={{ position: "absolute", right: "40px" }} className="headertop">
             {" "}
             <span className="home_btn">
               {isAuthenticated === true ? (
                 <>
                   <div>
-                    <ul className="navbar-nav top-btn ml-auto">
+                    <ul className="navbar-nav top-btn ml-auto flex-row">
                       <button style={{}} className="user_btn">
                         {uppercaseWords(user.email)}
                       </button>
@@ -831,7 +834,7 @@ export const BankForm = () => {
                 placeholder="search by SHG ID"
                 name="search"
               />
-              <button onClick={searchSHG}>Search </button>
+              <button className="btn"onClick={searchSHG}>Search </button>
             </form>
             <label>SHG Name: {bankdetail["SHG Name"]}</label>
             <form
@@ -1668,6 +1671,9 @@ export const BankForm = () => {
           </div>
         </>
       )}
+    </div>
+    </div>
+
     </>
   );
 };

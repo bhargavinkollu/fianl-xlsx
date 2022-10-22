@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { SideNavigation } from "./SideNavigation";
-import "./viewlist.css";
+import "./checkgrade.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../action/useraction";
@@ -30,7 +30,11 @@ export const Checkgrade = () => {
         return (
           // {Object}.key(filterdata[0]),
           <tr>
-            {Object.keys(filterdata[0]).map((key, index) => {
+            {Object.keys(filterdata[0]).filter((item, index) => {
+                    // console.log(item);
+                    return item !== "_id";
+                  })
+                  .map((key, index) => {
               // console.log(row["SHG ID"]);
               const rooo = Object.keys(filterdata[0]).filter((item, index) => {
                 // console. log(item);
@@ -47,7 +51,11 @@ export const Checkgrade = () => {
   };
   const hmap = () => {
     try {
-      const hhmap = Object.keys(filterdata[0]).map((heading) => {
+      const hhmap = Object.keys(filterdata[0]).filter((item, index) => {
+        // console.log(item);
+        return item !== "_id";
+      })
+      .map((heading) => {
         // console.log(heading);
         return <th>{heading}</th>;
       });
@@ -58,13 +66,13 @@ export const Checkgrade = () => {
   };
 
   return (
-    <div>
+    <div className="checkgradetop">
       
-      <div>
-      <Header/>
+      <div className="checkgradeboader">
         <SideNavigation />
+      <Header/>
         <div className="AddFlex">
-          <div style={{ width: "70%", marginLeft: "23%", marginTop: "10%" }}>
+          <div style={{ width: "70%", marginLeft: "30%", marginTop: "5%" }}>
             <select
               style={{ width: "50%" }}
               onChange={handle}
@@ -81,20 +89,31 @@ export const Checkgrade = () => {
               
             </select>
 
-            <div style={{ width: "100%" }}>
+            <div style={{ width: "100%" ,overflowX:"hidden"}}>
               {filterdata.length >= 1 ? (
                 <>
-                  <div
-                    style={{ overflow: "scroll" }}
-                    className="table-responsive"
-                  >
-                    <table className="table" responsive="true">
-                      <thead>
-                        <tr>{hmap()}</tr>
-                      </thead>
-                      <tbody>{fmap()}</tbody>
-                    </table>
-                  </div>
+                   <div
+                      style={{
+                        overflow: "scroll",
+                        // height:"300px",
+
+                      }}
+                      className="table-responsive"
+                    >
+                      <table className="table" responsive="true">
+                        <thead>
+                          <tr>
+                            {
+                              <>
+                                {hmap()}
+                                <th>edit</th>
+                              </>
+                            }
+                          </tr>
+                        </thead>
+                        <tbody>{fmap()}</tbody>
+                      </table>
+                    </div>
                 </>
               ) : (
                 ""
