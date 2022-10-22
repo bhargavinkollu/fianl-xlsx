@@ -57,7 +57,7 @@ export const AdminLogin = () => {
       <div className ={ `adminlogintop `} >
       <div className ={ `adminlogin `} >
         <nav class="navbar container navbar-light ">
-  <a class="navbar-brand" href="/"><img src={logo} width="50%"alt="loading" height="50%"/></a>
+  <a class="navbar-brand" href="/"><img src={logo} alt="loading" width="50%" height="50%"/></a>
 </nav>
           <div className="">
           <div className="contentAdmin">
