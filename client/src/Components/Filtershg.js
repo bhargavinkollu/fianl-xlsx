@@ -1,14 +1,33 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Header } from "./Header";
 import { SideNavigation } from "./SideNavigation";
 import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../action/useraction";
+import { LOader } from "./LOader";
 export const Filtershg = () => {
   const [data, setData] = useState([]);
   const [year, setYear] = useState();
   console.log(year);
+  const dispatch=useDispatch
+  const navigate=useNavigate()
+  const { user, isAuthenticated, error, loading, success, isUpdated } =
+  useSelector((state) => state.user);
+ useEffect(() => {
+    if (isAuthenticated) {
+      if (user) {
+        if (user.role === "user") {
+          dispatch(logout());
+          navigate("/employeelogin");
+        }
+      }
+    } else  {
+      navigate("/");
+    }
+  }, [dispatch, isAuthenticated, navigate, user])
   const [filterdata, setfilterdata] = useState([]);
   const { slf, district, ulb, tlfname } = useParams();
   console.log(slf);
@@ -142,9 +161,11 @@ export const Filtershg = () => {
               <option>2030</option>
             </select>
                 </div>
-                {filterdata.length >= 1 ? (
-                  <>
-                  <div
+                {loading ?(<LOader/>):(
+                   
+                   filterdata.length >= 1 ? (
+                    <>
+                    <div
                   style={{ overflow: "scroll" ,overflowY:"hidden"}}
                   className="table-responsive"
                 >
@@ -158,7 +179,9 @@ export const Filtershg = () => {
               </>
             ) : (
               "no data found"
-            )}
+              )
+                )                }
+                 
           </div>
         </div>
       </div>

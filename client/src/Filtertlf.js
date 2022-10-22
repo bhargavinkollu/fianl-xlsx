@@ -1,12 +1,27 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { logout } from "./action/useraction";
 import { Header } from "./Components/Header";
+import { LOader } from "./Components/LOader";
 import { SideNavigation } from "./Components/SideNavigation";
 export const Filtertlf = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
-
+  const dispatch=useDispatch
+  const navigate=useNavigate()
+  const { user, isAuthenticated, error,  success, isUpdated } =
+  useSelector((state) => state.user);
+ useEffect(() => {
+  if (user) {
+    if (user.role === "user") {
+      dispatch(logout());
+      navigate("/employeelogin");
+    }
+    } else  {
+      navigate("/");
+    }
+  }, [dispatch, isAuthenticated, navigate, user])
   const { ulb, district } = useParams();
   console.log(ulb);
   const getUniqueBy = (arr, prop) => {
@@ -137,13 +152,14 @@ export const Filtertlf = () => {
                     <td>Count</td>
                   </tr>
                 </thead>
-                {filterdata.length >= 1 ? (
+                {loading ?(<LOader/>):(
+                filterdata.length >= 1 ? (
                   <>
                     <tbody>{fmap()}</tbody>
                   </>
                 ) : (
                   "no data found"
-                )}
+                ))}
               </table>
             </div>
           </div>

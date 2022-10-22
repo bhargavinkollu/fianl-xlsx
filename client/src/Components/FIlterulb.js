@@ -1,19 +1,33 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { logout } from "../action/useraction";
 import { Header } from "./Header";
+import { LOader } from "./LOader";
 import { SideNavigation } from "./SideNavigation";
 
 export const FIlterulb = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
+  const { user, isAuthenticated, error,  success, isUpdated } =
+  useSelector((state) => state.user);
   const [year, setYear] = useState();
-
+  const dispatch=useDispatch
+  const navigate=useNavigate()
   const [data, setData] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
   const { district } = useParams();
   console.log(district);
-
+  useEffect(() => {
+    if (user) {
+      if (user.role === "user") {
+        dispatch(logout());
+        navigate("/employeelogin");
+      }
+    } else  {
+      navigate("/");
+    }
+  }, [dispatch, isAuthenticated, navigate, user])
   const searchdistrict = async (e) => {
     const res = await axios.post("/api/auth/searchall", {
       Name_of_the_District: district,
@@ -131,13 +145,14 @@ export const FIlterulb = () => {
                     <td>Total Count</td>
                   </tr>
                 </thead>
-                {filterdata.length >= 1 ? (
+                {loading ?(<LOader/>):(
+                filterdata.length >= 1 ? (
                   <>
                     <tbody>{fmap()}</tbody>
                   </>
                 ) : (
                   "no data found"
-                )}
+                ))}
               </table>
             </div>
           </div>

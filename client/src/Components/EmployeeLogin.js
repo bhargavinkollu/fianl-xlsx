@@ -7,11 +7,16 @@ import logo from "../Image/adminloginlogo.png";
 import sideimg from "../Image/Rectangle 142.jpg";
 
 import { Header } from "./Header";
+import { useNavigate } from "react-router-dom";
 export const EmployeeLogin = () => {
   const alert = useAlert();
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
   );
+  let navigate=useNavigate()
+  if(user !==null){
+    navigate("/bankform")
+  }
   const dispatch = useDispatch();
   const [employeeData, setEmployeeData] = useState({
     username: "",

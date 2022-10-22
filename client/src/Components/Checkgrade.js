@@ -10,7 +10,22 @@ import { Header } from "./Header";
 export const Checkgrade = () => {
   const [filterdata, setfilterdata] = useState([]);
   const [filter, setfilter] = useState("");
-
+  const { user, isAuthenticated, error, loading, success, isUpdated } =
+  useSelector((state) => state.user);
+  const dispatch=useDispatch
+  const navigate=useNavigate()
+  useEffect(() => {
+ 
+      if (user) {
+        if (user.role === "user") {
+          dispatch(logout());
+          navigate("/employeelogin");
+        }
+      
+    } else  {
+      navigate("/");
+    }
+  }, [dispatch, isAuthenticated, navigate, user])
   const handle = async(e) => {
     let Grade=e.target.value
     const res = await axios.post(

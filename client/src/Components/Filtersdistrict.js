@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../action/useraction";
 import { Header } from "./Header";
+import { LOader } from "./LOader";
 import { SideNavigation } from "./SideNavigation";
 
 export const Filtersdistrict = () => {
@@ -11,7 +13,20 @@ export const Filtersdistrict = () => {
 
   const [data, setData] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
-
+  const { user, isAuthenticated, error,  success, isUpdated } =
+  useSelector((state) => state.user);
+  const dispatch=useDispatch
+  const navigate=useNavigate()
+  useEffect(() => {
+    if (user) {
+      if (user.role === "user") {
+        dispatch(logout());
+        navigate("/employeelogin");
+      }
+    } else  {
+      navigate("/");
+    }
+  }, [dispatch, isAuthenticated, navigate, user])
   const api = async () => {
     const res = await axios.get("http://localhost:5000/api/auth/searchall");
     setData(res.data);
@@ -137,13 +152,14 @@ export const Filtersdistrict = () => {
                     <th>total Count</th>
                   </tr>
                 </thead>
-                {filterdata.length >= 1 ? (
+                {loading ?(<LOader/>):(
+                filterdata.length >= 1 ? (
                   <>
                     <tbody>{fmap()}</tbody>
                   </>
                 ) : (
                   "No data found "
-                )}
+                ))}
               </table>
             </div>
             </div>

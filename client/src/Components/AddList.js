@@ -19,11 +19,16 @@ export const AddList = () => {
   if (isAuthenticated === false) {
     navigate("/");
   }
-  if (user.role === "user") {
-    dispatch(logout());
-    navigate("/employeelogin");
-  }
+ 
   useEffect(() => {
+    if(user){
+    if (user.role === "user") {
+      dispatch(logout());
+      navigate("/employeelogin");
+    }
+
+    }
+    else{navigate("/")}
     if (isUpdated === false) {
       alert.error(error);
       dispatch(clearErrors());
@@ -32,7 +37,7 @@ export const AddList = () => {
       alert.success(success);
       dispatch(clearErrors());
     }
-  }, [success, error]);
+  }, [success, error,alert,dispatch,isUpdated,navigate,user]);
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
@@ -62,7 +67,7 @@ export const AddList = () => {
         <div className="AddFlex">
         
           <Header />
-        {loading !== false ? (
+        {loading  ? (
           <LOader />
           ) : (
             <>

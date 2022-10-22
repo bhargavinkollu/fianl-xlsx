@@ -56,18 +56,20 @@ export const Viewlist = () => {
     setShowSuggestions(false);
   };
   useEffect(() => {
+    console.log(user);
+    if (user) {
+      if (user.role === "user") {
+        dispatch(logout());
+        navigate("/employeelogin");
+      }
+    } else  {
+      navigate("/");
+    }
     setsghfilter(filedata);
-  }, [filedata]);
-
+  }, [dispatch, filedata, isAuthenticated, navigate, user]);
   ////
   let pagelimit = 20;
-  if (isAuthenticated === false) {
-    navigate("/");
-  }
-  if (user.role === "user") {
-    dispatch(logout());
-    navigate("/employeelogin");
-  }
+  console.log(isAuthenticated);
 
   console.log(currentRecords);
   const edit = async (id) => {
@@ -88,7 +90,7 @@ export const Viewlist = () => {
                 return item !== "_id";
               })
               .map((key, index) => {
-                return <td scope="row" style={{textAlign:"left"}}>{row[key]}</td>;
+                return <td style={{ textAlign: "left" }}>{row[key]}</td>;
               })}
             <button
               type="button"
@@ -117,7 +119,11 @@ export const Viewlist = () => {
           return item !== "_id";
         })
         .map((heading) => {
-          return <th className="thheading"scope="col">{heading}</th>;
+          return (
+            <th className="thheading" scope="col">
+              {heading}
+            </th>
+          );
         });
       return hhmap;
     } catch (error) {
@@ -255,7 +261,7 @@ export const Viewlist = () => {
                       style={{
                         overflow: "scroll",
                         width: "70%",
-                       overflowY:"hidden"
+                        overflowY: "hidden",
                       }}
                       className="table-responsive"
                     >
@@ -277,14 +283,14 @@ export const Viewlist = () => {
                   </>
                 ) : (
                   ""
-                  )}
+                )}
               </div>
-                      <Pagination
-                      nPages={nPages}
-                      currentPage={currentPage}
-                      setCurrentPage={setCurrentPage}
-                      disabledClass
-                    />
+              <Pagination
+                nPages={nPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                disabledClass
+              />
             </div>
           </>
         )}

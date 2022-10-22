@@ -20,10 +20,8 @@ export const Filter = () => {
   if (isAuthenticated === false) {
     navigate("/");
   }
-  if (user.role === "user") {
-    dispatch(logout());
-    navigate("/employeelogin");
-  }
+  console.log(isAuthenticated);
+
   const handle = (e) => {
     setValue("");
     setfilterdata("");
@@ -91,6 +89,15 @@ export const Filter = () => {
   };
 
   useEffect(() => {
+    if (user) {
+      if (user.role === "user") {
+        dispatch(logout());
+        navigate("/employeelogin");
+      }
+    else{
+       navigate("/");
+    
+     }
     const handleClick = (event) => {
       if (
         autocompleteRef.current &&
