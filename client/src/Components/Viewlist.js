@@ -56,9 +56,9 @@ export const Viewlist = () => {
     setShowSuggestions(false);
   };
   useEffect(() => {
-    setsghfilter(filedata)
+    setsghfilter(filedata);
   }, [filedata]);
-  
+
   ////
   let pagelimit = 20;
   if (isAuthenticated === false) {
@@ -88,7 +88,7 @@ export const Viewlist = () => {
                 return item !== "_id";
               })
               .map((key, index) => {
-                return <td>{row[key]}</td>;
+                return <td scope="row" style={{textAlign:"left"}}>{row[key]}</td>;
               })}
             <button
               type="button"
@@ -117,7 +117,7 @@ export const Viewlist = () => {
           return item !== "_id";
         })
         .map((heading) => {
-          return <th>{heading}</th>;
+          return <th className="thheading"scope="col">{heading}</th>;
         });
       return hhmap;
     } catch (error) {
@@ -199,92 +199,96 @@ export const Viewlist = () => {
     return modelbox;
   };
   return (
-    <div>
-      <Header />
+    <div className="viewlisttop">
+      <div className="viewlistboarder">
+        <SideNavigation />
+        <Header />
 
-      {/* <button onClick={sgg}>asa</button> */}
-      <input
-        className="form-control"
-        list="list"
-        value={value}
-        autoComplete="off"
-        onChange={(e) => {
-          handleChange({
-            name: "SHG ID",
-            valued: e.target.value,
-          });
-        }}
-        placeholder="Search"
-        onFocus={() => setShowSuggestions(true)}
-      />
-      {showSuggestions && (
-        <datalist id="list" className="suggestions">
-          {suggestions.map((suggestion) => {
-            // console.log(suggestion["SHG ID"]);
-            return (
-              <option
-                style={{ listStyleType: "none" }}
-                onClick={() =>
-                  handledistrictSuggestionClick({
-                    suggest: suggestion["SHG ID"],
-                    name: "SHG ID",
-                  })
-                }
-                // key={suggestion["SHG ID"]}
-              >
-                {suggestion["SHG ID"]}
-              </option>
-            );
-          })}
-        </datalist>
-      )}
+        {/* <button onClick={sgg}>asa</button> */}
 
-      <SideNavigation />
-      {loading ? (
-        <LOader />
-      ) : (
-        <>
-          <div className="AddFlex">
-            <div style={{ width: "100%" }}>
-              {sghfilter.length !== 0 ? (
-                <>
-                  <div
-                    style={{
-                      overflow: "scroll",
-                      width: "70%",
-                      margin: "80px 21%",
-                    }}
-                    className="table-responsive"
-                  >
-                    <table className="table" responsive="true">
-                      <thead>
-                        <tr>
-                          {
-                            <>
-                              {hmap()}
-                              <th>edit</th>
-                            </>
-                          }
-                        </tr>
-                      </thead>
-                      <tbody>{fmap()}</tbody>
-                    </table>
-                  </div>
-                  <Pagination
-                    nPages={nPages}
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                    disabledClass
-                  />
-                  {modeldata()}
-                </>
-              ) : (
-                ""
-              )}
+        {showSuggestions && (
+          <datalist id="list" className="suggestions">
+            {suggestions.map((suggestion) => {
+              // console.log(suggestion["SHG ID"]);
+              return (
+                <option
+                  style={{ listStyleType: "none" }}
+                  onClick={() =>
+                    handledistrictSuggestionClick({
+                      suggest: suggestion["SHG ID"],
+                      name: "SHG ID",
+                    })
+                  }
+                  // key={suggestion["SHG ID"]}
+                >
+                  {suggestion["SHG ID"]}
+                </option>
+              );
+            })}
+          </datalist>
+        )}
+
+        {loading ? (
+          <LOader />
+        ) : (
+          <>
+            <div className="AddFlex">
+              <div className="viewlistmain">
+                <input
+                  className="form-control"
+                  list="list"
+                  style={{ width: "50%" }}
+                  value={value}
+                  autoComplete="off"
+                  onChange={(e) => {
+                    handleChange({
+                      name: "SHG ID",
+                      valued: e.target.value,
+                    });
+                  }}
+                  placeholder="Search"
+                  onFocus={() => setShowSuggestions(true)}
+                />
+                {sghfilter.length !== 0 ? (
+                  <>
+                    <div
+                      style={{
+                        overflow: "scroll",
+                        width: "70%",
+                       overflowY:"hidden"
+                      }}
+                      className="table-responsive"
+                    >
+                      <table className="table" responsive="true">
+                        <thead>
+                          <tr>
+                            {
+                              <>
+                                {hmap()}
+                                <th>edit</th>
+                              </>
+                            }
+                          </tr>
+                        </thead>
+                        <tbody>{fmap()}</tbody>
+                      </table>
+                    </div>
+                    {modeldata()}
+                  </>
+                ) : (
+                  ""
+                  )}
+              </div>
+                      <Pagination
+                      nPages={nPages}
+                      currentPage={currentPage}
+                      setCurrentPage={setCurrentPage}
+                      disabledClass
+                    />
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

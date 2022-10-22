@@ -86,12 +86,13 @@ export const Filtertlf = () => {
     setfilterdata(res.data);
   };
   return (
-    <div>
-      <Header />
+    <div className="viewlisttop">
+    <div className="viewlistboarder">
       <SideNavigation />
+      <Header />
       <div className="AddFlex">
-        <div style={{ width: "70%", marginLeft: "23%", marginTop: "10%" }}>
-          <div style={{ width: "30%" }}>
+        <div style={{ width: "70%", marginLeft: "30%" }}>
+          <div style={{ width: "50%" }}>
             <div className="breadcum">
               <ol class="breadcrumb">
                 <Link to="/filter">
@@ -111,7 +112,7 @@ export const Filtertlf = () => {
                 </li>
               </ol>
             </div>
-            <div style={{ overflow: "scroll" }} className="table-responsive">
+            <div style={{ overflow: "scroll" ,overflowY:"hidden"}} className="table-responsive">
             <select required onChange={searchdis}>
               <option selected disabled value="">
                 year
@@ -148,6 +149,7 @@ export const Filtertlf = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

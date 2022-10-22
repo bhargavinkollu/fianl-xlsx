@@ -19,25 +19,23 @@ export const Header = () => {
     navigate("/");
   };
   return (
-    <div 
-   className="headertop1"
-    >
+    <div>
       {" "}
       <span className="home_btn">
         {isAuthenticated === true ? (
           <>
             <div className="headertop">
-              <ul className="navbar-nav top-btn flex-row ml-auto">
-               Welcome: <span style={{}} className="user_btn">
+              <ul className="navbar-nav top-btn flex-row ">
+               Welcome: <span style={{fontWeight:"bolder"}} className="user_btn">
                   {uppercaseWords(user.email)}
                 </span>
 
               </ul>
-                <a>
-                  <button onClick={logoutUser} className="btn btn-2">
+               
+                  <button onClick={logoutUser} className="btn  mr-2 btn-2">
                     Logout
                   </button>{" "}
-                </a>
+               
             </div>
           </>
         ) : (

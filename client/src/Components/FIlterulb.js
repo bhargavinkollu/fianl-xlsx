@@ -84,12 +84,13 @@ export const FIlterulb = () => {
   };
 
   return (
-    <div>
-      <Header />
+    <div className="viewlisttop">
+    <div className="viewlistboarder">
       <SideNavigation />
+      <Header />
       <div className="AddFlex">
-        <div style={{ width: "70%", marginLeft: "23%", marginTop: "10%" }}>
-          <div style={{ width: "30%" }}>
+        <div style={{ width: "70%", marginLeft: "30%", }}>
+          <div style={{ width: "50%" }}>
             <div className="breadcum">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -105,7 +106,7 @@ export const FIlterulb = () => {
                 </ol>
               </nav>
             </div>
-            <div style={{ overflow: "scroll" }} className="table-responsive">
+            <div style={{ overflow: "scroll" ,overflowY:"hidden"}} className="table-responsive">
             <select required onChange={searchdis}>
               <option selected disabled value="">
                 year
@@ -141,6 +142,7 @@ export const FIlterulb = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

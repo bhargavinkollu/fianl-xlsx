@@ -58,16 +58,16 @@ export const AddList = () => {
 
       <div className="addlisttop">
       <div className="addlistborder">
+          <SideNavigation />
+        <div className="AddFlex">
         
-        <Header />
+          <Header />
         {loading !== false ? (
           <LOader />
           ) : (
             <>
-            <div className="AddFlex">
-            <SideNavigation />
-              <form 
-                style={{ display: "flex", flexDirection: "column", margin: "5% auto auto" }}
+              <form className="addlistform"
+                
                 onSubmit={handlesubmit}
                 action=""
               >
@@ -84,13 +84,14 @@ export const AddList = () => {
                   type="submit"
                   style={{ color: "white", backgroundColor: "#3689EB" }}
                   value="Upload"
+                  className="btn"
                 />
               </form>
-        </div>
           </>
         )}
         </div>
       </div>
+    </div>
     </>
   );
 };

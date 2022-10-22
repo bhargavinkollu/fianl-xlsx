@@ -3,11 +3,14 @@
     background-color: #3689EB;
     height: 85vh;
     position: fixed;
-   padding-top: 204px;
-   margin-top: 12px;
+    /* padding-top: 204px; */
+    margin-top: 12px;
     margin-bottom: 19px;
     margin-left: 10px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .navbar-link{
     text-decoration: none;
