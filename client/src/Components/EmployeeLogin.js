@@ -3,6 +3,9 @@ import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, emplyelogin, login } from "../action/useraction";
 import "./EmployeeLogin.css";
+import logo from "../Image/adminloginlogo.png";
+import sideimg from "../Image/Rectangle 142.jpg";
+
 import { Header } from "./Header";
 export const EmployeeLogin = () => {
   const alert = useAlert();
@@ -43,45 +46,62 @@ export const EmployeeLogin = () => {
   }
   return (
     <>
-      <div className="container">
-        <div className="contentAdmin">
-          <h3>Employee Login</h3>
-          <form action="" onSubmit={Submittion}>
-            <div className="flexbox">
-              <h5>User name</h5>
-              <input
-                type="text"
-                name="username"
-                placeholder="Enter user name"
-                onChange={Input_Handler}
-                value={employeeData.username}
-              />
+      {" "}
+      <div className={`employlogintop `}>
+        <div className={`employlogin `}>
+          {/* <nav class="navbar container navbar-light ">
+            <a class="navbar-brand" href="/">
+              <img src={logo} alt="loading" width="50%" height="50%" />
+            </a>
+          </nav> */}
+        <div className="emply">
+        <div className="cont">
+          
+          </div>
+          <div className="container">
+            <div className="contentAdmin">
+              <h4>Employee Login</h4>
+              <form action="" onSubmit={Submittion}>
+                <div className="flexbox">
+                  <h5>User name</h5>
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Enter user name"
+                    onChange={Input_Handler}
+                    value={employeeData.username}
+                  />
+                </div>
+                <div className="flexbox">
+                  <h5>Password</h5>
+                  <label htmlFor="floatingPassword" style={{ display: "flex" }}>
+                    <input
+                      type="password"
+                      name="userpwd"
+                      id="floatingPassword"
+                      placeholder="Enter password"
+                      onChange={Input_Handler}
+                      value={employeeData.userpwd}
+                    />
+                    <i
+                      className="fa fa-eye"
+                      style={{ margin: "20px -31px" }}
+                      onClick={myFunction}
+                    ></i>
+                  </label>
+                </div>
+                <div className="buton">
+                  <input
+                    type="submit"
+                    value="Login"
+                    className="btn btn-success"
+                    id="buttonSubmit"
+                  />
+                </div>
+              </form>
             </div>
-            <div className="flexboxA">
-              <h5>Password</h5>
-              <input
-                type="password"
-                name="userpwd"
-                id="floatingPassword"
-                placeholder="Enter password"
-                onChange={Input_Handler}
-                value={employeeData.userpwd}
-              />
-              <i
-                className="fa fa-eye"
-                style={{ margin: "20px -31px" }}
-                onClick={myFunction}
-              ></i>
-            </div>
-            <div className="buton">
-              <input
-                type="submit"
-                value="Login"
-                className="btn btn-success"
-                id="buttonSubmit"
-              />
-            </div>
-          </form>
+          </div>
+        </div>
         </div>
       </div>
     </>

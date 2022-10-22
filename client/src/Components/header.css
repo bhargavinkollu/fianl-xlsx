@@ -1,12 +1,13 @@
 .headertop{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 68%;
-    margin-left: 29%;
+    justify-content: flex-end;
+    /* width: 68%; */
+    /* margin-left: 29%; */
     height: 5rem;
     border-bottom: 2px solid #E3F0FF;
     margin-bottom: 23px;
+    flex-direction: row;
 }
 .btn-2{
     background-color: #FF5F5F;

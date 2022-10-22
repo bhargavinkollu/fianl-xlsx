@@ -26,7 +26,7 @@ export const Header = () => {
           <>
             <div className="headertop">
               <ul className="navbar-nav top-btn flex-row ">
-               Welcome: <span style={{fontWeight:"bolder"}} className="user_btn">
+               Welcome: <span style={{fontWeight:"bolder",marginRight:"11px"}} className="user_btn">
                   {uppercaseWords(user.email)}
                 </span>
 

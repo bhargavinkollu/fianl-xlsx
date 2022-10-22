@@ -795,14 +795,14 @@ console.log(isAuthenticated);
         <LOader />
       ) : (
         <>
-          <div style={{ position: "absolute", right: "40px" }} className="headertop">
+          <div style={{  right: "40px" }} className="headertop">
             {" "}
             <span className="home_btn">
               {isAuthenticated === true ? (
                 <>
                   <div>
                     <ul className="navbar-nav top-btn ml-auto flex-row">
-                      <button style={{}} className="user_btn">
+                      <button style={{}} className="user_btn btn">
                         {uppercaseWords(user.email)}
                       </button>
 
@@ -822,7 +822,7 @@ console.log(isAuthenticated);
 
           <div className="container">
             <form onSubmit={searchSHG} className="flexsearchX ">
-              <p>SHGID </p>
+              <p>SHG ID </p>
 
               <input
                 required
@@ -836,13 +836,13 @@ console.log(isAuthenticated);
               />
               <button className="btn"onClick={searchSHG}>Search </button>
             </form>
-            <label>SHG Name: {bankdetail["SHG Name"]}</label>
             <form
               action=""
               encType="multipart/form-data"
               onSubmit={form_submit}
-            >
+              >
               <div className="sectionA">
+              <label>SHG Name: {bankdetail["SHG Name"]}</label>
                 <div className="flexAX">
                   <div className="flexBXf">
                     <h4>Bank Details</h4>

@@ -1,44 +1,55 @@
 .contentAdmin{
-    width: 100%;  
-  
-    /* margin-top: 97px; */
+    background-color: #fff;
+    width: 35%;
+    border-radius: 15px;
+    position: absolute;
+    left: 52%;
+    top: 12%;
   
   }
-  .contentAdmin h3{
-      text-align: center;
-      font-family: 'Inter', sans-serif;
-      font-size: 32px;
-      font-weight: 600;
+  .cont{
+      background: url("../Image/Rectangle 142.jpg") no-repeat 
+    center;
+    background-size: 70vh 100vh;
+    height: 100vh;
+    width: 80vh;
+    margin-left: 10%;
+
   }
-  .flexbox{
-      display: flex;
-      flex-direction: row;
-     
-      margin: 0 auto;
-      margin-top: 75px;
-      width: 670px;
-      justify-content: space-between;
+  .employlogintop ,.employlogin{
+    background: #DAEBFF;
+
+    background-size: cover;
+    height: 100vh;
+  }
+  .contentAdmin h4{
+    padding-top: 10%;
+  }
+   .employlogintop  .flexbox{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    width: 85%;
+    justify-content: space-between;
       
   }
   .flexbox h5{
-  margin-right: 70px;
-  text-align: left;
-  font-size: 25px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  padding-top: 13px;
+    margin-right: 70px;
+    text-align: left;
+    font-size: 15px;
+    padding-top: 13px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
   }
-  .flexbox input{
-  width: 437px;
-  height: 52px;
-  border-radius: 10px;
-  background-color: rgba(241, 241, 241, 1);
-  padding-left: 20px;
-  padding-top: 16px;
-  border: none;
-  padding-bottom: 16px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
+ .employlogintop .flexbox input{
+    width: 100%;
+    height: 52px;
+    border-radius: 10px;
+    background-color: rgba(241, 241, 241, 1);
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
   }
   .flexboxA{
       display: flex;
@@ -57,7 +68,7 @@
       font-family: 'Inter', sans-serif;
   font-weight: 400;
   }
-  .flexboxA input{
+ .employlogintop .flexboxA input{
   width: 347px;
   height: 52px;
   border-radius: 10px;
@@ -74,12 +85,13 @@
       justify-content: center;
       text-align: center;
   }
-  #buttonSubmit{
-      width: 185px;
-      height: 52px;
-      border-radius: 10px;
-      background-color: rgba(68, 68, 68, 1);
-      margin-top: 60px;   
+ .employlogintop #buttonSubmit{
+    width: 80%;
+    height: 52px;
+    border-radius: 10px;
+    background-color: #3689EB;
+    margin-top: 20px;
+    margin-bottom: 50px;
   }
   
   @media (max-width : 767px){
