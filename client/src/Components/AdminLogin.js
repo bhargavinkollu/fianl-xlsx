@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./AdminLogin.css";
-import "./Adminlogin1.css";
+import "./Adminloginsecond.css";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login } from "../action/useraction";
 import { useAlert } from "react-alert";
