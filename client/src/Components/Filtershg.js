@@ -17,13 +17,11 @@ export const Filtershg = () => {
   const { user, isAuthenticated, error, loading, success, isUpdated } =
   useSelector((state) => state.user);
  useEffect(() => {
-    if (isAuthenticated) {
-      if (user) {
-        if (user.role === "user") {
-          dispatch(logout());
-          navigate("/employeelogin");
-        }
-      }
+  if (user) {
+    if (user.role === "user") {
+      dispatch(logout());
+      navigate("/employeelogin");
+    }
     } else  {
       navigate("/");
     }
