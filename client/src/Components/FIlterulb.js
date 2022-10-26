@@ -141,7 +141,7 @@ export const FIlterulb = () => {
                 <thead>
                   <tr>
                     <th> S No </th>
-                    <td>Name of ULB</td>
+                    <th>Name of ULB</th>
                     <th>Total SHGs</th>
                     <th>Uploaded SHGs</th>
                     <th>Balance SHGs </th>
