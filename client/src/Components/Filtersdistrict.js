@@ -96,8 +96,9 @@ export const Filtersdistrict = () => {
               <Link to={row.Name_of_the_District}>
                 <td>{row.Name_of_the_District}</td>
               </Link>
-              <td>{obj[row.Name_of_the_District]}</td>
               <td>{loanobj[row.Name_of_the_District]}</td>
+              <td>{obj[row.Name_of_the_District]}</td>
+              //<td>{loanobj[row.Name_of_the_District]-obj[row.Name_of_the_District]}
             </tr>
           );
         }
@@ -131,25 +132,27 @@ export const Filtersdistrict = () => {
               <option selected disabled value="">
                 year
               </option>
-              <option>2020</option>
-              <option>2021</option>
-              <option>2022</option>
-              <option>2023</option>
-              <option>2024</option>
-              <option>2025</option>
-              <option>2026</option>
-              <option>2027</option>
-              <option>2028</option>
-              <option>2029</option>
-              <option>2030</option>
+              <option value=2020>2020-21</option>
+              <option value=2021>2021-22</option>
+              <option value=2022>2022-23</option>
+              <option value=2023>2023-24</option>
+              <option value=2024>2024-25</option>
+              <option value=2025>2025-26</option>
+              <option value=2026>2026-27</option>
+              <option value=2027>2027-28</option>
+              <option value=2028>2028-29</option>
+              <option value=2029>2029-30</option>
+              <option value=20230>2030-31</option>
             </select>
             <div style={{ overflow: "scroll",overflowY:"hidden" }} className="table-responsive">
               <table className="table" responsive="true">
                 <thead>
                   <tr>
-                    <th>Name_of_the_District</th>
-                    <th>Count</th>
-                    <th>total Count</th>
+                    <th> S No </th>
+                    <th>Name of the District</th>
+                    <th>Total SHGs</th>
+                    <th>Uploaded SHGs</th>
+                    <th>Balance SHGs </th>
                   </tr>
                 </thead>
                 {loading ?(<LOader/>):(
