@@ -8,13 +8,13 @@ export const SideNavigation = () => {
       <div className="navbox">
         <Link to="/addlist" className="nav-link navbar-link">
           <div className="flex">
-            <h4>Add List</h4>
+            <h4>Add SHG Details</h4>
             <h5>{`>`}</h5>
           </div>
         </Link>
         <Link to="/viewlist" className="nav-link navbar-link">
           <div className="flexA">
-            <h4>View List</h4>
+            <h4>View/Edit SHG Details</h4>
             <h5>{`>`}</h5>
           </div>
         </Link>
@@ -22,19 +22,19 @@ export const SideNavigation = () => {
         <Link to="/checkgrade" className="nav-link navbar-link">
 
         <div className="flexA">
-          <h4>Check Grade</h4>
+          <h4>Search Grade by SHG</h4>
           <h5>{`>`}</h5>
         </div>
         </Link>
         <Link to="/filter" className="nav-link navbar-link">
           <div className="flexA">
-            <h4>Filter</h4>
+            <h4>Dashboardd</h4>
             <h5>{`>`}</h5>
           </div>
         </Link>
         <Link to="/bankform" className="nav-link navbar-link">
           <div className="flexA">
-            <h4>Bankform</h4>
+            <h4>Enter Loan Details</h4>
             <h5>{`>`}</h5>
           </div>
         </Link>
