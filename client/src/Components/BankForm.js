@@ -119,6 +119,8 @@ console.log(isAuthenticated);
         closing_cash: "",
         surplus: "",
       });
+      setGrade("");
+
     }
   }, [ error, isUpdated, alert, dispatch]);
   const [checked, setChecked] = useState(false);
@@ -705,7 +707,6 @@ console.log(isAuthenticated);
           "Total fund Recived":Total_fund_Recived,
           "Variation":variation,
           "Bank Linkage variation":bank_linkage_variation,
-          Grade,
           "Current Year Sanctioned":current_year_sanctioned,
           "Current Year Recovery":current_year_recovery,
           "Total Loan Outstanding":total_loan_outstanding,
@@ -746,10 +747,11 @@ console.log(isAuthenticated);
           "Closing Bank Balance":closing_bank_balance,
           "Closing Cash":closing_cash,
           "Surplus":surplus,
+          Grade
         },
       ])
     );
-
+    
     setChecked(false);
     setChecked1(false);
     setChecked2(false);

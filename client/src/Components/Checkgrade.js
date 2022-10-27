@@ -121,7 +121,6 @@ export const Checkgrade = () => {
                             {
                               <>
                                 {hmap()}
-                                <th>edit</th>
                               </>
                             }
                           </tr>

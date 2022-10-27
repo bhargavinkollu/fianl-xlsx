@@ -134,7 +134,7 @@ exports.filterdata = catchAsyncerror(async (req, res, next) => {
 exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
   const sghid = req.body
   console.log(sghid);
-  const data = await UploadFormData.find(sghid);
+  const data = await UploadFormData.find(sghid,{_id:0,__v:0});
   // console.log(data);
   // const data = await UploadFormData.find();
 
