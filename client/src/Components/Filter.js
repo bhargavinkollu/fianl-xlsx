@@ -111,7 +111,7 @@ export const Filter = () => {
     return () => {
       document.removeEventListener("click", handleClick);
     };
-  }, []);
+  } []);
 
   const handleChange = async (name) => {
     setValue("");

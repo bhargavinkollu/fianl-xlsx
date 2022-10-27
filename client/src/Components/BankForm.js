@@ -134,7 +134,7 @@ console.log(isAuthenticated);
   const [checked8, setChecked8] = useState(false);
   const [checked9, setChecked9] = useState(false);
   const [checked10, setChecked10] = useState(false);
-  const [sghid, setsghid] = useState("");
+  const [SHGID, setsghid] = useState("");
 
   const [bankdetail, setBankdetail] = useState({
     bank_name: "",
@@ -288,7 +288,6 @@ console.log(isAuthenticated);
     parseInt(
       parseInt(saving.opening_savings) + parseInt(saving.current_year_savings)
     ) + parseInt(surplus);
-  let SHGID = "";
   let total_fund_Available =
     parseInt(openingBankBalance.closing_bank_balance) +
     parseInt(openingBankBalance.closing_cash) +
@@ -555,15 +554,14 @@ console.log(isAuthenticated);
   };
   const searchSHG = async (e) => {
     e.preventDefault();
-    // SHGID = e.target.value;
-    // setsghid(SHGID);
+   ;
     const res = await axios.post("/api/auth/finddata", {
-      sghid,
+      "SHG ID":SHGID,
     });
-
+console.log(res.data);
     setBankdetail({
       ...bankdetail,
-      sghid: res.data[sghid],
+      SHGID: res.data[SHGID],
       bank_name: res.data["Bank name"],
       acc_number: res.data["SB Account No"],
       "Slum Id": res.data["Slum Id"],
@@ -685,10 +683,11 @@ console.log(isAuthenticated);
         ))
     );
     setOpeningBankBalance(openingBankBalance);
+    console.log(SHGID);
     dispatch(
       updateprofile([
         {
-          "SHG ID":sghid,
+          SHGID,
           "Account No":accnu,
           "Bank name":bank_name,
           "Opening Savings":opening_savings,
@@ -832,7 +831,7 @@ console.log(isAuthenticated);
                 onChange={(e) => {
                   setsghid(e.target.value);
                 }}
-                value={sghid}
+                value={SHGID}
                 placeholder="search by SHG ID"
                 name="search"
               />

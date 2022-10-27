@@ -34,6 +34,7 @@ export const Viewlist = () => {
 
   const suggestions = filedata.filter((option) =>
     option["SHG ID"].includes(value)
+    // console.log(option["SHG ID"])
   );
   const handleChange = (name) => {
     setValue(name.valued);
@@ -62,7 +63,7 @@ export const Viewlist = () => {
         dispatch(logout());
         navigate("/employeelogin");
       }
-    } else  {
+    } else {
       navigate("/");
     }
     setsghfilter(filedata);
