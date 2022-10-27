@@ -83,14 +83,15 @@ export const Filtersdistrict = () => {
       const set = new Set();
       return arr.filter((o) => !set.has(o[prop]) && set.add(o[prop]));
     };
-    console.log(getUniqueBy(filterdata, "Name_of_the_District"));
+    console.log(getUniqueBy(filterdata, "Name of the District"));
     try {
       console.log(year);
-      const ffmap = getUniqueBy(filterdata, "Name_of_the_District").map(
+      const ffmap = getUniqueBy(filterdata, "Name of the District").map(
         (row, index) => {
-          console.log(obj[row]);
-          console.log(row.Name_of_the_District);
-          return (
+          console.log(obj[row["Name of the District"]]);
+          console.log(loanobj[row["Name of the District"]]);
+          console.log(row['Name of the District']);
+          return (  
             // {Object}.key(filterdata[0]),
             <tr>
               <td>{index+1}</td>
