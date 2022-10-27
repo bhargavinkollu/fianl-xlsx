@@ -28,7 +28,7 @@ export const SideNavigation = () => {
         </Link>
         <Link to="/filter" className="nav-link navbar-link">
           <div className="flexA">
-            <h4>Dashboardd</h4>
+            <h4>Dashboard</h4>
             <h5>{`>`}</h5>
           </div>
         </Link>

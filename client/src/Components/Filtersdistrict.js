@@ -46,10 +46,10 @@ export const Filtersdistrict = () => {
 
   filterdata.forEach((item) => {
     //console.log(obj[item.name]) this return as undefined
-    if (!obj[item.Name_of_the_District]) {
-      obj[item.Name_of_the_District] = 1;
+    if (!obj[item["Name of the District"]]) {
+      obj[item["Name of the District"]] = 1;
     } else {
-      obj[item.Name_of_the_District] += 1;
+      obj[item["Name of the District"]] += 1;
     }
   });
 
@@ -93,12 +93,13 @@ export const Filtersdistrict = () => {
           return (
             // {Object}.key(filterdata[0]),
             <tr>
-              <Link to={row.Name_of_the_District}>
-                <td>{row.Name_of_the_District}</td>
+              <td>{index+1}</td>
+              <Link to={row["Name of the District"]}>
+                <td>{row["Name of the District"]}</td>
               </Link>
-              <td>{loanobj[row.Name_of_the_District]}</td>
-              <td>{obj[row.Name_of_the_District]}</td>
-              //<td>{loanobj[row.Name_of_the_District]-obj[row.Name_of_the_District]}
+              <td>{loanobj[row["Name of the District"]]}</td>
+              <td>{obj[row["Name of the District"]]}</td>
+              <td>{loanobj[row["Name of the District"]]-obj[row["Name of the District"]]}</td>
             </tr>
           );
         }
@@ -132,17 +133,17 @@ export const Filtersdistrict = () => {
               <option selected disabled value="">
                 year
               </option>
-              <option value=2020>2020-21</option>
-              <option value=2021>2021-22</option>
-              <option value=2022>2022-23</option>
-              <option value=2023>2023-24</option>
-              <option value=2024>2024-25</option>
-              <option value=2025>2025-26</option>
-              <option value=2026>2026-27</option>
-              <option value=2027>2027-28</option>
-              <option value=2028>2028-29</option>
-              <option value=2029>2029-30</option>
-              <option value=20230>2030-31</option>
+              <option value="2020">2020-21</option>
+              <option value="2021">2021-22</option>
+              <option value="2022">2022-23</option>
+              <option value="2023">2023-24</option>
+              <option value="2024">2024-25</option>
+              <option value="2025">2025-26</option>
+              <option value="2026">2026-27</option>
+              <option value="2027">2027-28</option>
+              <option value="2028">2028-29</option>
+              <option value="2029">2029-30</option>
+              <option value="2030">2030-31</option>
             </select>
             <div style={{ overflow: "scroll",overflowY:"hidden" }} className="table-responsive">
               <table className="table" responsive="true">

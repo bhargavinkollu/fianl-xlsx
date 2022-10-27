@@ -144,7 +144,7 @@ exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
 exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
   let reqdata=req.body
   console.log(reqdata);
-  const data = await UploadFormData.find(reqdata,{_id:0});
+  const data = await UploadFormData.find(reqdata,{_id:0,__v:0});
   // console.log(data);
   return res.status(200).json(data);
 });

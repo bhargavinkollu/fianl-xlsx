@@ -686,66 +686,66 @@ console.log(isAuthenticated);
     dispatch(
       updateprofile([
         {
-          sghid,
-          accnu,
-          bank_name,
-          opening_savings,
-          current_year_savings,
-          total_savings,
-          year,
-          opening_loans,
-          Slum_Id,
-          TLF_NAME,
-          SLF_NAME,
-          SHG_ID,
-          SHG_Name,
-          Name_of_ulb,
-          Name_of_the_District,
-          ward_Name,
-          Total_fund_Recived,
-          variation,
-          bank_linkage_variation,
+          "SHG ID":sghid,
+          "Account No":accnu,
+          "Bank name":bank_name,
+          "Opening Savings":opening_savings,
+          "Current Year Savings":current_year_savings,
+          "Total Savings":total_savings,
+          "year":year,
+          "Opening Loans":opening_loans,
+          "Slum Id":Slum_Id,
+          "TLF NAME":TLF_NAME,
+          "SLF NAME":SLF_NAME,
+          "SHG ID":SHG_ID,
+          "SHG Name":SHG_Name,
+          "Name of Ulb":Name_of_ulb,
+          "Name of the District":Name_of_the_District,
+          "ward Name":ward_Name,
+          "Total fund Recived":Total_fund_Recived,
+          "Variation":variation,
+          "Bank Linkage variation":bank_linkage_variation,
           Grade,
-          current_year_sanctioned,
-          current_year_recovery,
-          total_loan_outstanding,
-          bank_opening_bank_loan,
-          bank_current_year_sanctioned,
-          bank_current_year_recovery,
-          bank_total_loan_outstanding,
-          srinidhi_opening_loan,
-          srinidhi_current_year_sanctioned,
-          srinidhi_current_year_recovery,
-          srinidhi_total_loan_outstanding,
-          covid_opening_loan,
-          covid_current_year_sanctioned,
-          covid_current_year_recovery,
-          covid_total_loan_outstanding,
-          iml_opening_loan,
-          iml_current_year_sanctioned,
-          iml_current_year_recovery,
-          iml_total_loan_outstanding,
-          slfm_opening_loan,
-          slfm_current_year_sanctioned,
-          slfm_current_year_recovery,
-          slfm_total_loan_outstanding,
-          blml_opening_loan,
-          blml_current_year_sanctioned,
-          blml_current_year_recovery,
-          blml_total_loan_outstanding,
-          srim_opening_loan,
-          srim_current_year_sanctioned,
-          srim_current_year_recovery,
-          srim_total_loan_outstanding,
-          cml_opening_loan,
-          cml_current_year_sanctioned,
-          cml_current_year_recovery,
-          cml_total_loan_outstanding,
-          opening_bank_balance,
-          opening_cash,
-          closing_bank_balance,
-          closing_cash,
-          surplus,
+          "Current Year Sanctioned":current_year_sanctioned,
+          "Current Year Recovery":current_year_recovery,
+          "Total Loan Outstanding":total_loan_outstanding,
+          "Bank Opening Bank Loan":bank_opening_bank_loan,
+          "Bank Current Year Sanctioned":bank_current_year_sanctioned,
+          "bank Current Year Recovery":bank_current_year_recovery,
+          "Bank Total Loan Outstanding":bank_total_loan_outstanding,
+          "Srinidhi Opening Loan":srinidhi_opening_loan,
+          "Srinidhi Current Year Sanctioned":srinidhi_current_year_sanctioned,
+          "Srinidhi Current Year ecovery":srinidhi_current_year_recovery,
+          "Srinidhi Total Loan Outstanding":srinidhi_total_loan_outstanding,
+          "Covid Opening Loan":covid_opening_loan,
+          "Covid Current Year Sanctioned":covid_current_year_sanctioned,
+          "Covid Current Year Recovery":covid_current_year_recovery,
+          "Covid Total Loan Outstanding":covid_total_loan_outstanding,
+          "Iml Opening Loan":iml_opening_loan,
+          "Iml Current Year Sanctioned":iml_current_year_sanctioned,
+          "Iml Current Year Recovery":iml_current_year_recovery,
+          "Iml Total Loan Outstanding":iml_total_loan_outstanding,
+          "Slfm Opening Loan":slfm_opening_loan,
+          "Slfm Current Year Sanctioned":slfm_current_year_sanctioned,
+          "Slfm Current Year Recovery":slfm_current_year_recovery,
+          "Slfm Total Loan Outstanding":slfm_total_loan_outstanding,
+          "Blml Opening Loan":blml_opening_loan,
+          "Blml Current Year Sanctioned":blml_current_year_sanctioned,
+          "Blml Current Year Recovery":blml_current_year_recovery,
+          "Blml Total Loan Outstanding":blml_total_loan_outstanding,
+          "Srim Opening Loan":srim_opening_loan,
+          "Srim Current Year Sanctioned":srim_current_year_sanctioned,
+          "Srim Current Year Recovery":srim_current_year_recovery,
+          "Srim Total Loan Outstanding":srim_total_loan_outstanding,
+          "Cml Opening Loan":cml_opening_loan,
+          "Cml Current Year Sanctioned":cml_current_year_sanctioned,
+          "Cml Current Year Recovery":cml_current_year_recovery,
+          "Cml Total Loan Outstanding":cml_total_loan_outstanding,
+          "Opening Bank Balance":opening_bank_balance,
+          "Opening Cash":opening_cash,
+          "Closing Bank Balance":closing_bank_balance,
+          "Closing Cash":closing_cash,
+          "Surplus":surplus,
         },
       ])
     );
@@ -1610,17 +1610,17 @@ console.log(isAuthenticated);
                       <option selected disabled>
                         year
                       </option>
-                      <option value=2020>2020-21</option>
-                      <option value=2021>2021-22</option>
-                      <option value=2022>2022-23</option>
-                      <option value=2023>2023-24</option>
-                      <option value=2024>2024-25</option>
-                      <option value=2025>2025-26</option>
-                      <option value=2026>2026-27</option>
-                      <option value=2027>2027-28</option>
-                      <option value=2028>2028-29</option>
-                      <option value=2029>2029-30</option>
-                      <option value=20230>2030-31</option>
+                      <option value="2020">2020-21</option>
+                      <option value="2021">2021-22</option>
+                      <option value="2022">2022-23</option>
+                      <option value="2023">2023-24</option>
+                      <option value="2024">2024-25</option>
+                      <option value="2025">2025-26</option>
+                      <option value="2026">2026-27</option>
+                      <option value="2027">2027-28</option>
+                      <option value="2028">2028-29</option>
+                      <option value="2029">2029-30</option>
+                      <option value="2030">2030-31</option>
                     </select>
                   </div>
                   <div className="flexBaX">

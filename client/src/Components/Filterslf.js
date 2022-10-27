@@ -36,7 +36,7 @@ export const Filterslf = () => {
   };
 
   const searchdistrict = async (e) => {
-    const res = await axios.post("/api/auth/searchall", { TLF_NAME: tlfname });
+    const res = await axios.post("/api/auth/searchall", { "TLF NAME": tlfname });
     console.log(res.data);
     setfilterdata(res.data);
   };
@@ -46,10 +46,10 @@ export const Filterslf = () => {
   let obj = {};
   filterdata.forEach((item) => {
     //console.log(obj[item.name]) this return as undefined
-    if (!obj[item.SLF_NAME]) {
-      obj[item.SLF_NAME] = 1;
+    if (!obj[item["SLF NAME"]]) {
+      obj[item["SLF NAME"]] = 1;
     } else {
-      obj[item.SLF_NAME] += 1;
+      obj[item["SLF NAME"]] += 1;
     }
   });
   console.log(obj);
@@ -68,18 +68,22 @@ export const Filterslf = () => {
   const fmap = () => {
     try {
       console.log(year);
-      const ffmap = getUniqueBy(filterdata, "SLF_NAME").map(
+      const ffmap = getUniqueBy(filterdata, "SLF NAME").map(
         (row, index) => {
           console.log(obj[row]);
-          console.log(row.SLF_NAME);
+          console.log(row["SLF NAME"]);
           return (
             // {Object}.key(filterdata[0]),
             <tr>
-              <Link to={row.SLF_NAME}>
-                <td>{row.SLF_NAME}</td>
+            <td>{index + 1}</td>
+
+              <Link to={row["SLF NAME"]}>
+                <td>{row["SLF NAME"]}</td>
               </Link>
-              <td>{loanobj[row.SLF_NAME]}</td>
-              <td>{obj[row.SLF_NAME]}</td>
+              <td>{loanobj[row["SLF NAME"]]}</td>
+              <td>{obj[row["SLF NAME"]]}</td>
+            <td>{loanobj[row["SLF NAME"]] - obj[row["SLF NAME"]]}</td>
+
               
             </tr>
           );
@@ -94,7 +98,7 @@ export const Filterslf = () => {
   const searchdis = async (event) => {
     console.log(event.target.value);
     const res = await axios.post("/api/auth/searchall", {
-      TLF_NAME: tlfname,
+      "TLF NAME": tlfname,
       year: event.target.value,
     });
     console.log(res.data);
@@ -138,17 +142,17 @@ export const Filterslf = () => {
               <option selected disabled value="">
                 year
               </option>
-              <option value=2020>2020-21</option>
-              <option value=2021>2021-22</option>
-              <option value=2022>2022-23</option>
-              <option value=2023>2023-24</option>
-              <option value=2024>2024-25</option>
-              <option value=2025>2025-26</option>
-              <option value=2026>2026-27</option>
-              <option value=2027>2027-28</option>
-              <option value=2028>2028-29</option>
-              <option value=2029>2029-30</option>
-              <option value=20230>2030-31</option>
+              <option value="2020">2020-21</option>
+              <option value="2021">2021-22</option>
+              <option value="2022">2022-23</option>
+              <option value="2023">2023-24</option>
+              <option value="2024">2024-25</option>
+              <option value="2025">2025-26</option>
+              <option value="2026">2026-27</option>
+              <option value="2027">2027-28</option>
+              <option value="2028">2028-29</option>
+              <option value="2029">2029-30</option>
+              <option value="2030">2030-31</option>
             </select>
             <div style={{ overflow: "scroll",overflowY:"hidden" ,overflowY:"hidden"}} className="table-responsive">
               <table className="table" responsive="true">

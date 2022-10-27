@@ -30,7 +30,7 @@ export const FIlterulb = () => {
   }, [dispatch, isAuthenticated, navigate, user])
   const searchdistrict = async (e) => {
     const res = await axios.post("/api/auth/searchall", {
-      Name_of_the_District: district,
+      "Name of the District": district,
     });
     console.log(res.data);
     console.log(res.data.length);
@@ -47,15 +47,18 @@ export const FIlterulb = () => {
   const fmap = () => {
     try {
       // console.log(data);
-      const ffmap = getUniqueBy(filterdata, "Name_of_ulb").map((row, index) => {
-        console.log(row.Name_of_ulb);
+      const ffmap = getUniqueBy(filterdata, "Name of Ulb").map((row, index) => {
+        console.log(row["Name of Ulb"]);
         return (
           <tr>
-            <Link to={row.Name_of_ulb}>
-              <td>{row.Name_of_ulb}</td>
+             <td>{index+1}</td>
+            <Link to={row["Name of Ulb"]}>
+              <td>{row["Name of Ulb"]}</td>
             </Link>
-            <td>{loanobj[row.Name_of_ulb]}</td>
-            <td>{obj[row.Name_of_ulb]}</td> 
+            <td>{loanobj[row["Name of Ulb"]]}</td>
+            <td>{obj[row["Name of Ulb"]]}</td> 
+            <td>{loanobj[row["Name of Ulb"]]-obj[row["Name of Ulb"]]}</td>
+
           </tr>
         );
       });
@@ -80,17 +83,17 @@ export const FIlterulb = () => {
   let obj = {};
   filterdata.forEach((item) => {
     //console.log(obj[item.name]) this return as undefined
-    if (!obj[item.Name_of_ulb]) {
-      obj[item.Name_of_ulb] = 1;
+    if (!obj[item["Name of Ulb"]]) {
+      obj[item["Name of Ulb"]] = 1;
     } else {
-      obj[item.Name_of_ulb] += 1;
+      obj[item["Name of Ulb"]] += 1;
     }
   });
   console.log(obj);
   const searchdis = async (event) => {
     console.log(event.target.value);
     const res = await axios.post("/api/auth/searchall", {
-      Name_of_the_District: district,
+      "Name of the District": district,
       year: event.target.value,
     });
     console.log(res.data);
@@ -125,17 +128,17 @@ export const FIlterulb = () => {
               <option selected disabled value="">
                 year
               </option>
-              <option value=2020>2020-21</option>
-              <option value=2021>2021-22</option>
-              <option value=2022>2022-23</option>
-              <option value=2023>2023-24</option>
-              <option value=2024>2024-25</option>
-              <option value=2025>2025-26</option>
-              <option value=2026>2026-27</option>
-              <option value=2027>2027-28</option>
-              <option value=2028>2028-29</option>
-              <option value=2029>2029-30</option>
-              <option value=20230>2030-31</option
+              <option value="2020">2020-21</option>
+              <option value="2021">2021-22</option>
+              <option value="2022">2022-23</option>
+              <option value="2023">2023-24</option>
+              <option value="2024">2024-25</option>
+              <option value="2025">2025-26</option>
+              <option value="2026">2026-27</option>
+              <option value="2027">2027-28</option>
+              <option value="2028">2028-29</option>
+              <option value="2029">2029-30</option>
+              <option value="2030">2030-31</option>
             </select>
               <table className="table" responsive="true">
                 <thead>
