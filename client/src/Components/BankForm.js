@@ -1610,22 +1610,22 @@ console.log(isAuthenticated);
                       <option selected disabled>
                         year
                       </option>
-                      <option>2020</option>
-                      <option>2021</option>
-                      <option>2022</option>
-                      <option>2023</option>
-                      <option>2024</option>
-                      <option>2025</option>
-                      <option>2026</option>
-                      <option>2027</option>
-                      <option>2028</option>
-                      <option>2029</option>
-                      <option>2030</option>
+                      <option value=2020>2020-21</option>
+                      <option value=2021>2021-22</option>
+                      <option value=2022>2022-23</option>
+                      <option value=2023>2023-24</option>
+                      <option value=2024>2024-25</option>
+                      <option value=2025>2025-26</option>
+                      <option value=2026>2026-27</option>
+                      <option value=2027>2027-28</option>
+                      <option value=2028>2028-29</option>
+                      <option value=2029>2029-30</option>
+                      <option value=20230>2030-31</option>
                     </select>
                   </div>
                   <div className="flexBaX">
                     <div className="flexC">
-                      <label>Total fund Recived</label>
+                      <label>Total fund Received</label>
                       <input
                         type="number"
                         readOnly
