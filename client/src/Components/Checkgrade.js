@@ -13,9 +13,9 @@ export const Checkgrade = () => {
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [filter, setfilter] = useState("");
   const [filterdata, setfilterdata] = useState([]);
 
+const [sghid, setSghid] = useState('');
 
 
   // const handle = (e) => {
@@ -105,6 +105,7 @@ export const Checkgrade = () => {
     setValue("");
     console.log(name.name);
     console.log(name.valued);
+    setSghid(name.valued)
 
     setValue(name.valued);
     console.log(name.valued);
@@ -124,6 +125,16 @@ export const Checkgrade = () => {
 
     setValue(suggest.suggest);
     setShowSuggestions(false);
+  };
+  const searchdis = async (event) => {
+    console.log(sghid);
+    console.log(event.target.value);
+    const res = await axios.post("/api/auth/searchall", {
+      SHGID:sghid,
+      year: event.target.value,
+    });
+    console.log(res.data);
+    setfilterdata(res.data);
   };
   return (
     <div className="viewlisttop">
@@ -174,6 +185,22 @@ export const Checkgrade = () => {
                     />
                    
                   </div>
+                  <select required onChange={searchdis}>
+              <option selected disabled value="">
+                year
+              </option>
+              <option value="2020">2020-21</option>
+              <option value="2021">2021-22</option>
+              <option value="2022">2022-23</option>
+              <option value="2023">2023-24</option>
+              <option value="2024">2024-25</option>
+              <option value="2025">2025-26</option>
+              <option value="2026">2026-27</option>
+              <option value="2027">2027-28</option>
+              <option value="2028">2028-29</option>
+              <option value="2029">2029-30</option>
+              <option value="2030">2030-31</option>
+            </select>
                   {showSuggestions && (
                     <datalist id="list" className="suggestions">
                       {suggestions.map((suggestion) => {

@@ -556,14 +556,14 @@ console.log(isAuthenticated);
     e.preventDefault();
    ;
     const res = await axios.post("/api/auth/finddata", {
-      "SHG ID":SHGID,
+      "SHG Id":SHGID,
     });
 console.log(res.data);
     setBankdetail({
       ...bankdetail,
       SHGID: res.data[SHGID],
-      bank_name: res.data["Bank name"],
-      acc_number: res.data["SB Account No"],
+      bank_name: res.data["Bank Name"],
+      acc_number: res.data["Account Number"],
       "Slum Id": res.data["Slum Id"],
       "Name of the District": res.data["Name of the District"],
       "ward Name": res.data["ward Name"],
