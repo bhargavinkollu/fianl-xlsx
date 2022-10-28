@@ -29,7 +29,7 @@ export const AddList = () => {
 
     }
     else{navigate("/")}
-    if (isUpdated === false) {
+    if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
@@ -52,8 +52,6 @@ export const AddList = () => {
 
       dispatch(uploadsheet(formdata));
     } catch (error) {
-      alert.error(error);
-      dispatch(clearErrors());
       console.log(error);
     }
   };

@@ -61,7 +61,15 @@ const uploadXLSX = async (req, res, next) => {
       data: savedData,
     });
   } catch (err) {
-    return res.status(500).json({ success: false, message: err.message });
+    if(err.code === 11000){
+      return res.status(500).json({ success: false, message: "Sghid already exist in db" });
+
+    }
+    else{
+      
+      
+      return res.status(500).json({ success: false, message: err.message });
+    }
   }
 };
 const router = express.Router();

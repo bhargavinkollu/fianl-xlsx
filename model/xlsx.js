@@ -35,6 +35,7 @@ const xlsxData = new mongoose.Schema({
   "SHG Id": {
     type: String,
     require: true,
+    unique:true
   },
   "SHG Name": {
     type: String,
