@@ -30,7 +30,7 @@ export const FIlterulb = () => {
   }, [dispatch, isAuthenticated, navigate, user])
   const searchdistrict = async (e) => {
     const res = await axios.post("/api/auth/searchall", {
-      "Name of the District": district,
+      "District": district,
     });
     console.log(res.data);
     console.log(res.data.length);
@@ -47,17 +47,17 @@ export const FIlterulb = () => {
   const fmap = () => {
     try {
       // console.log(data);
-      const ffmap = getUniqueBy(filterdata, "Name of Ulb").map((row, index) => {
-        console.log(row["Name of Ulb"]);
+      const ffmap = getUniqueBy(filterdata, "ULB Name").map((row, index) => {
+        console.log(row["ULB Name"]);
         return (
           <tr>
              <td>{index+1}</td>
-            <Link to={row["Name of Ulb"]}>
-              <td>{row["Name of Ulb"]}</td>
+            <Link to={row["ULB Name"]}>
+              <td>{row["ULB Name"]}</td>
             </Link>
-            <td>{loanobj[row["Name of Ulb"]]}</td>
-            <td>{obj[row["Name of Ulb"]]}</td> 
-            <td>{loanobj[row["Name of Ulb"]]-obj[row["Name of Ulb"]]}</td>
+            <td>{loanobj[row["ULB Name"]]}</td>
+            <td>{obj[row["ULB Name"]]}</td> 
+            <td>{loanobj[row["ULB Name"]]-obj[row["ULB Name"]]}</td>
 
           </tr>
         );
@@ -71,10 +71,10 @@ export const FIlterulb = () => {
 
   filedata.forEach((item) => {
     //console.log(loanobj[item.name]) this return as undefined
-    if (!loanobj[item["Name of the ULB"]]) {
-      loanobj[item["Name of the ULB"]] = 1;
+    if (!loanobj[item["ULB Name"]]) {
+      loanobj[item["ULB Name"]] = 1;
     } else {
-      loanobj[item["Name of the ULB"]] += 1;
+      loanobj[item["ULB Name"]] += 1;
     }
   });
 
@@ -83,10 +83,10 @@ export const FIlterulb = () => {
   let obj = {};
   filterdata.forEach((item) => {
     //console.log(obj[item.name]) this return as undefined
-    if (!obj[item["Name of Ulb"]]) {
-      obj[item["Name of Ulb"]] = 1;
+    if (!obj[item["ULB Name"]]) {
+      obj[item["ULB Name"]] = 1;
     } else {
-      obj[item["Name of Ulb"]] += 1;
+      obj[item["ULB Name"]] += 1;
     }
   });
   console.log(obj);
@@ -144,7 +144,7 @@ export const FIlterulb = () => {
                 <thead>
                   <tr>
                     <th> S No </th>
-                    <th>Name of ULB</th>
+                    <th>ULB Name</th>
                     <th>Total SHGs</th>
                     <th>Uploaded SHGs</th>
                     <th>Balance SHGs </th>

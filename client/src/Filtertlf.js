@@ -36,7 +36,7 @@ export const Filtertlf = () => {
   const [filterdata, setfilterdata] = useState([]);
 
   const searchdistrict = async (e) => {
-    const res = await axios.post("/api/auth/searchall", { "Name of Ulb": ulb });
+    const res = await axios.post("/api/auth/searchall", { "ULB Name": ulb });
     console.log(res.data);
     setfilterdata(res.data);
     console.log(res.data);
@@ -47,10 +47,10 @@ export const Filtertlf = () => {
   let obj = {};
 
   filterdata.forEach((item) => {
-    if (!obj[item["TLF NAME"]]) {
-      obj[item["TLF NAME"]] = 1;
+    if (!obj[item["TLF Name"]]) {
+      obj[item["TLF Name"]] = 1;
     } else {
-      obj[item["TLF NAME"]] += 1;
+      obj[item["TLF Name"]] += 1;
     }
   });
 
@@ -71,20 +71,20 @@ export const Filtertlf = () => {
   console.log(filterdata);
   const fmap = () => {
     try {
-      const ffmap = getUniqueBy(filterdata, "TLF NAME").map((row, index) => {
+      const ffmap = getUniqueBy(filterdata, "TLF Name").map((row, index) => {
         console.log(obj[row]);
-        console.log(row["TLF NAME"]);
+        console.log(row["TLF Name"]);
         return (
           // {Object}.key(filterdata[0]),
           <tr>
             <td>{index + 1}</td>
 
-            <Link to={row["TLF NAME"]}>
-              <td>{row["TLF NAME"]}</td>
+            <Link to={row["TLF Name"]}>
+              <td>{row["TLF Name"]}</td>
             </Link>
-            <td>{loanobj[row["TLF NAME"]]}</td>
-            <td>{obj[row["TLF NAME"]]}</td>
-            <td>{loanobj[row["TLF NAME"]] - obj[row["TLF NAME"]]}</td>
+            <td>{loanobj[row["TLF Name"]]}</td>
+            <td>{obj[row["TLF Name"]]}</td>
+            <td>{loanobj[row["TLF Name"]] - obj[row["TLF Name"]]}</td>
           </tr>
         );
       });
@@ -97,7 +97,7 @@ export const Filtertlf = () => {
   const searchdis = async (event) => {
     console.log(event.target.value);
     const res = await axios.post("/api/auth/searchall", {
-      "Name of Ulb": ulb,
+      "ULB Name": ulb,
       year: event.target.value,
     });
     console.log(res.data);
@@ -154,7 +154,7 @@ export const Filtertlf = () => {
                   <thead>
                     <tr>
                       <th> S No </th>
-                      <td>TLF NAME</td>
+                      <td>TLF Name</td>
                       <th>Total SHGs</th>
                       <th>Uploaded SHGs</th>
                       <th>Balance SHGs </th>

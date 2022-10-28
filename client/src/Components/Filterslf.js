@@ -36,7 +36,7 @@ export const Filterslf = () => {
   };
 
   const searchdistrict = async (e) => {
-    const res = await axios.post("/api/auth/searchall", { "TLF NAME": tlfname });
+    const res = await axios.post("/api/auth/searchall", { "TLF Name": tlfname });
     console.log(res.data);
     setfilterdata(res.data);
   };
@@ -46,10 +46,10 @@ export const Filterslf = () => {
   let obj = {};
   filterdata.forEach((item) => {
     //console.log(obj[item.name]) this return as undefined
-    if (!obj[item["SLF NAME"]]) {
-      obj[item["SLF NAME"]] = 1;
+    if (!obj[item["SLF Name"]]) {
+      obj[item["SLF Name"]] = 1;
     } else {
-      obj[item["SLF NAME"]] += 1;
+      obj[item["SLF Name"]] += 1;
     }
   });
   console.log(obj);
@@ -68,21 +68,21 @@ export const Filterslf = () => {
   const fmap = () => {
     try {
       console.log(year);
-      const ffmap = getUniqueBy(filterdata, "SLF NAME").map(
+      const ffmap = getUniqueBy(filterdata, "SLF Name").map(
         (row, index) => {
           console.log(obj[row]);
-          console.log(row["SLF NAME"]);
+          console.log(row["SLF Name"]);
           return (
             // {Object}.key(filterdata[0]),
             <tr>
             <td>{index + 1}</td>
 
-              <Link to={row["SLF NAME"]}>
-                <td>{row["SLF NAME"]}</td>
+              <Link to={row["SLF Name"]}>
+                <td>{row["SLF Name"]}</td>
               </Link>
-              <td>{loanobj[row["SLF NAME"]]}</td>
-              <td>{obj[row["SLF NAME"]]}</td>
-            <td>{loanobj[row["SLF NAME"]] - obj[row["SLF NAME"]]}</td>
+              <td>{loanobj[row["SLF Name"]]}</td>
+              <td>{obj[row["SLF Name"]]}</td>
+            <td>{loanobj[row["SLF Name"]] - obj[row["SLF Name"]]}</td>
 
               
             </tr>
@@ -159,7 +159,7 @@ export const Filterslf = () => {
                 <thead>
                   <tr>
                     <th> S No </th>
-                    <th>SLF NAME</th>
+                    <th>SLF Name</th>
                     <th>Total SHGs</th>
                     <th>Uploaded SHGs</th>
                     <th>Balance SHGs </th>

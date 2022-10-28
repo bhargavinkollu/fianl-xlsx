@@ -55,20 +55,6 @@ export const Viewlist = () => {
     setValue(suggest.suggest);
     setShowSuggestions(false);
   };
-  useEffect(() => {
-    console.log(user);
-    if (user) {
-      if (user.role === "user") {
-        dispatch(logout());
-        navigate("/employeelogin");
-      }
-    } else {
-      navigate("/");
-    }
-    /// bydefault search
-    // setsghfilter(filedata);
-    /// bydefault search
-  }, [dispatch, filedata, isAuthenticated, navigate, user]);
   ////
   let pagelimit = 20;
   console.log(isAuthenticated);
@@ -117,7 +103,7 @@ export const Viewlist = () => {
   const hmap = () => {
     try {
       const hhmap = Object.keys(currentRecords[0])
-        .filter((item, index) => {
+      .filter((item, index) => {
           return item !== "_id";
         })
         .map((heading) => {
@@ -141,11 +127,23 @@ export const Viewlist = () => {
   const update = async (e) => {
     e.preventDefault();
     console.log(editdata);
-
+    
     let res = await axios.put("http://localhost:5000/update", editdata);
     let data = await res.data;
     console.log(data);
-  };
+  };useEffect(() => {
+    console.log(user);
+    if (user) {
+      if (user.role === "user") {
+        dispatch(logout());
+        navigate("/employeelogin");
+      }
+    } else {
+      navigate("/");
+    }
+  
+  }, [dispatch, filedata, isAuthenticated, navigate, user,update]);
+  
   const modeldata = () => {
     const modelbox = (
       <div
@@ -155,7 +153,7 @@ export const Viewlist = () => {
         role="dialog"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
-      >
+        >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <form onSubmit={update}>
@@ -178,7 +176,7 @@ export const Viewlist = () => {
                             value={editdata[heading]}
                             onChange={edithandle}
                             aria-describedby="emailHelp"
-                            placeholder="Enter email"
+                            placeholder={`Enter ${ heading}`}
                           />
                         </>
                       </>

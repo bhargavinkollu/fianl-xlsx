@@ -35,7 +35,7 @@ export const Filtershg = () => {
   };
   const searchdistrict = async (event) => {
     const res = await axios.post("/api/auth/searchall", {
-      "SLF NAME": slf,
+      "SLF Name": slf,
       year,
     });
     console.log(res.data);
@@ -44,7 +44,7 @@ export const Filtershg = () => {
   const searchdis = async (event) => {
     console.log(event.target.value);
     const res = await axios.post("/api/auth/searchall", {
-      "SLF NAME": slf,
+      "SLF Name": slf,
       year:event.target.value,
     });
     console.log(res.data);

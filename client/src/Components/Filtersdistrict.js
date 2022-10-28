@@ -66,10 +66,10 @@ export const Filtersdistrict = () => {
 
   filedata.forEach((item) => {
     //console.log(loanobj[item.name]) this return as undefined
-    if (!loanobj[item["Name of the District"]]) {
-      loanobj[item["Name of the District"]] = 1;
+    if (!loanobj[item["District"]]) {
+      loanobj[item["District"]] = 1;
     } else {
-      loanobj[item["Name of the District"]] += 1;
+      loanobj[item["District"]] += 1;
     }
   });
 
@@ -89,18 +89,18 @@ export const Filtersdistrict = () => {
       const ffmap = getUniqueBy(filterdata, "Name of the District").map(
         (row, index) => {
           console.log(obj[row["Name of the District"]]);
-          console.log(loanobj[row["Name of the District"]]);
-          console.log(row['Name of the District']);
+          console.log(loanobj[row["District"]]);
+          console.log(row);
           return (  
             // {Object}.key(filterdata[0]),
             <tr>
               <td>{index+1}</td>
-              <Link to={row["Name of the District"]}>
-                <td>{row["Name of the District"]}</td>
+              <Link to={row["District"]}>
+                <td>{row["District"]}</td>
               </Link>
-              <td>{loanobj[row["Name of the District"]]}</td>
+              <td>{loanobj[row["District"]]}</td>
               <td>{obj[row["Name of the District"]]}</td>
-              <td>{loanobj[row["Name of the District"]]-obj[row["Name of the District"]]}</td>
+              <td>{loanobj[row["District"]]-obj[row["Name of the District"]]}</td>
             </tr>
           );
         }
