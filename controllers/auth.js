@@ -127,13 +127,13 @@ exports.xlsxget = catchAsyncerror(async (req, res, next) => {
 
 exports.filterdata = catchAsyncerror(async (req, res, next) => {
   const sghid = req.body;
-  console.log(sghid);
+
   const data = await Excell.findOne(sghid);
   return res.status(200).json(data);
 });
 exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
   const sghid = req.body
-  console.log(sghid);
+
   const data = await UploadFormData.find(sghid,{_id:0,__v:0});
   // console.log(data);
   // const data = await UploadFormData.find();
@@ -143,7 +143,6 @@ exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
 });
 exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
   let reqdata=req.body
-  console.log(reqdata);
   const data = await UploadFormData.find(reqdata,{_id:0,__v:0});
   // console.log(data);
   return res.status(200).json(data);
@@ -151,7 +150,6 @@ exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
 exports.uploadform = catchAsyncerror(async (req, res, next) => {
   let data = req.body.data;
   let sgid = data[0]["SHG ID"];
-  console.log(data[0]["year"]);
 
   try {
     const user = await UploadFormData.findOne({ "SHG ID": sgid });

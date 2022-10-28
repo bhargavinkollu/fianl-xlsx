@@ -24,7 +24,7 @@ export const Filtertlf = () => {
     }
   }, [dispatch, isAuthenticated, navigate, user]);
   const { ulb, district } = useParams();
-  console.log(ulb);
+  // console.log(ulb);
   const getUniqueBy = (arr, prop) => {
     const set = new Set();
     return arr.filter((o) => !set.has(o[prop]) && set.add(o[prop]));
@@ -37,9 +37,9 @@ export const Filtertlf = () => {
 
   const searchdistrict = async (e) => {
     const res = await axios.post("/api/auth/searchall", { "ULB Name": ulb });
-    console.log(res.data);
+    // console.log(res.data);
     setfilterdata(res.data);
-    console.log(res.data);
+    // console.log(res.data);
   };
   useEffect(() => {
     searchdistrict();
@@ -54,11 +54,11 @@ export const Filtertlf = () => {
     }
   });
 
-  console.log(obj);
+  // console.log(obj);
   let loanobj = {};
 
   filedata.forEach((item) => {
-    //console.log(loanobj[item.name]) this return as undefined
+    console.log(loanobj[item.name]) 
     if (!loanobj[item["TLF Name"]]) {
       loanobj[item["TLF Name"]] = 1;
     } else {
@@ -66,14 +66,17 @@ export const Filtertlf = () => {
     }
   });
 
-  console.log(loanobj);
+  // console.log(loanobj);
 
-  console.log(filterdata);
+  // console.log(filterdata);
   const fmap = () => {
     try {
-      const ffmap = getUniqueBy(filterdata, "TLF Name").map((row, index) => {
-        console.log(obj[row]);
-        console.log(row["TLF Name"]);
+      const ffmap = getUniqueBy(filedata, "TLF Name").map((row, index) => {
+        // console.log(obj[row]);
+        console.log(obj[row["TLF Name"]]);
+        if(obj[row["TLF Name"]]=== undefined){
+          obj[row["TLF Name"]]=0
+        }
         return (
           // {Object}.key(filterdata[0]),
           <tr>
@@ -95,12 +98,12 @@ export const Filtertlf = () => {
   };
 
   const searchdis = async (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     const res = await axios.post("/api/auth/searchall", {
       "ULB Name": ulb,
       year: event.target.value,
     });
-    console.log(res.data);
+    // console.log(res.data);
     setfilterdata(res.data);
   };
   return (

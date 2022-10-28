@@ -5,7 +5,7 @@ export const apidata =()=> async(dispatch)=> {
   try {
     dispatch({ type: API_REQUEST });
     const { data } = await axios.get("/api/auth/getxlsxfile");
-    console.log(data);
+    // console.log(data);
 
     dispatch({ type: API_SUCCESS, payload:data});
   } catch (error) {
@@ -18,7 +18,7 @@ export const apidat =()=> async(dispatch)=> {
   try {
     dispatch({ type: API_REQUEST });
     const { data } = await axios.get("/api/auth/slumidsearch");
-    console.log(data);
+    // console.log(data);
 
     dispatch({ type: API_SUCCESS, payload:data});
   } catch (error) {

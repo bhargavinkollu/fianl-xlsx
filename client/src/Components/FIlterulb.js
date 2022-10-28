@@ -47,8 +47,11 @@ export const FIlterulb = () => {
   const fmap = () => {
     try {
       // console.log(data);
-      const ffmap = getUniqueBy(filterdata, "ULB Name").map((row, index) => {
-        console.log(row["ULB Name"]);
+      const ffmap = getUniqueBy(filedata, "ULB Name").map((row, index) => {
+        if(obj[row["ULB Name"]]=== undefined){
+          obj[row["ULB Name"]]=0
+        }
+        
         return (
           <tr>
              <td>{index+1}</td>

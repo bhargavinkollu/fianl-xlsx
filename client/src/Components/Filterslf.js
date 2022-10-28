@@ -68,10 +68,11 @@ export const Filterslf = () => {
   const fmap = () => {
     try {
       console.log(year);
-      const ffmap = getUniqueBy(filterdata, "SLF Name").map(
+      const ffmap = getUniqueBy(filedata, "SLF Name").map(
         (row, index) => {
-          console.log(obj[row]);
-          console.log(row["SLF Name"]);
+          if(obj[row["SLF Name"]]=== undefined){
+            obj[row["SLF Name"]]=0
+          }
           return (
             // {Object}.key(filterdata[0]),
             <tr>

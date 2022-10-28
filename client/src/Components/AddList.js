@@ -46,7 +46,7 @@ export const AddList = () => {
     e.preventDefault();
     try {
       const formdata = new FormData();
-      console.log(selectedfile);
+      // console.log(selectedfile);
       formdata.append("xlsx", selectedfile);
       const config = {
         headers: {
@@ -59,7 +59,7 @@ export const AddList = () => {
       console.log(error);
     }
   };
-  console.log(loading);
+  // console.log(loading);
   return (
     <>
 

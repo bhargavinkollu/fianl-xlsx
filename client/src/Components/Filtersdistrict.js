@@ -46,10 +46,10 @@ export const Filtersdistrict = () => {
 
   filterdata.forEach((item) => {
     //console.log(obj[item.name]) this return as undefined
-    if (!obj[item["Name of the District"]]) {
-      obj[item["Name of the District"]] = 1;
+    if (!obj[item["District"]]) {
+      obj[item["District"]] = 1;
     } else {
-      obj[item["Name of the District"]] += 1;
+      obj[item["District"]] += 1;
     }
   });
 
@@ -65,6 +65,7 @@ export const Filtersdistrict = () => {
   };
 
   filedata.forEach((item) => {
+    console.log(item);
     //console.log(loanobj[item.name]) this return as undefined
     if (!loanobj[item["District"]]) {
       loanobj[item["District"]] = 1;
@@ -72,25 +73,34 @@ export const Filtersdistrict = () => {
       loanobj[item["District"]] += 1;
     }
   });
+let Districtaa=""
+  filedata.forEach((item) => {
+    Districtaa=item["District"];
+    //console.log(loanobj[item.name]) this return as undefined
+   
+  });
+console.log(Districtaa);
+  // console.log(loanobj);
 
-  console.log(loanobj);
-
-  console.log(filterdata);
+  // console.log(filterdata);
 
   const fmap = () => {
-    console.log(filterdata.length);
+    // console.log(filterdata.length);
     const getUniqueBy = (arr, prop) => {
       const set = new Set();
-      return arr.filter((o) => !set.has(o[prop]) && set.add(o[prop]));
+      return filedata.filter((o) => !set.has(o[prop]) && set.add(o[prop]));
     };
-    console.log(getUniqueBy(filterdata, "Name of the District"));
+    // console.log(getUniqueBy(filterdata, "District"));
     try {
-      console.log(year);
-      const ffmap = getUniqueBy(filterdata, "Name of the District").map(
+      // console.log(year);
+      const ffmap = getUniqueBy(filedata, "District").map(
         (row, index) => {
-          console.log(obj[row["Name of the District"]]);
-          console.log(loanobj[row["District"]]);
-          console.log(row);
+          // console.log(obj[row["District"]]);
+          // console.log(loanobj[row["District"]]);
+          // console.log(row);
+          if(obj[row["District"]]=== undefined){
+            obj[row["District"]]=0
+          }
           return (  
             // {Object}.key(filterdata[0]),
             <tr>
@@ -99,8 +109,8 @@ export const Filtersdistrict = () => {
                 <td>{row["District"]}</td>
               </Link>
               <td>{loanobj[row["District"]]}</td>
-              <td>{obj[row["Name of the District"]]}</td>
-              <td>{loanobj[row["District"]]-obj[row["Name of the District"]]}</td>
+              <td>{obj[row["District"]]}</td>
+              <td>{loanobj[row["District"]]-obj[row["District"]]}</td>
             </tr>
           );
         }
@@ -151,7 +161,7 @@ export const Filtersdistrict = () => {
                 <thead>
                   <tr>
                     <th> S No </th>
-                    <th>Name of the District</th>
+                    <th>District</th>
                     <th>Total SHGs</th>
                     <th>Uploaded SHGs</th>
                     <th>Balance SHGs </th>

@@ -243,7 +243,7 @@ export const Viewlist = () => {
                 <input
                   className="form-control"
                   list="list"
-                  style={{ width: "30%" }}
+                  style={{ width: "30%",marginRight:"30%" }}
                   value={value}
                   autoComplete="off"
                   onChange={(e) => {
