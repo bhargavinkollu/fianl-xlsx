@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { apidata } from "../action/apiaction";
 import { logout } from "../action/useraction";
 import { Header } from "./Header";
 import { LOader } from "./LOader";
@@ -13,7 +12,7 @@ import "./viewlist.css";
 export const Viewlist = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
   const [editdata, seteditdata] = useState([]);
-  const [sghfilter, setsghfilter] = useState(filedata);
+  const [sghfilter, setsghfilter] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -33,14 +32,14 @@ export const Viewlist = () => {
   const [value, setValue] = useState("");
 
   const suggestions = filedata.filter((option) =>
-    option["SHG ID"].includes(value)
+    option["SHG Id"].includes(value)
     // console.log(option["SHG ID"])
   );
   const handleChange = (name) => {
     setValue(name.valued);
 
     const sghidfilter = filedata.filter((key, index) => {
-      return key["SHG ID"].includes(name.valued);
+      return key["SHG Id"].includes(name.valued);
       // return row
     });
     setsghfilter(sghidfilter);
@@ -66,7 +65,9 @@ export const Viewlist = () => {
     } else {
       navigate("/");
     }
-    setsghfilter(filedata);
+    /// bydefault search
+    // setsghfilter(filedata);
+    /// bydefault search
   }, [dispatch, filedata, isAuthenticated, navigate, user]);
   ////
   let pagelimit = 20;
@@ -222,13 +223,13 @@ export const Viewlist = () => {
                   style={{ listStyleType: "none" }}
                   onClick={() =>
                     handledistrictSuggestionClick({
-                      suggest: suggestion["SHG ID"],
-                      name: "SHG ID",
+                      suggest: suggestion["SHG Id"],
+                      name: "SHG Id",
                     })
                   }
-                  // key={suggestion["SHG ID"]}
+                  // key={suggestion["SHG Id"]}
                 >
-                  {suggestion["SHG ID"]}
+                  {suggestion["SHG Id"]}
                 </option>
               );
             })}
@@ -244,7 +245,7 @@ export const Viewlist = () => {
                 <input
                   className="form-control"
                   list="list"
-                  style={{ width: "50%" }}
+                  style={{ width: "30%" }}
                   value={value}
                   autoComplete="off"
                   onChange={(e) => {
@@ -281,17 +282,17 @@ export const Viewlist = () => {
                       </table>
                     </div>
                     {modeldata()}
+                    <Pagination
+                      nPages={nPages}
+                      currentPage={currentPage}
+                      setCurrentPage={setCurrentPage}
+                      disabledClass
+                    />
                   </>
                 ) : (
                   ""
                 )}
               </div>
-              <Pagination
-                nPages={nPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                disabledClass
-              />
             </div>
           </>
         )}

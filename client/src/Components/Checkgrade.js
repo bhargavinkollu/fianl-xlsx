@@ -131,7 +131,8 @@ export const Checkgrade = () => {
       <SideNavigation />
       <Header />
       <div className="AddFlex">
-        <div style={{ width: "70%", marginLeft: "23%", marginTop: "10%" }}>
+      <div className="viewlistmain">
+        <div style={{ width: "70%", marginLeft: "23%",}}>
             {/* <select
               style={{ width: "50%" }}
               onChange={handle}
@@ -220,6 +221,7 @@ export const Checkgrade = () => {
             ) : (
               ""
             )}
+          </div>
           </div>
         </div>
       </div>
