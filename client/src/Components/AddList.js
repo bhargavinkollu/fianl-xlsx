@@ -33,11 +33,15 @@ export const AddList = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
-    if (success) {
+    
+  }, [ dispatch,,error,navigate,user]);
+  useEffect(() => {
+    if (isUpdated) {
       alert.success(success);
       dispatch(clearErrors());
     }
-  }, [success, error,alert,dispatch,isUpdated,navigate,user]);
+  }, [isUpdated]);
+  
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
