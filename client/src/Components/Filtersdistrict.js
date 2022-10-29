@@ -10,7 +10,8 @@ import { SideNavigation } from "./SideNavigation";
 export const Filtersdistrict = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
   const [year, setYear] = useState("");
-
+  
+  
   const [data, setData] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
   const { user, isAuthenticated, error,  success, isUpdated } =
@@ -37,14 +38,15 @@ export const Filtersdistrict = () => {
     setfilterdata(res.data);
     console.log(res.data.length);
   };
-  useEffect(() => {
-    api();
-    searchdistrict();
-  }, []);
-
+  const [uploadcount, setUploadcount] = useState([]);
+  const searchdistrictcount = async (e) => {
+    const res = await axios.post("/api/auth/searchall");
+    setUploadcount(res.data);
+    console.log(res.data.length);
+  };
   let obj = {};
 
-  filterdata.forEach((item) => {
+  uploadcount.forEach((item) => {
     //console.log(obj[item.name]) this return as undefined
     if (!obj[item["District"]]) {
       obj[item["District"]] = 1;
@@ -52,6 +54,12 @@ export const Filtersdistrict = () => {
       obj[item["District"]] += 1;
     }
   });
+  useEffect(() => {
+    api();
+    searchdistrict();
+    searchdistrictcount()
+  }, []);
+
 
   console.log(obj);
   let loanobj = {};

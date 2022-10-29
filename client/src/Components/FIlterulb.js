@@ -37,8 +37,25 @@ export const FIlterulb = () => {
 
     setfilterdata(res.data);
   };
+  const [uploadcount, setUploadcount] = useState([]);
+  const searchdistrictcount = async (e) => {
+    const res = await axios.post("/api/auth/searchall");
+    setUploadcount(res.data);
+    console.log(res.data.length);
+  };
+  let obj = {};
+
+  uploadcount.forEach((item) => {
+    //console.log(obj[item.name]) this return as undefined
+    if (!obj[item["ULB Name"]]) {
+      obj[item["ULB Name"]] = 1;
+    } else {
+      obj[item["ULB Name"]] += 1;
+    }
+  });
   useEffect(() => {
     searchdistrict();
+    searchdistrictcount()
   }, []);
   const getUniqueBy = (arr, prop) => {
     const set = new Set();
@@ -83,15 +100,7 @@ export const FIlterulb = () => {
 
   console.log(loanobj);
 
-  let obj = {};
-  filterdata.forEach((item) => {
-    //console.log(obj[item.name]) this return as undefined
-    if (!obj[item["ULB Name"]]) {
-      obj[item["ULB Name"]] = 1;
-    } else {
-      obj[item["ULB Name"]] += 1;
-    }
-  });
+  
   console.log(obj);
   const searchdis = async (event) => {
     console.log(event.target.value);

@@ -43,10 +43,19 @@ export const Filtertlf = () => {
   };
   useEffect(() => {
     searchdistrict();
+
+    searchdistrictcount();
   }, []);
+  const [uploadcount, setUploadcount] = useState([]);
+  const searchdistrictcount = async (e) => {
+    const res = await axios.post("/api/auth/searchall");
+    setUploadcount(res.data);
+    console.log(res.data.length);
+  };
   let obj = {};
 
-  filterdata.forEach((item) => {
+  uploadcount.forEach((item) => {
+    //console.log(obj[item.name]) this return as undefined
     if (!obj[item["TLF Name"]]) {
       obj[item["TLF Name"]] = 1;
     } else {
