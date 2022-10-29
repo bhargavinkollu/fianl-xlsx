@@ -36,7 +36,7 @@ export const Filterslf = () => {
   };
 
   const searchdistrict = async (e) => {
-    const res = await axios.post("/api/auth/searchall", { "TLF Name": tlfname });
+    const res = await axios.post("/api/auth/getxlsxfile", { "TLF Name": tlfname });
     console.log(res.data);
     setfilterdata(res.data);
   };
@@ -68,7 +68,7 @@ export const Filterslf = () => {
   const fmap = () => {
     try {
       console.log(year);
-      const ffmap = getUniqueBy(filedata, "SLF Name").map(
+      const ffmap = getUniqueBy(filterdata, "SLF Name").map(
         (row, index) => {
           if(obj[row["SLF Name"]]=== undefined){
             obj[row["SLF Name"]]=0

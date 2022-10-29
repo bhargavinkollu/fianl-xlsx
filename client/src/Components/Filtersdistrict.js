@@ -33,7 +33,7 @@ export const Filtersdistrict = () => {
   };
 
   const searchdistrict = async (e) => {
-    const res = await axios.post("/api/auth/slumidsearch");
+    const res = await axios.post("/api/auth/getxlsxfile");
     setfilterdata(res.data);
     console.log(res.data.length);
   };
@@ -57,7 +57,7 @@ export const Filtersdistrict = () => {
   let loanobj = {};
   const searchdis = async (event) => {
     console.log(event.target.value);
-    const res = await axios.post("/api/auth/searchall", {
+    const res = await axios.post("/api/auth/getxlsxfile", {
       year: event.target.value,
     });
     console.log(res.data);
@@ -93,7 +93,7 @@ console.log(Districtaa);
     // console.log(getUniqueBy(filterdata, "District"));
     try {
       // console.log(year);
-      const ffmap = getUniqueBy(filedata, "District").map(
+      const ffmap = getUniqueBy(filterdata, "District").map(
         (row, index) => {
           // console.log(obj[row["District"]]);
           // console.log(loanobj[row["District"]]);

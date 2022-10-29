@@ -121,7 +121,9 @@ exports.login = catchAsyncerror(async (req, res, next) => {
 });
 
 exports.xlsxget = catchAsyncerror(async (req, res, next) => {
-  const data = await Excell.find({}, { __v: 0 });
+  let reqdata=req.body
+  console.log(reqdata);
+  const data = await Excell.find(reqdata, { __v: 0 });
   return res.status(200).json(data);
 });
 

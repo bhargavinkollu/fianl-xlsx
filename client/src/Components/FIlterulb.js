@@ -29,7 +29,7 @@ export const FIlterulb = () => {
     }
   }, [dispatch, isAuthenticated, navigate, user])
   const searchdistrict = async (e) => {
-    const res = await axios.post("/api/auth/searchall", {
+    const res = await axios.post("/api/auth/getxlsxfile", {
       "District": district,
     });
     console.log(res.data);
@@ -47,7 +47,7 @@ export const FIlterulb = () => {
   const fmap = () => {
     try {
       // console.log(data);
-      const ffmap = getUniqueBy(filedata, "ULB Name").map((row, index) => {
+      const ffmap = getUniqueBy(filterdata, "ULB Name").map((row, index) => {
         if(obj[row["ULB Name"]]=== undefined){
           obj[row["ULB Name"]]=0
         }
@@ -95,7 +95,7 @@ export const FIlterulb = () => {
   console.log(obj);
   const searchdis = async (event) => {
     console.log(event.target.value);
-    const res = await axios.post("/api/auth/searchall", {
+    const res = await axios.post("/api/auth/getxlsxfile", {
       "Name of the District": district,
       year: event.target.value,
     });

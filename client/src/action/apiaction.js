@@ -4,7 +4,7 @@ import axios from "axios";
 export const apidata =()=> async(dispatch)=> {
   try {
     dispatch({ type: API_REQUEST });
-    const { data } = await axios.get("/api/auth/getxlsxfile");
+    const { data } = await axios.post("/api/auth/getxlsxfile");
     // console.log(data);
 
     dispatch({ type: API_SUCCESS, payload:data});

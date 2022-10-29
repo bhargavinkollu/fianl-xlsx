@@ -95,7 +95,7 @@ router.route("/adminregister").post(register);
 router.route("/employregister").post(employregister);
 router.route("/login").post(login);
 router.route("/employlogin").post(employylogin);
-router.route("/getxlsxfile").get(xlsxget);
+router.route("/getxlsxfile").post(xlsxget);
 router.route("/finddata").post(filterdata);
 router.route("/slumidsearch").post(slumidsearch);
 router.route("/searchall").post(searchsgidwithdist);
