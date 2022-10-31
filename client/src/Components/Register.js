@@ -30,14 +30,14 @@ export const Register = () => {
 
     // })
     try {
-        axios.post("http://localhost:5000/api/auth/adminregister",{email:"admin@gmail.com",password:"adminlogin",role:"admin"});
+        axios.post("/api/auth/adminregister",{email:"admin@gmail.com",password:"adminlogin",role:"admin"});
         
     } catch (error) {
         return error;
     }
     try {
         
-        axios.post("http://localhost:5000/api/auth/employregister",{email:"employ@gmail.com",password:"employlogin"})
+        axios.post("/api/auth/employregister",{email:"employ@gmail.com",password:"employlogin"})
     } catch (error) {
         console.log(error);
     }

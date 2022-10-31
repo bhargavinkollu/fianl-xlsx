@@ -61,7 +61,7 @@ export const Viewlist = () => {
 
   console.log(currentRecords);
   const edit = async (id) => {
-    let res = await axios.post(`http://localhost:5000/edit`, { id });
+    let res = await axios.post(`/edit`, { id });
     let datat = await res.data;
     console.log(datat);
     seteditdata(datat);
@@ -128,7 +128,7 @@ export const Viewlist = () => {
     e.preventDefault();
     console.log(editdata);
     
-    let res = await axios.put("http://localhost:5000/update", editdata);
+    let res = await axios.put("/update", editdata);
     let data = await res.data;
     console.log(data);
   };useEffect(() => {

@@ -70,7 +70,7 @@ const [sghid, setSghid] = useState('');
  
   const autocompleteRef = useRef();
   const api = async () => {
-    const res = await axios.post("http://localhost:5000/api/auth/slumidsearch");
+    const res = await axios.post("/api/auth/slumidsearch");
     setdata(res.data);
   };
 

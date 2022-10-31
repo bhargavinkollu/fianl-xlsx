@@ -30,7 +30,7 @@ export const Filtershg = () => {
   const { slf, district, ulb, tlfname } = useParams();
   console.log(slf);
   const api = async () => {
-    const res = await axios.get("http://localhost:5000/api/auth/searchall");
+    const res = await axios.get("/api/auth/searchall");
     setData(res.data);
   };
   const searchdistrict = async (event) => {
