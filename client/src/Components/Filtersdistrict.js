@@ -36,13 +36,13 @@ export const Filtersdistrict = () => {
   const searchdistrict = async (e) => {
     const res = await axios.post("/api/auth/getxlsxfile");
     setfilterdata(res.data);
-    console.log(res.data.length);
+    // console.log(res.data.length);
   };
   const [uploadcount, setUploadcount] = useState([]);
   const searchdistrictcount = async (e) => {
     const res = await axios.post("/api/auth/searchall");
     setUploadcount(res.data);
-    console.log(res.data.length);
+    // console.log(res.data.length);
   };
   let obj = {};
 
@@ -61,19 +61,19 @@ export const Filtersdistrict = () => {
   }, []);
 
 
-  console.log(obj);
+  // console.log(obj);
   let loanobj = {};
   const searchdis = async (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     const res = await axios.post("/api/auth/getxlsxfile", {
       year: event.target.value,
     });
-    console.log(res.data);
+    // console.log(res.data);
     setfilterdata(res.data);
   };
 
   filedata.forEach((item) => {
-    console.log(item);
+    // console.log(item);
     //console.log(loanobj[item.name]) this return as undefined
     if (!loanobj[item["District"]]) {
       loanobj[item["District"]] = 1;
@@ -87,7 +87,7 @@ let Districtaa=""
     //console.log(loanobj[item.name]) this return as undefined
    
   });
-console.log(Districtaa);
+// console.log(Districtaa);
   // console.log(loanobj);
 
   // console.log(filterdata);

@@ -20,12 +20,12 @@ export const Filter = () => {
   if (isAuthenticated === false) {
     navigate("/");
   }
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
 
   const handle = (e) => {
     setValue("");
     setfilterdata("");
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setfilter(e.target.value);
   };
 
@@ -115,11 +115,11 @@ export const Filter = () => {
 
   const handleChange = async (name) => {
     setValue("");
-    console.log(name.name);
-    console.log(name.valued);
+    // console.log(name.name);
+    // console.log(name.valued);
 
     setValue(name.valued);
-    console.log(name.valued);
+    // console.log(name.valued);
     const res = await axios.post("/api/auth/slumidsearch", {
       [name.name]: name.valued,
     });
@@ -131,7 +131,7 @@ export const Filter = () => {
     const res = await axios.post("/api/auth/slumidsearch", {
       [suggest.name]: vl,
     });
-    console.log(nam);
+    // console.log(nam);
     setfilterdata(res.data);
 
     setValue(suggest.suggest);
@@ -190,7 +190,7 @@ export const Filter = () => {
                   {showSuggestions && (
                     <datalist id="list" className="suggestions">
                       {suggestions.map((suggestion) => {
-                        console.log(suggestion);
+                        // console.log(suggestion);
                         return (
                           <option
                             style={{ listStyleType: "none" }}
@@ -243,7 +243,7 @@ export const Filter = () => {
                   {showSuggestions && (
                     <datalist id="list" className="suggestions">
                       {suggestionsulb.map((suggestion) => {
-                        console.log(suggestion);
+                        // console.log(suggestion);
                         return (
                           <option
                             style={{ listStyleType: "none" }}
@@ -296,7 +296,7 @@ export const Filter = () => {
                   {showSuggestions && (
                     <datalist id="list" className="suggestions">
                       {suggestionstlf.map((suggestion) => {
-                        console.log(suggestion);
+                        // console.log(suggestion);
                         return (
                           <option
                             style={{ listStyleType: "none" }}
@@ -350,7 +350,7 @@ export const Filter = () => {
                   {showSuggestions && (
                     <datalist id="list" className="suggestions">
                       {suggestionsslf.map((suggestion) => {
-                        console.log(suggestion);
+                        // console.log(suggestion);
                         return (
                           <option
                             style={{ listStyleType: "none" }}
@@ -403,7 +403,7 @@ export const Filter = () => {
                   {showSuggestions && (
                     <datalist id="list" className="suggestions">
                       {suggestionssgh.map((suggestion) => {
-                        console.log(suggestion);
+                        // console.log(suggestion);
                         return (
                           <option
                             style={{ listStyleType: "none" }}

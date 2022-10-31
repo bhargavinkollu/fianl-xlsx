@@ -103,12 +103,12 @@ const [sghid, setSghid] = useState('');
 
   const handleChange = async (name) => {
     setValue("");
-    console.log(name.name);
-    console.log(name.valued);
+    // console.log(name.name);
+    // console.log(name.valued);
     setSghid(name.valued)
 
     setValue(name.valued);
-    console.log(name.valued);
+    // console.log(name.valued);
     const res = await axios.post("/api/auth/slumidsearch", {
       [name.name]: name.valued,
     });
@@ -120,20 +120,20 @@ const [sghid, setSghid] = useState('');
     const res = await axios.post("/api/auth/slumidsearch", {
       [suggest.name]: vl,
     });
-    console.log(nam);
+    // console.log(nam);
     setfilterdata(res.data);
 
     setValue(suggest.suggest);
     setShowSuggestions(false);
   };
   const searchdis = async (event) => {
-    console.log(sghid);
-    console.log(event.target.value);
+    // console.log(sghid);
+    // console.log(event.target.value);
     const res = await axios.post("/api/auth/searchall", {
       SHGID:sghid,
       year: event.target.value,
     });
-    console.log(res.data);
+    // console.log(res.data);
     setfilterdata(res.data);
   };
   return (
@@ -204,7 +204,7 @@ const [sghid, setSghid] = useState('');
                   {showSuggestions && (
                     <datalist id="list" className="suggestions">
                       {suggestions.map((suggestion) => {
-                        console.log(suggestion);
+                        // console.log(suggestion);
                         return (
                           <option
                             style={{ listStyleType: "none" }}

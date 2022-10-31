@@ -28,7 +28,7 @@ export const EmployeeLogin = () => {
   const Submittion = (e) => {
     e.preventDefault();
     setEmployeeData(employeeData);
-    console.log(employeeData);
+    // console.log(employeeData);
     try {
       dispatch(emplyelogin(employeeData.username, employeeData.userpwd));
     } catch (error) {

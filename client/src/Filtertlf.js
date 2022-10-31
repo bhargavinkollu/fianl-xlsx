@@ -50,7 +50,7 @@ export const Filtertlf = () => {
   const searchdistrictcount = async (e) => {
     const res = await axios.post("/api/auth/searchall");
     setUploadcount(res.data);
-    console.log(res.data.length);
+    // console.log(res.data.length);
   };
   let obj = {};
 
@@ -67,7 +67,7 @@ export const Filtertlf = () => {
   let loanobj = {};
 
   filedata.forEach((item) => {
-    console.log(loanobj[item.name]) 
+    // console.log(loanobj[item.name]) 
     if (!loanobj[item["TLF Name"]]) {
       loanobj[item["TLF Name"]] = 1;
     } else {
@@ -82,7 +82,7 @@ export const Filtertlf = () => {
     try {
       const ffmap = getUniqueBy(filterdata, "TLF Name").map((row, index) => {
         // console.log(obj[row]);
-        console.log(obj[row["TLF Name"]]);
+        // console.log(obj[row["TLF Name"]]);
         if(obj[row["TLF Name"]]=== undefined){
           obj[row["TLF Name"]]=0
         }

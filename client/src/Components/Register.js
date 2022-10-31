@@ -23,7 +23,7 @@ export const Register = () => {
   const Submittion = (e) => {
     e.preventDefault();
     setAdminData(adminData);
-    console.log(adminData);
+    // console.log(adminData);
     // setAdminData({
     //   username: "",
     //   userpwd: "",

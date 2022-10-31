@@ -11,7 +11,7 @@ import { LOader } from "./LOader";
 export const Filtershg = () => {
   const [data, setData] = useState([]);
   const [year, setYear] = useState();
-  console.log(year);
+  // console.log(year);
   const dispatch=useDispatch
   const navigate=useNavigate()
   const { user, isAuthenticated, error, loading, success, isUpdated } =
@@ -28,7 +28,7 @@ export const Filtershg = () => {
   }, [dispatch, isAuthenticated, navigate, user])
   const [filterdata, setfilterdata] = useState([]);
   const { slf, district, ulb, tlfname } = useParams();
-  console.log(slf);
+  // console.log(slf);
   const api = async () => {
     const res = await axios.get("/api/auth/searchall");
     setData(res.data);
@@ -38,16 +38,16 @@ export const Filtershg = () => {
       "SLF Name": slf,
       year,
     });
-    console.log(res.data);
+    // console.log(res.data);
     setfilterdata(res.data);
   };
   const searchdis = async (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     const res = await axios.post("/api/auth/searchall", {
       "SLF Name": slf,
       year:event.target.value,
     });
-    console.log(res.data);
+    // console.log(res.data);
     setfilterdata(res.data);
   };
   useEffect(() => {
@@ -94,7 +94,7 @@ export const Filtershg = () => {
   const fileExtension = ".xlsx";
   const downloadExcel = () => {
     const ws = XLSX.utils.json_to_sheet(filterdata);
-    console.log(ws);
+    // console.log(ws);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     const data = new Blob([excelBuffer], { type: fileType });

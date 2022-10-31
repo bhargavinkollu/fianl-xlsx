@@ -46,10 +46,10 @@ app.post("/edit", async (req, res) => {
 app.put("/update", async (req, res) => {
   let objid = req.body._id;
   let data = req.body;
-  console.log(data);
+  // console.log(data);
 
   // const {"Name of the District","Name of the ULB"}=req.body
-  console.log(data["Name of the District"]);
+  // console.log(data["Name of the District"]);
 
   let updatadata = await Excell.findByIdAndUpdate(objid, {
     ["State"]: data["State"],
@@ -70,7 +70,7 @@ app.put("/update", async (req, res) => {
     ["Phone Number"]: data["Phone Number"],
    
   });
-  console.log(updatadata);
+  // console.log(updatadata);
   res.json({ success: "update" });
 });
 

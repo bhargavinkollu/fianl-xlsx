@@ -332,7 +332,7 @@ export const Uploadexcle = () => {
   // };
   const handle = () => {
     const kk = Object.keys(data[0]);
-    console.log(kk);
+    // console.log(kk);
     setObjj(kk);
   };
   return (
@@ -362,7 +362,7 @@ export const Uploadexcle = () => {
 
             {data.map((item, index) => {
               objj.map((itemo, indexo) => {
-                console.log(item[itemo]);
+                // console.log(item[itemo]);
          
                 return (
                   <>

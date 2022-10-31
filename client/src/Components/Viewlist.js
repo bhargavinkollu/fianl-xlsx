@@ -48,25 +48,25 @@ export const Viewlist = () => {
   const handledistrictSuggestionClick = async (suggest) => {
     let vl = suggest.suggest;
     let nam = suggest.name;
-    console.log(vl, nam);
+    // console.log(vl, nam);
 
-    console.log(nam);
-
+    // console.log(nam);
+// 
     setValue(suggest.suggest);
     setShowSuggestions(false);
   };
   ////
   let pagelimit = 20;
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
 
-  console.log(currentRecords);
+  // console.log(currentRecords);
   const edit = async (id) => {
     let res = await axios.post(`/edit`, { id });
     let datat = await res.data;
-    console.log(datat);
+    // console.log(datat);
     seteditdata(datat);
     // setflag(false)
-    console.log(datat);
+    // console.log(datat);
   };
   const fmap = () => {
     try {
@@ -126,13 +126,13 @@ export const Viewlist = () => {
 
   const update = async (e) => {
     e.preventDefault();
-    console.log(editdata);
+    // console.log(editdata);
     
     let res = await axios.put("/update", editdata);
     let data = await res.data;
-    console.log(data);
+    // console.log(data);
   };useEffect(() => {
-    console.log(user);
+    // console.log(user);
     if (user) {
       if (user.role === "user") {
         dispatch(logout());

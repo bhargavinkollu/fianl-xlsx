@@ -29,7 +29,7 @@ const uploadXLSX = async (req, res, next) => {
         message: "xml sheet has no data",
       });
     }
-    console.log(Object.keys(jsonData[0]));
+    // console.log(Object.keys(jsonData[0]));
     if (
       Object.keys(jsonData[0])[0] !== "State" ||
       Object.keys(jsonData[0])[1] !== "District" ||

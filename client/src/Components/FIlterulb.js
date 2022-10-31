@@ -17,7 +17,7 @@ export const FIlterulb = () => {
   const [data, setData] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
   const { district } = useParams();
-  console.log(district);
+  // console.log(district);
   useEffect(() => {
     if (user) {
       if (user.role === "user") {
@@ -32,8 +32,8 @@ export const FIlterulb = () => {
     const res = await axios.post("/api/auth/getxlsxfile", {
       "District": district,
     });
-    console.log(res.data);
-    console.log(res.data.length);
+    // console.log(res.data);
+    // console.log(res.data.length);
 
     setfilterdata(res.data);
   };
@@ -41,7 +41,7 @@ export const FIlterulb = () => {
   const searchdistrictcount = async (e) => {
     const res = await axios.post("/api/auth/searchall");
     setUploadcount(res.data);
-    console.log(res.data.length);
+    // console.log(res.data.length);
   };
   let obj = {};
 
@@ -98,17 +98,17 @@ export const FIlterulb = () => {
     }
   });
 
-  console.log(loanobj);
+  // console.log(loanobj);
 
   
-  console.log(obj);
+  // console.log(obj);
   const searchdis = async (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     const res = await axios.post("/api/auth/getxlsxfile", {
       "Name of the District": district,
       year: event.target.value,
     });
-    console.log(res.data);
+    // console.log(res.data);
     setfilterdata(res.data);
   };
 

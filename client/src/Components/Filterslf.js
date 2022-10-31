@@ -11,7 +11,7 @@ export const Filterslf = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
 
   const { tlfname, district, ulb } = useParams();
-  console.log(tlfname);
+  // console.log(tlfname);
   const [data, setData] = useState([]);
   const [year, setYear] = useState("");
   const dispatch=useDispatch
@@ -37,7 +37,7 @@ export const Filterslf = () => {
 
   const searchdistrict = async (e) => {
     const res = await axios.post("/api/auth/getxlsxfile", { "TLF Name": tlfname });
-    console.log(res.data);
+    // console.log(res.data);
     setfilterdata(res.data);
   };
   useEffect(() => {
@@ -48,7 +48,7 @@ export const Filterslf = () => {
   const searchdistrictcount = async (e) => {
     const res = await axios.post("/api/auth/searchall");
     setUploadcount(res.data);
-    console.log(res.data.length);
+    // console.log(res.data.length);
   };
   let obj = {};
 
@@ -60,7 +60,7 @@ export const Filterslf = () => {
       obj[item["SLF Name"]] += 1;
     }
   });
-  console.log(obj);
+  // console.log(obj);
   let loanobj = {};
 
   filedata.forEach((item) => {
@@ -72,10 +72,10 @@ export const Filterslf = () => {
     }
   });
 
-  console.log(loanobj);
+  // console.log(loanobj);
   const fmap = () => {
     try {
-      console.log(year);
+      // console.log(year);
       const ffmap = getUniqueBy(filterdata, "SLF Name").map(
         (row, index) => {
           if(obj[row["SLF Name"]]=== undefined){
@@ -105,12 +105,12 @@ export const Filterslf = () => {
     }
   };
   const searchdis = async (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     const res = await axios.post("/api/auth/searchall", {
       "TLF NAME": tlfname,
       year: event.target.value,
     });
-    console.log(res.data);
+    // console.log(res.data);
     setfilterdata(res.data);
   };
 

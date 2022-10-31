@@ -13,7 +13,7 @@ async function isEmailValid(email) {
 }
 
 exports.employregister = catchAsyncerror(async (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { email, password, role } = req.body;
 
   if (!email || !password) {
@@ -45,7 +45,7 @@ exports.employregister = catchAsyncerror(async (req, res, next) => {
   }
 });
 exports.register = catchAsyncerror(async (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { email, password, role } = req.body;
 
   if (!email || !password) {
@@ -122,7 +122,7 @@ exports.login = catchAsyncerror(async (req, res, next) => {
 
 exports.xlsxget = catchAsyncerror(async (req, res, next) => {
   let reqdata=req.body
-  console.log(reqdata);
+  // console.log(reqdata);
   const data = await Excell.find(reqdata, { __v: 0 });
   return res.status(200).json(data);
 });
@@ -159,7 +159,7 @@ exports.uploadform = catchAsyncerror(async (req, res, next) => {
       sghid: sgid,
       year: data[0]["year"],
     });
-    console.log(user);
+    // console.log(user);/////
     if (data[0]["year"] === undefined) {
       return res
         .status(500)

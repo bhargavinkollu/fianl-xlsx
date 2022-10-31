@@ -26,7 +26,7 @@ export const BankForm = () => {
   if (user === null) {
     navigate("/employeelogin");
   }
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
 
   useEffect(() => {
     if (error) {
@@ -549,7 +549,7 @@ export const BankForm = () => {
     const res = await axios.post("/api/auth/finddata", {
       "SHG Id": SHGID,
     });
-    console.log(res.data);
+    // console.log(res.data);
     setBankdetail({
       ...bankdetail,
       SHGID: res.data[SHGID],
