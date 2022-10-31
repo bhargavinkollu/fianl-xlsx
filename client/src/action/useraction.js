@@ -20,7 +20,7 @@ import {
   VIEW_LIST_SUCCESS,
 } from "../constant/userconstant";
 import axios from "axios";
-const bashurl = "http://localhost:5000";
+// const bashurl = "http://localhost:5000";
 export const login = (email, password) => async (dispatch) => {
   try {
     console.log(email, password);
