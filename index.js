@@ -1,4 +1,5 @@
 const express = require("express");
+const UploadFormData = require("./model/Form");
 
 const Excell = require("./model/xlsx");
 var multer = require("multer");
@@ -73,12 +74,12 @@ if (process.env.NODE_ENV === "production") {
 //   // console.log(updatadata);
 //   res.json({ success: "update" });
 // });
-app.delete("/deleteclient",async(req,res)=>{
-  const Excell = require("../model/xlsx");
-
+app.post("/deleteclient",async(req,res)=>{
+  UploadFormData.deleteMany()
+  return res.json("deleted");
 })
 app.delete("/deleteclientxlsx",async(req,res)=>{
-
+  F
 })
 app.listen(process.env.PORT, () => {
   console.log(`server is running on ${process.env.PORT}`);

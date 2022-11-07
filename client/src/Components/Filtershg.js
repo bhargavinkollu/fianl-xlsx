@@ -42,7 +42,6 @@ export const Filtershg = () => {
       })
       .then((res) => (setfilterdata(res.data), setnewloading(false)));
 
-
     // console.log(res.data);
     setfilterdata(res.data);
   };
@@ -83,15 +82,19 @@ export const Filtershg = () => {
         return (
           // {Object}.key(filterdata[0]),
           <tr>
-            {Object.keys(filterdata[0]).filter((item, index) => {
-        return item !== "_id";
-      }).map((key, index) => {
-              // console.log(row["SHG ID"]);
-              const rooo = Object.keys(filterdata[0]).filter((item, index) => {
-                // console. log(item);
-              });
-              return <td>{row[key]}</td>;
-            })}
+            {Object.keys(filterdata[0])
+              .filter((item, index) => {
+                return item !== "_id";
+              })
+              .map((key, index) => {
+                // console.log(row["SHG ID"]);
+                const rooo = Object.keys(filterdata[0]).filter(
+                  (item, index) => {
+                    // console. log(item);
+                  }
+                );
+                return <td>{row[key]}</td>;
+              })}
           </tr>
         );
       });
@@ -102,12 +105,14 @@ export const Filtershg = () => {
   };
   const hmap = () => {
     try {
-      const hhmap = Object.keys(filterdata[0]).filter((item, index) => {
-        return item !== "_id";
-      }).map((heading) => {
-        // console.log(heading);
-        return <th>{heading}</th>;
-      });
+      const hhmap = Object.keys(filterdata[0])
+        .filter((item, index) => {
+          return item !== "_id";
+        })
+        .map((heading) => {
+          // console.log(heading);
+          return <th>{heading}</th>;
+        });
       return hhmap;
     } catch (error) {
       console.log(error);
@@ -205,10 +210,11 @@ export const Filtershg = () => {
                 {" "}
                 Uploaded
               </button>
-              <button className="btn btn-primary" onClick={notuploadshgid}>
-                {" "}
-                Not Uploaded
-              </button>
+              <button
+                className="btn btn-primary"
+                onClick={notuploadshgid}
+              >notuploaded</button>
+           
               {loading ? (
                 <LOader />
               ) : filterdata.length >= 1 ? (

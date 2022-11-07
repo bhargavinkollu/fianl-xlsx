@@ -148,7 +148,9 @@ export const Viewlist = () => {
     }
   
   }, [dispatch, filedata, isAuthenticated, navigate, user,update]);
-  
+  const deletedata=()=>{
+    axios.post("http://localhost:5000/deleteclient")
+  }
   const modeldata = () => {
     const modelbox = (
       <div
@@ -215,7 +217,9 @@ export const Viewlist = () => {
       <div className="viewlistboarder">
         <SideNavigation />
         <Header />
-
+        <button className="btn btn-primary" onClick={deletedata}>
+                deletedata
+              </button>
         {/* <button onClick={sgg}>asa</button> */}
 
         {showSuggestions && (
