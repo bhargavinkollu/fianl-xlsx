@@ -27,7 +27,7 @@ exports.employregister = catchAsyncerror(async (req, res, next) => {
       const { valid, reason, validators } = await isEmailValid(email);
       // console.log(validators);
 
-  if (user) {
+      if (user) {
         return res.status(500).json("user already registered");
       } else {
         const userData = await Employy.create({
@@ -121,9 +121,11 @@ exports.login = catchAsyncerror(async (req, res, next) => {
 });
 
 exports.xlsxget = catchAsyncerror(async (req, res, next) => {
-  let reqdata=req.body
+  let reqdata = req.body;
   // console.log(reqdata);
   const data = await Excell.find(reqdata, { __v: 0 });
+  // console.log(data);
+
   return res.status(200).json(data);
 });
 
@@ -134,18 +136,17 @@ exports.filterdata = catchAsyncerror(async (req, res, next) => {
   return res.status(200).json(data);
 });
 exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
-  const sghid = req.body
+  const sghid = req.body;
+  console.log(sghid);
 
-  const data = await UploadFormData.find(sghid,{_id:0,__v:0});
-  // console.log(data);
-  // const data = await UploadFormData.find();
-
+  const data = await UploadFormData.find(sghid, { _id: 0, __v: 0 });
+// console.log(data);
   return res.status(200).json(data);
- 
 });
 exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
-  let reqdata=req.body
-  const data = await UploadFormData.find(reqdata,{_id:0,__v:0});
+  let reqdata = req.body;
+  console.log(reqdata);
+  const data = await UploadFormData.find(reqdata, { _id: 0, __v: 0 });
   // console.log(data);
   return res.status(200).json(data);
 });
@@ -237,3 +238,47 @@ const sendToken = (user, statusCode, res) => {
     token,
   });
 };
+
+/////edit data////
+exports.edit = catchAsyncerror(async (req, res) => {
+  let uid = req.body.id;
+  // console.log(req);
+  let data = await Excell.findById({ _id: uid });
+  // console.log(data);
+  return res.json(data);
+});
+exports.update = catchAsyncerror(async (req, res) => {
+  try {
+    let objid = req.body._id;
+    let data = req.body;
+    // console.log(data);
+
+    // const {"Name of the District","Name of the ULB"}=req.body
+    // console.log(data["Name of the District"]);
+
+    let updatadata = await Excell.findByIdAndUpdate(objid, {
+      ["State"]: data["State"],
+      ["District"]: data["District"],
+      ["ULB Name"]: data["ULB Name"],
+      ["TLF Name"]: data["TLF Name"],
+      ["SLF Name"]: data["SLF Name"],
+      ["SLF ID"]: data["SLF ID"],
+      ["Ward Name"]: data["Ward Name"],
+      ["Slum Name"]: data["Slum Name"],
+      ["SHG Id"]: data["SHG Id"],
+      ["SHG Name"]: data["SHG Name"],
+      ["Date of Formation"]: data["Date of Formation"],
+      ["Account Number"]: data["Account Number"],
+      ["Bank Name"]: data["Bank Name"],
+      ["Bank Branch"]: data["Bank Branch"],
+      ["IFSC Code"]: data["IFSC Code"],
+      ["Phone Number"]: data["Phone Number"],
+    });
+    // console.log(updatadata);
+    res.json({ success: "update" });
+  } catch (error) {
+    res.json({ success: err });
+  }
+});
+
+/////edit data////

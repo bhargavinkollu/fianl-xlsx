@@ -137,6 +137,16 @@ export const Filter = () => {
     setValue(suggest.suggest);
     setShowSuggestions(false);
   };
+  function getCurrentFinancialYear() {
+    var financial_year = "";
+    var today = new Date();
+    if ((today.getMonth() + 1) <= 3) {
+        financial_year = (new Date ().getFullYear() - 1).toString().slice(2) + "-" + today.getFullYear()
+    } else {
+        financial_year = nsns+ "-" + (today.getFullYear() + 1).toString().slice(2) 
+    }
+    return financial_year;
+}
   return (
     <div className="viewlisttop">
     <div className="viewlistboarder">

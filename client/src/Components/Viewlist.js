@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { apidata } from "../action/apiaction";
 import { logout } from "../action/useraction";
 import { Header } from "./Header";
 import { LOader } from "./LOader";
@@ -13,15 +14,15 @@ export const Viewlist = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
   const [editdata, seteditdata] = useState([]);
   const [sghfilter, setsghfilter] = useState([]);
-
+  
   const [currentPage, setCurrentPage] = useState(1);
-
+  
   const [recordsPerPage] = useState(10);
   const indexOfLastRecord = currentPage * recordsPerPage;
 
   const nPages = Math.ceil(sghfilter.length / recordsPerPage);
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-
+  
   let currentRecords = sghfilter.slice(indexOfFirstRecord, indexOfLastRecord);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,9 +62,9 @@ export const Viewlist = () => {
 
   // console.log(currentRecords);
   const edit = async (id) => {
-    let res = await axios.post(`/edit`, { id });
+    let res = await axios.post('/api/auth/edit', { id });
     let datat = await res.data;
-    // console.log(datat);
+    console.log(datat);
     seteditdata(datat);
     // setflag(false)
     // console.log(datat);
@@ -128,12 +129,16 @@ export const Viewlist = () => {
     e.preventDefault();
     // console.log(editdata);
     
-    let res = await axios.put("/update", editdata);
+    let res = await axios.put("/api/auth/update", editdata);
     let data = await res.data;
-    // console.log(data);
+    console.log(data);
+    if(data.success==="update"){
+
+    }
   };useEffect(() => {
     // console.log(user);
-    if (user) {
+
+    if (user) { 
       if (user.role === "user") {
         dispatch(logout());
         navigate("/employeelogin");
@@ -164,6 +169,7 @@ export const Viewlist = () => {
                     return item !== "_id";
                   })
                   .map((heading) => {
+                    console.log(heading);
                     return (
                       <>
                         <>

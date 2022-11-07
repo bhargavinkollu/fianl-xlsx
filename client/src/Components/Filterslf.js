@@ -104,6 +104,7 @@ export const Filterslf = () => {
       console.log(error);
     }
   };
+  // for year
   const searchdis = async (event) => {
     // console.log(event.target.value);
     const res = await axios.post("/api/auth/searchall", {
@@ -148,6 +149,7 @@ export const Filterslf = () => {
               </ol>
             </div>
             <select required onChange={searchdis}>
+            <label>Financial Year:</label>
               <option selected disabled value="">
                 year
               </option>

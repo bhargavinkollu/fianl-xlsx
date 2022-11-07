@@ -88,6 +88,8 @@ const {
   sghidsearch,
   searchsgidwithdist,
   slumidsearch,
+  update,
+  edit,
 } = require("../controllers/auth");
 const { STATES } = require("mongoose");
 
@@ -103,5 +105,7 @@ router.route("/uploadForm").post(uploadform);
 router.route("/upload").post(upload.single("xlsx"), uploadXLSX);
 router.route("/me").get(isAuthuser, dashboard);
 router.route("/logout").get(logout);
+router.route("/edit").post(edit);
+router.route("/update").put(update);
 
 module.exports = router;

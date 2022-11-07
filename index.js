@@ -36,44 +36,50 @@ if (process.env.NODE_ENV === "production") {
 
 // --------------------------deployment------------------------------
 
-app.post("/edit", async (req, res) => {
-  let uid = req.body.id;
-  // console.log(req);
-  let data = await Excell.findById({ _id: uid });
-  // console.log(data);
-  return res.json(data);
-});
-app.put("/update", async (req, res) => {
-  let objid = req.body._id;
-  let data = req.body;
-  // console.log(data);
+// app.post("/edit", async (req, res) => {
+//   let uid = req.body.id;
+//   // console.log(req);
+//   let data = await Excell.findById({ _id: uid });
+//   // console.log(data);
+//   return res.json(data);
+// });
+// app.put("/update", async (req, res) => {
+//   let objid = req.body._id;
+//   let data = req.body;
+//   // console.log(data);
 
-  // const {"Name of the District","Name of the ULB"}=req.body
-  // console.log(data["Name of the District"]);
+//   // const {"Name of the District","Name of the ULB"}=req.body
+//   // console.log(data["Name of the District"]);
 
-  let updatadata = await Excell.findByIdAndUpdate(objid, {
-    ["State"]: data["State"],
-    ["District"]: data["District"],
-    ["ULB Name"]: data["ULB Name"],
-    ["TLF Name"]: data["TLF Name"],
-    ["SLF Name"]: data["SLF Name"],
-    ["SLF ID"]: data["SLF ID"],
-    ["Ward Name"]: data["Ward Name"],
-    ["Slum Name"]: data["Slum Name"],
-    ["SHG Id"]: data["SHG Id"],
-    ["SHG Name"]: data["SHG Name"],
-    ["Date of Formation"]: data["Date of Formation"],
-    ["Account Number"]: data["Account Number"],
-    ["Bank Name"]: data["Bank Name"],
-    ["Bank Branch"]: data["Bank Branch"],
-    ["IFSC Code"]: data["IFSC Code"],
-    ["Phone Number"]: data["Phone Number"],
+//   let updatadata = await Excell.findByIdAndUpdate(objid, {
+//     ["State"]: data["State"],
+//     ["District"]: data["District"],
+//     ["ULB Name"]: data["ULB Name"],
+//     ["TLF Name"]: data["TLF Name"],
+//     ["SLF Name"]: data["SLF Name"],
+//     ["SLF ID"]: data["SLF ID"],
+//     ["Ward Name"]: data["Ward Name"],
+//     ["Slum Name"]: data["Slum Name"],
+//     ["SHG Id"]: data["SHG Id"],
+//     ["SHG Name"]: data["SHG Name"],
+//     ["Date of Formation"]: data["Date of Formation"],
+//     ["Account Number"]: data["Account Number"],
+//     ["Bank Name"]: data["Bank Name"],
+//     ["Bank Branch"]: data["Bank Branch"],
+//     ["IFSC Code"]: data["IFSC Code"],
+//     ["Phone Number"]: data["Phone Number"],
    
-  });
-  // console.log(updatadata);
-  res.json({ success: "update" });
-});
+//   });
+//   // console.log(updatadata);
+//   res.json({ success: "update" });
+// });
+app.delete("/deleteclient",async(req,res)=>{
+  const Excell = require("../model/xlsx");
 
+})
+app.delete("/deleteclientxlsx",async(req,res)=>{
+
+})
 app.listen(process.env.PORT, () => {
   console.log(`server is running on ${process.env.PORT}`);
 });

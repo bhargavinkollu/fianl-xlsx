@@ -24,7 +24,8 @@ import { Filtershg } from "./Components/Filtershg";
 function App() {
   const dispatch = useDispatch();
   dispatch(loaduser());
-dispatch(apidata())
+
+  dispatch(apidata())
 
 
 

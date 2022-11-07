@@ -12,20 +12,20 @@ export const Filtershg = () => {
   const [data, setData] = useState([]);
   const [year, setYear] = useState();
   // console.log(year);
-  const dispatch=useDispatch
-  const navigate=useNavigate()
+  const dispatch = useDispatch;
+  const navigate = useNavigate();
   const { user, isAuthenticated, error, loading, success, isUpdated } =
-  useSelector((state) => state.user);
- useEffect(() => {
-  if (user) {
-    if (user.role === "user") {
-      dispatch(logout());
-      navigate("/employeelogin");
-    }
-    } else  {
+    useSelector((state) => state.user);
+  useEffect(() => {
+    if (user) {
+      if (user.role === "user") {
+        dispatch(logout());
+        navigate("/employeelogin");
+      }
+    } else {
       navigate("/");
     }
-  }, [dispatch, isAuthenticated, navigate, user])
+  }, [dispatch, isAuthenticated, navigate, user]);
   const [filterdata, setfilterdata] = useState([]);
   const { slf, district, ulb, tlfname } = useParams();
   // console.log(slf);
@@ -34,10 +34,15 @@ export const Filtershg = () => {
     setData(res.data);
   };
   const searchdistrict = async (event) => {
-    const res = await axios.post("/api/auth/searchall", {
-      "SLF Name": slf,
-      year,
-    });
+    setnewloading(true);
+    const res = await axios
+      .post("/api/auth/searchall", {
+        "SLF Name": slf,
+        year,
+      })
+      .then((res) => (setfilterdata(res.data), setnewloading(false)));
+
+
     // console.log(res.data);
     setfilterdata(res.data);
   };
@@ -45,7 +50,7 @@ export const Filtershg = () => {
     // console.log(event.target.value);
     const res = await axios.post("/api/auth/searchall", {
       "SLF Name": slf,
-      year:event.target.value,
+      year: event.target.value,
     });
     // console.log(res.data);
     setfilterdata(res.data);
@@ -55,6 +60,21 @@ export const Filtershg = () => {
     searchdistrict();
   }, []);
 
+  const nsns = new Date().getFullYear().toString();
+  function getCurrentFinancialYear() {
+    var financial_year = "";
+    var today = new Date();
+    if (today.getMonth() + 1 <= 3) {
+      financial_year =
+        (new Date().getFullYear() - 1).toString().slice(2) +
+        "-" +
+        today.getFullYear();
+    } else {
+      financial_year =
+        nsns + "-" + (today.getFullYear() + 1).toString().slice(2);
+    }
+    return financial_year;
+  }
   const fmap = () => {
     try {
       // console.log(data);
@@ -63,7 +83,9 @@ export const Filtershg = () => {
         return (
           // {Object}.key(filterdata[0]),
           <tr>
-            {Object.keys(filterdata[0]).map((key, index) => {
+            {Object.keys(filterdata[0]).filter((item, index) => {
+        return item !== "_id";
+      }).map((key, index) => {
               // console.log(row["SHG ID"]);
               const rooo = Object.keys(filterdata[0]).filter((item, index) => {
                 // console. log(item);
@@ -80,7 +102,9 @@ export const Filtershg = () => {
   };
   const hmap = () => {
     try {
-      const hhmap = Object.keys(filterdata[0]).map((heading) => {
+      const hhmap = Object.keys(filterdata[0]).filter((item, index) => {
+        return item !== "_id";
+      }).map((heading) => {
         // console.log(heading);
         return <th>{heading}</th>;
       });
@@ -100,89 +124,117 @@ export const Filtershg = () => {
     const data = new Blob([excelBuffer], { type: fileType });
     FileSaver.saveAs(data, "excel" + fileExtension);
   };
+  const notuploadshgid = async () => {
+    console.log();
+    setnewloading(true);
+
+    const res = await axios
+      .post("/api/auth/getxlsxfile", {
+        "TLF Name": tlfname,
+      })
+      .then((res) => (setfilterdata(res.data), setnewloading(false)));
+    // console.log(res.data);
+  };
+  const [newloading, setnewloading] = useState(false);
+
   return (
     <div className="viewlisttop">
-    <div className="viewlistboarder">
-      <SideNavigation />
-      <Header />
-      <div className="AddFlex">
-        <div style={{ width: "70%", marginLeft: "30%"}}>
-          <div style={{ width: "100%" }}>
-            <button className="btn" onClick={downloadExcel}>
-              <i class="fa fa-download" aria-hidden="true"></i>
-            </button>
-          
-                <div className="breadcum">
-                  <ol class="breadcrumb">
-                    <Link to="/filter">
-                      <li class="breadcrumb-item active" aria-current="page">
-                        Home
-                      </li>
-                    </Link>
-                    /
-                    <Link to={`/filter/${district}`}>
-                      <li class="breadcrumb-item active" aria-current="page">
-                        {district}
-                      </li>
-                    </Link>
-                    /
-                    <Link to={`/filter/${district}/${ulb}`}>
-                      <li class="breadcrumb-item active" aria-current="page">
-                        {ulb}
-                      </li>
-                    </Link>
-                    /
-                    <Link to={`/filter/${district}/${ulb}/${tlfname}`}>
-                      <li class="breadcrumb-item active" aria-current="page">
-                        {tlfname}
-                      </li>
-                    </Link>
-                    /
+      <div className="viewlistboarder">
+        <SideNavigation />
+        <Header />
+        <div className="AddFlex">
+          <div style={{ width: "70%", marginLeft: "30%" }}>
+            <div style={{ width: "100%" }}>
+              <button className="btn" onClick={downloadExcel}>
+                <i class="fa fa-download" aria-hidden="true"></i>
+              </button>
+
+              <div className="breadcum">
+                <ol class="breadcrumb">
+                  <Link to="/filter">
                     <li class="breadcrumb-item active" aria-current="page">
-                      {slf}
+                      Home
                     </li>
-                  </ol>
-                  <select className="form-select-bg"required onChange={searchdis}>
-              <option selected disabled value="">
-                year
-              </option>
-              <option value="2020">2020-21</option>
-              <option value="2021">2021-22</option>
-              <option value="2022">2022-23</option>
-              <option value="2023">2023-24</option>
-              <option value="2024">2024-25</option>
-              <option value="2025">2025-26</option>
-              <option value="2026">2026-27</option>
-              <option value="2027">2027-28</option>
-              <option value="2028">2028-29</option>
-              <option value="2029">2029-30</option>
-              <option value="2030">2030-31</option>
-            </select>
-                </div>
-                {loading ?(<LOader/>):(
-                   
-                   filterdata.length >= 1 ? (
-                    <>
-                    <div
-                  style={{ overflow: "scroll" ,overflowY:"hidden"}}
-                  className="table-responsive"
+                  </Link>
+                  /
+                  <Link to={`/filter/${district}`}>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      {district}
+                    </li>
+                  </Link>
+                  /
+                  <Link to={`/filter/${district}/${ulb}`}>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      {ulb}
+                    </li>
+                  </Link>
+                  /
+                  <Link to={`/filter/${district}/${ulb}/${tlfname}`}>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      {tlfname}
+                    </li>
+                  </Link>
+                  /
+                  <li class="breadcrumb-item active" aria-current="page">
+                    {slf}
+                  </li>
+                </ol>
+                <label>Financial Year:</label>
+                <select
+                  className="form-select-bg"
+                  required
+                  onChange={searchdis}
                 >
-                  <table className="table" responsive="true">
-                    <thead>
-                      <tr>{hmap()}</tr>
-                    </thead>
-                    <tbody>{fmap()}</tbody>
-                  </table>
-                </div>
-              </>
-            ) : (
-              "no data found"
-              )
-                )                }
-                 
+                  <option selected value={getCurrentFinancialYear()}>
+                    Current year
+                  </option>
+                  <option value="2020-21">2020-21</option>
+                  <option value="2021-22">2021-22</option>
+                  <option value="2022-23">2022-23</option>
+                  <option value="2023-24">2023-24</option>
+                  <option value="2024-25">2024-25</option>
+                  <option value="2025-26">2025-26</option>
+                  <option value="2026-27">2026-27</option>
+                  <option value="2027-28">2027-28</option>
+                  <option value="2028-29">2028-29</option>
+                  <option value="2029-30">2029-30</option>
+                  <option value="2030-31">2030-31</option>
+                </select>
+              </div>
+              <button className="btn btn-primary" onClick={searchdistrict}>
+                {" "}
+                Uploaded
+              </button>
+              <button className="btn btn-primary" onClick={notuploadshgid}>
+                {" "}
+                Not Uploaded
+              </button>
+              {loading ? (
+                <LOader />
+              ) : filterdata.length >= 1 ? (
+                <>
+                  {newloading === true ? (
+                    <LOader />
+                  ) : (
+                    <div
+                      style={{ overflow: "scroll", overflowY: "hidden" }}
+                      className="table-responsive"
+                    >
+                      <table className="table" responsive="true">
+                        <thead>
+                          <tr>{hmap()}</tr>
+                        </thead>
+                        <tbody>{fmap()}</tbody>
+                      </table>
+                    </div>
+                  )}
+                </>
+              ) : (
+                "no data found"
+              )}
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   );
