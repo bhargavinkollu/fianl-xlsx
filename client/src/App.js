@@ -20,6 +20,7 @@ import { FIlterulb } from "./Components/FIlterulb";
 import { Filtertlf } from "./Filtertlf";
 import { Filterslf } from "./Components/Filterslf";
 import { Filtershg } from "./Components/Filtershg";
+import { Registeradmin } from "./Components/Registeradmin";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,13 +36,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Protectedrouteadmin><AdminLogin /></Protectedrouteadmin>}/>
+          <Route path="/adminregister" element={<Registeradmin/>}/>
           <Route path="/addlist" element={<AddList/>}/>
           <Route path="/viewlist" element={<Viewlist/>}/>
           <Route path="/bankform" element={<BankForm/>}/>
-          <Route path="/register" element={<Register/>}/>
+          <Route path="/employeeregister" element={<Register/>}/>
+          <Route path="/employeelogin" element={<Protectedrouteuser><EmployeeLogin/></Protectedrouteuser>}/>
           {/* <Route path="/filter" element={<Filter/>}/> */}
           <Route path="/checkgrade" element={<Checkgrade/>}/>
-          <Route path="/employeelogin" element={<Protectedrouteuser><EmployeeLogin/></Protectedrouteuser>}/>
           <Route path="/filter" element={<Filtersdistrict/>}/>
           <Route path="/filter/:district" element={<FIlterulb/>}/>
           <Route path="/filter/:district/:ulb" element={<Filtertlf/>}/>

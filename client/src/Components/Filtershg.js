@@ -16,6 +16,8 @@ export const Filtershg = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated, error, loading, success, isUpdated } =
     useSelector((state) => state.user);
+  const [newloading, setnewloading] = useState(false);
+
   useEffect(() => {
     if (user) {
       if (user.role === "user") {
@@ -140,7 +142,6 @@ export const Filtershg = () => {
       .then((res) => (setfilterdata(res.data), setnewloading(false)));
     // console.log(res.data);
   };
-  const [newloading, setnewloading] = useState(false);
 
   return (
     <div className="viewlisttop">

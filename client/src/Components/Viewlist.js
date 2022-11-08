@@ -217,9 +217,9 @@ export const Viewlist = () => {
       <div className="viewlistboarder">
         <SideNavigation />
         <Header />
-        <button className="btn btn-primary" onClick={deletedata}>
+        {/* <button className="btn btn-primary" onClick={deletedata}>
                 deletedata
-              </button>
+              </button> */}
         {/* <button onClick={sgg}>asa</button> */}
 
         {showSuggestions && (

@@ -33,5 +33,5 @@ userSchema.methods.getSignedToken = function () {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
-const User = mongoose.model("xlsxLogin", userSchema);
+const User = mongoose.model("adminLoginxlsx", userSchema);
 module.exports = User;

@@ -13,7 +13,7 @@ async function isEmailValid(email) {
 }
 
 exports.employregister = catchAsyncerror(async (req, res, next) => {
-  // console.log(req.body);
+  console.log(req.body);
   const { email, password, role } = req.body;
 
   if (!email || !password) {
@@ -23,10 +23,10 @@ exports.employregister = catchAsyncerror(async (req, res, next) => {
     return res.status(400).json("password must be 8 character long");
   }
   try {
-    User.findOne({ email }, async (err, user) => {
+    Employy.findOne({ email }, async (err, user) => {
       const { valid, reason, validators } = await isEmailValid(email);
       // console.log(validators);
-
+console.log(user);
       if (user) {
         return res.status(500).json("user already registered");
       } else {

@@ -781,7 +781,7 @@ export const BankForm = () => {
             <LOader />
           ) : (
             <>
-            {user.role==="admin"?(<Link to="/">
+            {user && user.role==="admin"?(<Link to="/">
             <button className="btn btn-primary" style={{position:"absolute",top:"10%",left:"10%"}}>Home</button>
             </Link>):("")}
               <div style={{ right: "40px" }} className="headertop">

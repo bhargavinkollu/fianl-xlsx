@@ -74,10 +74,12 @@ if (process.env.NODE_ENV === "production") {
 //   // console.log(updatadata);
 //   res.json({ success: "update" });
 // });
-app.post("/deleteclient",async(req,res)=>{
-  UploadFormData.deleteMany()
-  return res.json("deleted");
-})
+
+app.post("/deleteclient", async (req, res) => {
+  const user = await UploadFormData.deleteMany()
+
+  return res.json(user);
+});
 app.delete("/deleteclientxlsx",async(req,res)=>{
   
 })
