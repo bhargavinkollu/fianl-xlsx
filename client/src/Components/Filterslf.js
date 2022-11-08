@@ -120,35 +120,34 @@ export const Filterslf = () => {
     <div className="viewlistboarder">
       <SideNavigation />
       <Header />
-      <div className="AddFlex">
+      {loading ?(<LOader/>):(<div className="AddFlex">
         <div style={{ width: "70%", marginLeft: "30%" }}>
           <div style={{ width: "50%" }}>
             <div className="breadcum">
               <ol class="breadcrumb">
-                <Link to="/filter">
                   <li class="breadcrumb-item active" aria-current="page">
                     Home
                   </li>
-                </Link>
-                /
-                <Link to={`/filter/${district}`}>
+                
                   <li class="breadcrumb-item active" aria-current="page">
                     {district}
                   </li>
-                </Link>
-                /
-                <Link to={`/filter/${district}/${ulb}`}>
+                
                   <li class="breadcrumb-item active" aria-current="page">
                     {ulb}
                   </li>
-                </Link>
-                /
+                
                 <li class="breadcrumb-item active" aria-current="page">
                   {tlfname}
                 </li>
               </ol>
+              <Link to={`/filter/${district}/${ulb}`}>
+                  <li class="breadcrumb-item active" aria-current="page">
+                  <button className="btn btn-outline-dark">back</button>
+                  </li>
+                </Link>
             </div>
-            <select required onChange={searchdis}>
+            {/* <select required onChange={searchdis}>
             <label>Financial Year:</label>
               <option selected disabled value="">
                 year
@@ -164,8 +163,11 @@ export const Filterslf = () => {
               <option value="2028">2028-29</option>
               <option value="2029">2029-30</option>
               <option value="2030">2030-31</option>
-            </select>
+            </select> */}
             <div style={{ overflow: "scroll",overflowY:"hidden" ,overflowY:"hidden"}} className="table-responsive">
+                {loading ?(<LOader/>):(
+                filterdata.length >= 1 ? (
+                  <>
               <table className="table" responsive="true">
                 <thead>
                   <tr>
@@ -176,19 +178,16 @@ export const Filterslf = () => {
                     <th>Balance SHGs </th>
                   </tr>
                 </thead>
-                {loading ?(<LOader/>):(
-                filterdata.length >= 1 ? (
-                  <>
                     <tbody>{fmap()}</tbody>
+                  </table>
                   </>
                 ) : (
-                  "no data found"
-                ))}
-              </table>
+                  <><div> <h1>no data found</h1></div></>
+                  ))}
             </div>
           </div>
         </div>
-      </div>
+      </div>)}
     </div>
     </div>
   );

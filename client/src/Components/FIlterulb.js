@@ -9,11 +9,12 @@ import { SideNavigation } from "./SideNavigation";
 
 export const FIlterulb = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
-  const { user, isAuthenticated, error,  success, isUpdated } =
-  useSelector((state) => state.user);
+  const { user, isAuthenticated, error, success, isUpdated } = useSelector(
+    (state) => state.user
+  );
   const [year, setYear] = useState();
-  const dispatch=useDispatch
-  const navigate=useNavigate()
+  const dispatch = useDispatch;
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
   const { district } = useParams();
@@ -24,13 +25,13 @@ export const FIlterulb = () => {
         dispatch(logout());
         navigate("/employeelogin");
       }
-    } else  {
+    } else {
       navigate("/");
     }
-  }, [dispatch, isAuthenticated, navigate, user])
+  }, [dispatch, isAuthenticated, navigate, user]);
   const searchdistrict = async (e) => {
     const res = await axios.post("/api/auth/getxlsxfile", {
-      "District": district,
+      District: district,
     });
     // console.log(res.data);
     // console.log(res.data.length);
@@ -55,7 +56,7 @@ export const FIlterulb = () => {
   });
   useEffect(() => {
     searchdistrict();
-    searchdistrictcount()
+    searchdistrictcount();
   }, []);
   const getUniqueBy = (arr, prop) => {
     const set = new Set();
@@ -65,20 +66,19 @@ export const FIlterulb = () => {
     try {
       // console.log(data);
       const ffmap = getUniqueBy(filterdata, "ULB Name").map((row, index) => {
-        if(obj[row["ULB Name"]]=== undefined){
-          obj[row["ULB Name"]]=0
+        if (obj[row["ULB Name"]] === undefined) {
+          obj[row["ULB Name"]] = 0;
         }
-        
+
         return (
           <tr>
-             <td>{index+1}</td>
+            <td>{index + 1}</td>
             <Link to={row["ULB Name"]}>
               <td>{row["ULB Name"]}</td>
             </Link>
             <td>{loanobj[row["ULB Name"]]}</td>
-            <td>{obj[row["ULB Name"]]}</td> 
-            <td>{loanobj[row["ULB Name"]]-obj[row["ULB Name"]]}</td>
-
+            <td>{obj[row["ULB Name"]]}</td>
+            <td>{loanobj[row["ULB Name"]] - obj[row["ULB Name"]]}</td>
           </tr>
         );
       });
@@ -100,7 +100,6 @@ export const FIlterulb = () => {
 
   // console.log(loanobj);
 
-  
   // console.log(obj);
   const searchdis = async (event) => {
     // console.log(event.target.value);
@@ -114,67 +113,80 @@ export const FIlterulb = () => {
 
   return (
     <div className="viewlisttop">
-    <div className="viewlistboarder">
-      <SideNavigation />
-      <Header />
-      <div className="AddFlex">
-        <div style={{ width: "70%", marginLeft: "30%", }}>
-          <div style={{ width: "50%" }}>
-            <div className="breadcum">
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <Link to="/filter">
+      <div className="viewlistboarder">
+        <SideNavigation />
+        <Header />
+        <div className="AddFlex">
+          <div style={{ width: "70%", marginLeft: "30%" }}>
+            <div style={{ width: "50%" }}>
+              <div className="breadcum">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
                     <li class="breadcrumb-item active" aria-current="page">
                       Home
                     </li>
-                  </Link>
-                  /
+
+                    <li class="breadcrumb-item active" aria-current="page">
+                      {district}
+                    </li>
+                  </ol>
+                </nav>
+
+                <Link to="/filter">
                   <li class="breadcrumb-item active" aria-current="page">
-                    {district}
+                    <button className="btn btn-outline-dark">back</button>
                   </li>
-                </ol>
-              </nav>
-            </div>
-            <div style={{ overflow: "scroll" ,overflowY:"hidden"}} className="table-responsive">
-            <select required onChange={searchdis}>
-              <option selected disabled value="">
-                year
-              </option>
-              <option value="2020">2020-21</option>
-              <option value="2021">2021-22</option>
-              <option value="2022">2022-23</option>
-              <option value="2023">2023-24</option>
-              <option value="2024">2024-25</option>
-              <option value="2025">2025-26</option>
-              <option value="2026">2026-27</option>
-              <option value="2027">2027-28</option>
-              <option value="2028">2028-29</option>
-              <option value="2029">2029-30</option>
-              <option value="2030">2030-31</option>
-            </select>
-              <table className="table" responsive="true">
-                <thead>
-                  <tr>
-                    <th> S No </th>
-                    <th>ULB Name</th>
-                    <th>Total SHGs</th>
-                    <th>Uploaded SHGs</th>
-                    <th>Balance SHGs </th>
-                  </tr>
-                </thead>
-                {loading ?(<LOader/>):(
-                filterdata.length >= 1 ? (
+                </Link>
+              </div>
+              <div
+                style={{ overflow: "scroll", overflowY: "hidden" }}
+                className="table-responsive"
+              >
+                {/* <select required onChange={searchdis}>
+                  <option selected disabled value="">
+                    year
+                  </option>
+                  <option value="2020">2020-21</option>
+                  <option value="2021">2021-22</option>
+                  <option value="2022">2022-23</option>
+                  <option value="2023">2023-24</option>
+                  <option value="2024">2024-25</option>
+                  <option value="2025">2025-26</option>
+                  <option value="2026">2026-27</option>
+                  <option value="2027">2027-28</option>
+                  <option value="2028">2028-29</option>
+                  <option value="2029">2029-30</option>
+                  <option value="2030">2030-31</option>
+                </select> */}
+                {loading ? (
+                  <LOader />
+                ) : filterdata.length >= 1 ? (
                   <>
-                    <tbody>{fmap()}</tbody>
+                    <table className="table" responsive="true">
+                      <thead>
+                        <tr>
+                          <th> S No </th>
+                          <th>ULB Name</th>
+                          <th>Total SHGs</th>
+                          <th>Uploaded SHGs</th>
+                          <th>Balance SHGs </th>
+                        </tr>
+                      </thead>
+                      <tbody>{fmap()}</tbody>
+                    </table>
                   </>
                 ) : (
-                  "no data found"
-                ))}
-              </table>
+                  <>
+                    <div>
+                      {" "}
+                      <h1>no data found</h1>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   );

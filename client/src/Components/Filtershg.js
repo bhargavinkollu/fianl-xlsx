@@ -135,7 +135,7 @@ export const Filtershg = () => {
 
     const res = await axios
       .post("/api/auth/getxlsxfile", {
-        "TLF Name": tlfname,
+        "SLF Name": slf,
       })
       .then((res) => (setfilterdata(res.data), setnewloading(false)));
     // console.log(res.data);
@@ -156,89 +156,81 @@ export const Filtershg = () => {
 
               <div className="breadcum">
                 <ol class="breadcrumb">
-                  <Link to="/filter">
                     <li class="breadcrumb-item active" aria-current="page">
                       Home
                     </li>
-                  </Link>
-                  /
-                  <Link to={`/filter/${district}`}>
+                  
                     <li class="breadcrumb-item active" aria-current="page">
                       {district}
                     </li>
-                  </Link>
-                  /
-                  <Link to={`/filter/${district}/${ulb}`}>
+                  
                     <li class="breadcrumb-item active" aria-current="page">
                       {ulb}
                     </li>
-                  </Link>
-                  /
-                  <Link to={`/filter/${district}/${ulb}/${tlfname}`}>
+                  
                     <li class="breadcrumb-item active" aria-current="page">
                       {tlfname}
                     </li>
-                  </Link>
-                  /
+                  
                   <li class="breadcrumb-item active" aria-current="page">
                     {slf}
                   </li>
                 </ol>
-                <label>Financial Year:</label>
-                <select
-                  className="form-select-bg"
-                  required
-                  onChange={searchdis}
-                >
-                  <option selected value={getCurrentFinancialYear()}>
-                    Current year
-                  </option>
-                  <option value="2020-21">2020-21</option>
-                  <option value="2021-22">2021-22</option>
-                  <option value="2022-23">2022-23</option>
-                  <option value="2023-24">2023-24</option>
-                  <option value="2024-25">2024-25</option>
-                  <option value="2025-26">2025-26</option>
-                  <option value="2026-27">2026-27</option>
-                  <option value="2027-28">2027-28</option>
-                  <option value="2028-29">2028-29</option>
-                  <option value="2029-30">2029-30</option>
-                  <option value="2030-31">2030-31</option>
-                </select>
+                <Link to={`/filter/${district}/${ulb}/${tlfname}`}>
+                  <li class="breadcrumb-item active" aria-current="page">
+                  <button className="btn btn-outline-dark">back</button>
+                  </li>
+                </Link>
               </div>
-              <button className="btn btn-primary" onClick={searchdistrict}>
-                {" "}
-                Uploaded
-              </button>
-              <button
-                className="btn btn-primary"
-                onClick={notuploadshgid}
-              >notuploaded</button>
-           
-              {loading ? (
-                <LOader />
-              ) : filterdata.length >= 1 ? (
-                <>
-                  {newloading === true ? (
-                    <LOader />
-                  ) : (
-                    <div
-                      style={{ overflow: "scroll", overflowY: "hidden" }}
-                      className="table-responsive"
-                    >
-                      <table className="table" responsive="true">
-                        <thead>
-                          <tr>{hmap()}</tr>
-                        </thead>
-                        <tbody>{fmap()}</tbody>
-                      </table>
-                    </div>
-                  )}
-                </>
-              ) : (
-                "no data found"
-              )}
+              <label>Financial Year:</label>
+              <select className="form-select-bg" required onChange={searchdis}>
+                <option selected value={getCurrentFinancialYear()}>
+                  Current year:<br/>{getCurrentFinancialYear()}
+                </option>
+                <option value="2020-21">2020-21</option>
+                <option value="2021-22">2021-22</option>
+                <option value="2022-23">2022-23</option>
+                <option value="2023-24">2023-24</option>
+                <option value="2024-25">2024-25</option>
+                <option value="2025-26">2025-26</option>
+                <option value="2026-27">2026-27</option>
+                <option value="2027-28">2027-28</option>
+                <option value="2028-29">2028-29</option>
+                <option value="2029-30">2029-30</option>
+                <option value="2030-31">2030-31</option>
+              </select>
             </div>
+
+            <button className="btn btn-primary ml-1" onClick={searchdistrict}>
+              {" "}
+              Uploaded
+            </button>
+            <button className="btn btn-primary ml-1" onClick={notuploadshgid}>
+              notuploaded
+            </button>
+            {loading ? (
+              <LOader />
+            ) : filterdata.length >= 1 ? (
+              <>
+                {newloading === true ? (
+                  <LOader />
+                ) : (
+                  <div
+                    style={{ overflow: "scroll", overflowY: "hidden" }}
+                    className="table-responsive"
+                  >
+                    <table className="table" responsive="true">
+                      <thead>
+                        <tr>{hmap()}</tr>
+                      </thead>
+                      <tbody>{fmap()}</tbody>
+                    </table>
+                  </div>
+                )}
+              </>
+            ) : (
+             <><div> <h1>no data found</h1></div></>
+            )}
           </div>
         </div>
       </div>

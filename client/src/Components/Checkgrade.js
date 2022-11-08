@@ -126,7 +126,7 @@ export const Checkgrade = () => {
     console.log(getCurrentFinancialYear());
     const res = await axios.post("/api/auth/searchall", {
       SHGID: sghid,
-      year: "2022-23",
+      year: event.target.value
     });
     // console.log(res.data);
     setfilterdata(res.data);
@@ -200,8 +200,8 @@ console.log(filterdata.length );
                   <label>Financial Year:</label>
                   <select required onChange={searchdis}>
                     <option selected  value={getCurrentFinancialYear()}>
-                      Current year
-                    </option>
+                    Current year:<br/>{getCurrentFinancialYear()}
+                     </option>
                     
                     <option value="2020-21">2020-21</option>
                     <option value="2021-22">2021-22</option>

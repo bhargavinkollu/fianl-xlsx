@@ -67,7 +67,7 @@ export const Filtertlf = () => {
   let loanobj = {};
 
   filedata.forEach((item) => {
-    // console.log(loanobj[item.name]) 
+    // console.log(loanobj[item.name])
     if (!loanobj[item["TLF Name"]]) {
       loanobj[item["TLF Name"]] = 1;
     } else {
@@ -83,8 +83,8 @@ export const Filtertlf = () => {
       const ffmap = getUniqueBy(filterdata, "TLF Name").map((row, index) => {
         // console.log(obj[row]);
         // console.log(obj[row["TLF Name"]]);
-        if(obj[row["TLF Name"]]=== undefined){
-          obj[row["TLF Name"]]=0
+        if (obj[row["TLF Name"]] === undefined) {
+          obj[row["TLF Name"]] = 0;
         }
         return (
           // {Object}.key(filterdata[0]),
@@ -125,28 +125,29 @@ export const Filtertlf = () => {
             <div style={{ width: "50%" }}>
               <div className="breadcum">
                 <ol class="breadcrumb">
-                  <Link to="/filter">
-                    <li class="breadcrumb-item active" aria-current="page">
-                      Home
-                    </li>
-                  </Link>
-                  /
-                  <Link to={`/filter/${district}`}>
-                    <li class="breadcrumb-item active" aria-current="page">
-                      {district}
-                    </li>
-                  </Link>
-                  /
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Home
+                  </li>
+
+                  <li class="breadcrumb-item active" aria-current="page">
+                    {district}
+                  </li>
+
                   <li class="breadcrumb-item active" aria-current="page">
                     {ulb}
                   </li>
                 </ol>
+                <Link to={`/filter/${district}`}>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    <button className="btn btn-outline-dark">back</button>
+                  </li> 
+                </Link>
               </div>
               <div
                 style={{ overflow: "scroll", overflowY: "hidden" }}
                 className="table-responsive"
               >
-                <select required onChange={searchdis}>
+                {/* <select required onChange={searchdis}>
                   <option selected disabled value="">
                     year
                   </option>
@@ -161,27 +162,32 @@ export const Filtertlf = () => {
                   <option>2028</option>
                   <option>2029</option>
                   <option>2030</option>
-                </select>
-                <table className="table" responsive="true">
-                  <thead>
-                    <tr>
-                      <th> S No </th>
-                      <td>TLF Name</td>
-                      <th>Total SHGs</th>
-                      <th>Uploaded SHGs</th>
-                      <th>Balance SHGs </th>
-                    </tr>
-                  </thead>
-                  {loading ? (
-                    <LOader />
-                  ) : filterdata.length >= 1 ? (
-                    <>
+                </select> */}
+                {loading ? (
+                  <LOader />
+                ) : filterdata.length >= 1 ? (
+                  <>
+                    <table className="table" responsive="true">
+                      <thead>
+                        <tr>
+                          <th> S No </th>
+                          <td>TLF Name</td>
+                          <th>Total SHGs</th>
+                          <th>Uploaded SHGs</th>
+                          <th>Balance SHGs </th>
+                        </tr>
+                      </thead>
                       <tbody>{fmap()}</tbody>
-                    </>
-                  ) : (
-                    "no data found"
-                  )}
-                </table>
+                    </table>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      {" "}
+                      <h1>no data found</h1>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

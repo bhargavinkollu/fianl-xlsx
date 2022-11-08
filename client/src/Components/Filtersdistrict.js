@@ -6,7 +6,7 @@ import { logout } from "../action/useraction";
 import { Header } from "./Header";
 import { LOader } from "./LOader";
 import { SideNavigation } from "./SideNavigation";
-
+import "./filters.css"
 export const Filtersdistrict = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
   const [year, setYear] = useState("");
@@ -145,22 +145,21 @@ let Districtaa=""
     <div className="viewlistboarder">
       <SideNavigation />
       <Header />
+      
       <div className="AddFlex">
         <div style={{ width: "70%", marginLeft: "30%" }}>
           <div style={{ width: "50%" }}>
             <div className="breadcum">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <Link to="/filter">
                     <li class="breadcrumb-item active" aria-current="page">
                       Home
                     </li>
-                  </Link>
                 </ol>
               </nav>
             </div>
-            <label>Financial Year:</label>
-            <select required onChange={searchdis}>
+            {/* <label>Financial Year:</label> */}
+            {/* <select required onChange={searchdis}>
             <option selected  value={getCurrentFinancialYear()}>
                       Current year
                     </option>
@@ -176,8 +175,11 @@ let Districtaa=""
                     <option value="2028-29">2028-29</option>
                     <option value="2029-30">2029-30</option>
                     <option value="2030-31">2030-31</option>
-            </select>
+            </select> */}
             <div style={{ overflow: "scroll",overflowY:"hidden" }} className="table-responsive">
+                {loading ?(<LOader/>):(
+                filterdata.length >= 1 ? (
+                  <>
               <table className="table" responsive="true">
                 <thead>
                   <tr>
@@ -188,15 +190,12 @@ let Districtaa=""
                     <th>Balance SHGs </th>
                   </tr>
                 </thead>
-                {loading ?(<LOader/>):(
-                filterdata.length >= 1 ? (
-                  <>
                     <tbody>{fmap()}</tbody>
+              </table>
                   </>
                 ) : (
-                  "No data found "
+                  <><div> <h1>no data found</h1></div></>
                 ))}
-              </table>
             </div>
             </div>
           </div>

@@ -79,7 +79,7 @@ app.post("/deleteclient",async(req,res)=>{
   return res.json("deleted");
 })
 app.delete("/deleteclientxlsx",async(req,res)=>{
-  F
+  
 })
 app.listen(process.env.PORT, () => {
   console.log(`server is running on ${process.env.PORT}`);
