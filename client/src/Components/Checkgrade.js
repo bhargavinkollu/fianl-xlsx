@@ -61,6 +61,7 @@ export const Checkgrade = () => {
   const [data, setdata] = useState([]);
 
   const [value, setValue] = useState("");
+  const [nodatas, setNodata] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestions = data.filter((option) => option["SHGID"].includes(value));
 
@@ -69,6 +70,7 @@ export const Checkgrade = () => {
     const res = await axios.post("/api/auth/slumidsearch");
     setdata(res.data);
   };
+  
 
   useEffect(() => {
     if (user) {
@@ -110,6 +112,8 @@ export const Checkgrade = () => {
     if (res.data.length === 0) {
       // alert("nodata");
     }
+    setNodata(true)
+
     // setfilterdata(res.data);
   };
   const handledistrictSuggestionClick = async (suggest) => {
@@ -201,7 +205,7 @@ export const Checkgrade = () => {
                         });
                       }}
                       placeholder="Search"
-                      onFocus={() => setShowSuggestions(true)}
+                      onFocus={() => {setShowSuggestions(true)}}
                     />
                   </div>
                   <label>Financial Year:</label>
@@ -250,11 +254,7 @@ export const Checkgrade = () => {
               <div style={{ width: "100%" }}>
                 {filterdata.length >= 1 ? (
                   <>
-                    {filterdata.length === 0 ? (
-                "No data found"
-
-                    ) : (
-                      <div
+                    <div
                       style={{ overflow: "scroll" }}
                       className="table-responsive"
                     >
@@ -266,11 +266,9 @@ export const Checkgrade = () => {
                         <tbody>{fmap()}</tbody>
                       </table>
                     </div>
-                    )}
                   </>
                 ) : (
-                  "No data found"
-
+                  nodatas === true?("No data found"):("") 
                 )}
               </div>
             </div>

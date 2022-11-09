@@ -45,7 +45,7 @@ export const Filtershg = () => {
     const res = await axios
       .post("/api/auth/searchall", {
         "SLF Name": slf,
-        year:getCurrentFinancialYear(),
+        // year:getCurrentFinancialYear(),
       })
       .then((res) => (setfilterdata(res.data), setnewloading(false)));
 
@@ -139,8 +139,7 @@ export const Filtershg = () => {
       console.log(error);
     }
   };
-  const fileType =
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+  const fileType ="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
   const fileExtension = ".xlsx";
   const downloadExcel = () => {
     const ws = XLSX.utils.json_to_sheet(filterdata);
@@ -206,7 +205,7 @@ export const Filtershg = () => {
               </div>
               <label>Financial Year:</label>
               <select className="form-select-bg" required onChange={searchdis}>
-                <option selected value={getCurrentFinancialYear()}>
+                <option se value={getCurrentFinancialYear()}>
                   Current year:
                   <br />
                   {getCurrentFinancialYear()}
