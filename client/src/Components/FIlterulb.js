@@ -32,17 +32,27 @@ export const FIlterulb = () => {
   const searchdistrict = async (e) => {
     const res = await axios.post("/api/auth/getxlsxfile", {
       District: district,
+      year : getCurrentFinancialYear()
+
     });
-    // console.log(res.data);
-    // console.log(res.data.length);
+    console.log(res.data);
+    console.log(res.data.length);
 
     setfilterdata(res.data);
   };
   const [uploadcount, setUploadcount] = useState([]);
-  const searchdistrictcount = async (e) => {
-    const res = await axios.post("/api/auth/searchall");
+  const searchdistrictcount = async (year) => {
+    // let year
+    if(year === undefined){
+      year= getCurrentFinancialYear()
+    }
+    console.log(year);
+    const res = await axios.post("/api/auth/searchall",{
+      "District": district,
+      year:year, 
+    });
     setUploadcount(res.data);
-    // console.log(res.data.length);
+    console.log(res.data);
   };
   let obj = {};
 
@@ -56,7 +66,7 @@ export const FIlterulb = () => {
   });
   useEffect(() => {
     searchdistrict();
-    searchdistrictcount();
+    // searchdistrictcount();
   }, []);
   const getUniqueBy = (arr, prop) => {
     const set = new Set();
@@ -102,15 +112,36 @@ export const FIlterulb = () => {
 
   // console.log(obj);
   const searchdis = async (event) => {
-    // console.log(event.target.value);
+    console.log(event.target.value);
+    let year
+    if(event){
+      year= event.target.value
+    }
+    else if (!event){
+      year= getCurrentFinancialYear()
+    }
+    console.log(year);
     const res = await axios.post("/api/auth/getxlsxfile", {
-      "Name of the District": district,
-      year: event.target.value,
+      "District": district,
+      year: year,
     });
+    searchdistrictcount(year)
+
     // console.log(res.data);
     setfilterdata(res.data);
   };
+  const nsns=new Date ().getFullYear().toString()
 
+  function getCurrentFinancialYear() {
+    var financial_year = "";
+    var today = new Date();
+    if ((today.getMonth() + 1) <= 3) {
+        financial_year = (new Date ().getFullYear() - 1).toString().slice(2) + "-" + today.getFullYear()
+    } else {
+        financial_year = nsns+ "-" + (today.getFullYear() + 1).toString().slice(2) 
+    }
+    return financial_year;
+}
   return (
     <div className="viewlisttop">
       <div className="viewlistboarder">
@@ -122,9 +153,11 @@ export const FIlterulb = () => {
               <div className="breadcum">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
+                  <Link to={`/filter`}>
                     <li class="breadcrumb-item active" aria-current="page">
                       Home
                     </li>
+                  </Link>
 
                     <li class="breadcrumb-item active" aria-current="page">
                       {district}
@@ -142,25 +175,27 @@ export const FIlterulb = () => {
                 style={{ overflow: "scroll", overflowY: "hidden" }}
                 className="table-responsive"
               >
-                {/* <select required onChange={searchdis}>
-                  <option selected disabled value="">
-                    year
-                  </option>
-                  <option value="2020">2020-21</option>
-                  <option value="2021">2021-22</option>
-                  <option value="2022">2022-23</option>
-                  <option value="2023">2023-24</option>
-                  <option value="2024">2024-25</option>
-                  <option value="2025">2025-26</option>
-                  <option value="2026">2026-27</option>
-                  <option value="2027">2027-28</option>
-                  <option value="2028">2028-29</option>
-                  <option value="2029">2029-30</option>
-                  <option value="2030">2030-31</option>
-                </select> */}
+                <label>Financial Year:</label>
+            <select required onChange={searchdis}>
+            <option selected  value={getCurrentFinancialYear()}>
+                      Current year
+                    </option>
+                      
+                    <option value="2020-21">2020-21</option>
+                    <option value="2021-22">2021-22</option>
+                    <option value="2022-23">2022-23</option>
+                    <option value="2023-24">2023-24</option>
+                    <option value="2024-25">2024-25</option>
+                    <option value="2025-26">2025-26</option>
+                    <option value="2026-27">2026-27</option>
+                    <option value="2027-28">2027-28</option>
+                    <option value="2028-29">2028-29</option>
+                    <option value="2029-30">2029-30</option>
+                    <option value="2030-31">2030-31</option>
+            </select>
                 {loading ? (
                   <LOader />
-                ) : filterdata.length >= 1 ? (
+                ) : filedata.length >= 1 ? (
                   <>
                     <table className="table" responsive="true">
                       <thead>

@@ -36,15 +36,16 @@ export const Filtertlf = () => {
   const [filterdata, setfilterdata] = useState([]);
 
   const searchdistrict = async (e) => {
-    const res = await axios.post("/api/auth/getxlsxfile", { "ULB Name": ulb });
+    const res = await axios.post("/api/auth/getxlsxfile", {
+      "ULB Name": ulb,
+      year: getCurrentFinancialYear(),
+    });
     // console.log(res.data);
     setfilterdata(res.data);
     // console.log(res.data);
   };
   useEffect(() => {
     searchdistrict();
-
-    searchdistrictcount();
   }, []);
   const [uploadcount, setUploadcount] = useState([]);
   const searchdistrictcount = async (e) => {
@@ -108,13 +109,37 @@ export const Filtertlf = () => {
 
   const searchdis = async (event) => {
     // console.log(event.target.value);
-    const res = await axios.post("/api/auth/searchall", {
+    let year;
+    if (event) {
+      year = event.target.value;
+    } else if (!event) {
+      year = getCurrentFinancialYear();
+    }
+    const res = await axios.post("/api/auth/getxlsxfile", {
       "ULB Name": ulb,
-      year: event.target.value,
+      year: year,
     });
     // console.log(res.data);
+    searchdistrictcount(year);
+
     setfilterdata(res.data);
   };
+  const nsns = new Date().getFullYear().toString();
+
+  function getCurrentFinancialYear() {
+    var financial_year = "";
+    var today = new Date();
+    if (today.getMonth() + 1 <= 3) {
+      financial_year =
+        (new Date().getFullYear() - 1).toString().slice(2) +
+        "-" +
+        today.getFullYear();
+    } else {
+      financial_year =
+        nsns + "-" + (today.getFullYear() + 1).toString().slice(2);
+    }
+    return financial_year;
+  }
   return (
     <div className="viewlisttop">
       <div className="viewlistboarder">
@@ -140,29 +165,30 @@ export const Filtertlf = () => {
                 <Link to={`/filter/${district}`}>
                   <li class="breadcrumb-item active" aria-current="page">
                     <button className="btn btn-outline-dark">back</button>
-                  </li> 
+                  </li>
                 </Link>
               </div>
               <div
                 style={{ overflow: "scroll", overflowY: "hidden" }}
                 className="table-responsive"
               >
-                {/* <select required onChange={searchdis}>
-                  <option selected disabled value="">
-                    year
+                <select required onChange={searchdis}>
+                  <option selected value={getCurrentFinancialYear()}>
+                    Current year
                   </option>
-                  <option>2020</option>
-                  <option>2021</option>
-                  <option>2022</option>
-                  <option>2023</option>
-                  <option>2024</option>
-                  <option>2025</option>
-                  <option>2026</option>
-                  <option>2027</option>
-                  <option>2028</option>
-                  <option>2029</option>
-                  <option>2030</option>
-                </select> */}
+
+                  <option value="2020-21">2020-21</option>
+                  <option value="2021-22">2021-22</option>
+                  <option value="2022-23">2022-23</option>
+                  <option value="2023-24">2023-24</option>
+                  <option value="2024-25">2024-25</option>
+                  <option value="2025-26">2025-26</option>
+                  <option value="2026-27">2026-27</option>
+                  <option value="2027-28">2027-28</option>
+                  <option value="2028-29">2028-29</option>
+                  <option value="2029-30">2029-30</option>
+                  <option value="2030-31">2030-31</option>
+                </select>
                 {loading ? (
                   <LOader />
                 ) : filterdata.length >= 1 ? (

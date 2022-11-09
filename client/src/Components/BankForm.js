@@ -840,7 +840,7 @@ export const BankForm = () => {
                         <div className="flexTopX ">
                           <div className="flexC givmargin givpad">
                             <p>Bank name</p>
-                            <input
+                            <input required
                               type="text"
                               name="bank_name"
                               onChange={inputA}
@@ -850,7 +850,7 @@ export const BankForm = () => {
                           </div>
                           <div className="flexC givmargin givpadd">
                             <p>Account Number</p>
-                            <input
+                            <input required
                               readOnly
                               type="text"
                               name="acc_number"
@@ -1189,7 +1189,7 @@ export const BankForm = () => {
                         <div className="flexT">
                           <h4>SLF Member Loans</h4>
                           <div className="flexD">
-                            <input
+                            <input 
                               type="checkbox"
                               name="default"
                               id="chkB2"
@@ -1263,7 +1263,7 @@ export const BankForm = () => {
                         <div className="flexT">
                           <h4>Srinidhi Loans</h4>
                           <div className="flexD">
-                            <input
+                            <input 
                               type="checkbox"
                               name="default"
                               id="chkF1"
@@ -1331,7 +1331,7 @@ export const BankForm = () => {
                         <div className="flexT">
                           <h4>Srinidhi Member Loans</h4>
                           <div className="flexD">
-                            <input
+                            <input 
                               type="checkbox"
                               name="default"
                               id="chkC2"
@@ -1409,7 +1409,7 @@ export const BankForm = () => {
                           <h4>Covid Loans</h4>
 
                           <div className="flexD">
-                            <input
+                            <input 
                               type="checkbox"
                               name="default"
                               id="chkD1"
@@ -1476,7 +1476,7 @@ export const BankForm = () => {
                         <div className="flexT">
                           <h4>Covid Member Loans</h4>
                           <div className="flexD">
-                            <input
+                            <input 
                               type="checkbox"
                               name="default"
                               id="chkF2"
@@ -1548,7 +1548,7 @@ export const BankForm = () => {
                         <div className="flexT">
                           <h4>Balances</h4>
                           <div className="flexD">
-                            <input
+                            <input 
                               type="checkbox"
                               name="default"
                               id="chkG1"
@@ -1591,7 +1591,7 @@ export const BankForm = () => {
                         </div>
                         <div className="flexC">
                           <p>Closing Bank Balance</p>
-                          <input
+                          <input required
                             type="number"
                             name="closing_bank_balance"
                             onChange={inputG}
@@ -1634,7 +1634,7 @@ export const BankForm = () => {
                       <div className="flexBaX">
                         <div className="flexC">
                           <label>Total fund Received</label>
-                          <input
+                          <input required
                             type="number"
                             readOnly
                             value={Total_fund_Recived}
@@ -1643,6 +1643,7 @@ export const BankForm = () => {
                         <div className="flexC">
                           <label>Total fund Available</label>
                           <input
+                          required
                             type="number"
                             readOnly
                             value={total_fund_Available}
@@ -1650,11 +1651,13 @@ export const BankForm = () => {
                         </div>
                         <div className="flexC">
                           <label>variation</label>
-                          <input type="number" readOnly value={variation} />
+                          
+                          <input required type="number" readOnly value={variation} />
                         </div>
                         <div className="flexC">
                           <label>Bank linkage variation</label>
                           <input
+                          required
                             type="number"
                             readOnly
                             value={bank_linkage_variation}

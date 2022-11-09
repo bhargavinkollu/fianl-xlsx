@@ -132,7 +132,6 @@ export const Filtershg = () => {
     FileSaver.saveAs(data, "excel" + fileExtension);
   };
   const notuploadshgid = async () => {
-    console.log();
     setnewloading(true);
 
     const res = await axios
@@ -157,36 +156,40 @@ export const Filtershg = () => {
 
               <div className="breadcum">
                 <ol class="breadcrumb">
+                  <Link to={`/filter`}>
                     <li class="breadcrumb-item active" aria-current="page">
                       Home
                     </li>
-                  
-                    <li class="breadcrumb-item active" aria-current="page">
-                      {district}
-                    </li>
-                  
-                    <li class="breadcrumb-item active" aria-current="page">
-                      {ulb}
-                    </li>
-                  
-                    <li class="breadcrumb-item active" aria-current="page">
-                      {tlfname}
-                    </li>
-                  
+                  </Link>
+
+                  <li class="breadcrumb-item active" aria-current="page">
+                    {district}
+                  </li>
+
+                  <li class="breadcrumb-item active" aria-current="page">
+                    {ulb}
+                  </li>
+
+                  <li class="breadcrumb-item active" aria-current="page">
+                    {tlfname}
+                  </li>
+
                   <li class="breadcrumb-item active" aria-current="page">
                     {slf}
                   </li>
                 </ol>
                 <Link to={`/filter/${district}/${ulb}/${tlfname}`}>
                   <li class="breadcrumb-item active" aria-current="page">
-                  <button className="btn btn-outline-dark">back</button>
+                    <button className="btn btn-outline-dark">back</button>
                   </li>
                 </Link>
               </div>
               <label>Financial Year:</label>
               <select className="form-select-bg" required onChange={searchdis}>
                 <option selected value={getCurrentFinancialYear()}>
-                  Current year:<br/>{getCurrentFinancialYear()}
+                  Current year:
+                  <br />
+                  {getCurrentFinancialYear()}
                 </option>
                 <option value="2020-21">2020-21</option>
                 <option value="2021-22">2021-22</option>
@@ -230,7 +233,12 @@ export const Filtershg = () => {
                 )}
               </>
             ) : (
-             <><div> <h1>no data found</h1></div></>
+              <>
+                <div>
+                  {" "}
+                  <h1>no data found</h1>
+                </div>
+              </>
             )}
           </div>
         </div>

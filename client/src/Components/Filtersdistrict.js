@@ -34,13 +34,25 @@ export const Filtersdistrict = () => {
   };
 
   const searchdistrict = async (e) => {
-    const res = await axios.post("/api/auth/getxlsxfile");
+    const res = await axios.post("/api/auth/searchall",{
+      year : getCurrentFinancialYear()
+    });
     setfilterdata(res.data);
     // console.log(res.data.length);
   };
   const [uploadcount, setUploadcount] = useState([]);
-  const searchdistrictcount = async (e) => {
-    const res = await axios.post("/api/auth/searchall");
+  const searchdistrictcount = async (year) => {
+    // let year
+    if(year === undefined){
+      year= getCurrentFinancialYear()
+    }
+    // else if (year){
+    //   year= event.target.value
+    // }
+    console.log(year);
+    const res = await axios.post("/api/auth/searchall",{
+      year:year
+    });
     setUploadcount(res.data);
     // console.log(res.data.length);
   };
@@ -64,10 +76,18 @@ export const Filtersdistrict = () => {
   // console.log(obj);
   let loanobj = {};
   const searchdis = async (event) => {
-    // console.log(event.target.value);
-    const res = await axios.post("/api/auth/getxlsxfile", {
-      year: event.target.value,
+    console.log(event.target.value);
+    let year
+    if(event){
+      year= event.target.value
+    }
+    else if (!event){
+      year= getCurrentFinancialYear()
+    }
+    const res = await axios.post("/api/auth/searchall", {
+      year: year,
     });
+    searchdistrictcount(year)
     // console.log(res.data);
     setfilterdata(res.data);
   };
@@ -158,8 +178,8 @@ let Districtaa=""
                 </ol>
               </nav>
             </div>
-            {/* <label>Financial Year:</label> */}
-            {/* <select required onChange={searchdis}>
+            <label>Financial Year:</label>
+            <select required onChange={searchdis}>
             <option selected  value={getCurrentFinancialYear()}>
                       Current year
                     </option>
@@ -175,10 +195,10 @@ let Districtaa=""
                     <option value="2028-29">2028-29</option>
                     <option value="2029-30">2029-30</option>
                     <option value="2030-31">2030-31</option>
-            </select> */}
+            </select>
             <div style={{ overflow: "scroll",overflowY:"hidden" }} className="table-responsive">
                 {loading ?(<LOader/>):(
-                filterdata.length >= 1 ? (
+                filedata.length >= 1 ? (
                   <>
               <table className="table" responsive="true">
                 <thead>

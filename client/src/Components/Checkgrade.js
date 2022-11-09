@@ -13,7 +13,7 @@ export const Checkgrade = () => {
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [filterdata, setfilterdata] = useState([]);
+  const [filterdata, setfilterdata] = useState([{}]);
 
   const [sghid, setSghid] = useState("");
 
@@ -26,7 +26,7 @@ export const Checkgrade = () => {
 
   const fmap = () => {
     try {
-      // console.log(data);
+      console.log(filterdata);
       const ffmap = filterdata.map((row, index) => {
         // console.log(row["SHG ID"]);
         return (
@@ -104,8 +104,12 @@ export const Checkgrade = () => {
     // console.log(name.valued);
     const res = await axios.post("/api/auth/slumidsearch", {
       [name.name]: name.valued,
-      year:getCurrentFinancialYear()
+      // year:getCurrentFinancialYear()
     });
+    console.log(res.data.length);
+    if (res.data.length === 0) {
+      // alert("nodata");
+    }
     setfilterdata(res.data);
   };
   const handledistrictSuggestionClick = async (suggest) => {
@@ -126,28 +130,32 @@ export const Checkgrade = () => {
     console.log(getCurrentFinancialYear());
     const res = await axios.post("/api/auth/searchall", {
       SHGID: sghid,
-      year: event.target.value
+      year: event.target.value,
     });
     // console.log(res.data);
     setfilterdata(res.data);
   };
-  const nodata="no data found"
-  console.log(new Date().getFullYear() );
-  
-  const nsns=new Date ().getFullYear().toString()
-  
-  console.log(nsns.slice(2) );
+  const nodata = "no data found";
+  console.log(new Date().getFullYear());
+
+  const nsns = new Date().getFullYear().toString();
+
+  console.log(nsns.slice(2));
   function getCurrentFinancialYear() {
     var financial_year = "";
     var today = new Date();
-    if ((today.getMonth() + 1) <= 3) {
-        financial_year = (new Date ().getFullYear() - 1).toString().slice(2) + "-" + today.getFullYear()
+    if (today.getMonth() + 1 <= 3) {
+      financial_year =
+        (new Date().getFullYear() - 1).toString().slice(2) +
+        "-" +
+        today.getFullYear();
     } else {
-        financial_year = nsns+ "-" + (today.getFullYear() + 1).toString().slice(2) 
+      financial_year =
+        nsns + "-" + (today.getFullYear() + 1).toString().slice(2);
     }
     return financial_year;
-}
-console.log(filterdata.length );
+  }
+  console.log(filterdata.length);
   return (
     <div className="viewlisttop">
       <div className="viewlistboarder">
@@ -190,7 +198,6 @@ console.log(filterdata.length );
                         handleChange({
                           name: "SHGID",
                           valued: e.target.value,
-                        
                         });
                       }}
                       placeholder="Search"
@@ -199,10 +206,11 @@ console.log(filterdata.length );
                   </div>
                   <label>Financial Year:</label>
                   <select required onChange={searchdis}>
-                    <option selected  value={getCurrentFinancialYear()}>
-                    Current year:<br/>{getCurrentFinancialYear()}
-                     </option>
-                    
+                    <option selected disabled value={getCurrentFinancialYear()}>
+                      {/* Current year:<br/>{getCurrentFinancialYear()} */}
+                      select year
+                    </option>
+
                     <option value="2020-21">2020-21</option>
                     <option value="2021-22">2021-22</option>
                     <option value="2022-23">2022-23</option>
@@ -242,8 +250,11 @@ console.log(filterdata.length );
               <div style={{ width: "100%" }}>
                 {filterdata.length >= 1 ? (
                   <>
-                      {filterdata.length >=0 ? (
-                    <div
+                    {filterdata.length === 0 ? (
+                "No data found"
+
+                    ) : (
+                      <div
                       style={{ overflow: "scroll" }}
                       className="table-responsive"
                     >
@@ -252,13 +263,14 @@ console.log(filterdata.length );
                           <tr>{hmap()}</tr>
                         </thead>
 
-                          <tbody>{fmap()}</tbody>
+                        <tbody>{fmap()}</tbody>
                       </table>
                     </div>
-                          ):("No data found")}
+                    )}
                   </>
                 ) : (
-                  ""
+                  "No data found"
+
                 )}
               </div>
             </div>
