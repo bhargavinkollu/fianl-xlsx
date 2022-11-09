@@ -185,7 +185,7 @@ export const Filterslf = () => {
                 </div>
                 <select required onChange={searchdis}>
                   <option selected value={getCurrentFinancialYear()}>
-                    Current year
+                  Current year:{getCurrentFinancialYear()}
                   </option>
 
                   <option value="2020-21">2020-21</option>

@@ -186,10 +186,11 @@ export const Filtershg = () => {
               </div>
               <label>Financial Year:</label>
               <select className="form-select-bg" required onChange={searchdis}>
-                <option selected value={getCurrentFinancialYear()}>
-                  Current year:
+                <option disabled value={getCurrentFinancialYear()}>
+                  {/* Current year:
                   <br />
-                  {getCurrentFinancialYear()}
+                  {getCurrentFinancialYear()} */}
+                  year
                 </option>
                 <option value="2020-21">2020-21</option>
                 <option value="2021-22">2021-22</option>

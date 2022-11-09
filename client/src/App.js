@@ -15,9 +15,9 @@ import { EmployeeLogin } from "./Components/EmployeeLogin";
 import { apidata } from "./action/apiaction";
 import { Register } from "./Components/Register";
 import { Checkgrade } from "./Components/Checkgrade";
-import  { Filtersdistrict} from "./Components/Filtersdistrict";
+import { Filtersdistrict } from "./Components/Filtersdistrict";
 import { FIlterulb } from "./Components/FIlterulb";
-import { Filtertlf } from "./Filtertlf";
+import { Filtertlf } from "./Components/Filtertlf";
 import { Filterslf } from "./Components/Filterslf";
 import { Filtershg } from "./Components/Filtershg";
 import { Registeradmin } from "./Components/Registeradmin";
@@ -26,29 +26,47 @@ function App() {
   const dispatch = useDispatch();
   dispatch(loaduser());
 
-  dispatch(apidata())
-
-
+  dispatch(apidata());
 
   return (
-    <div >
+    <div>
       {/* <Upload/> */}
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Protectedrouteadmin><AdminLogin /></Protectedrouteadmin>}/>
-          <Route path="/adminregister" element={<Registeradmin/>}/>
-          <Route path="/addlist" element={<AddList/>}/>
-          <Route path="/viewlist" element={<Viewlist/>}/>
-          <Route path="/bankform" element={<BankForm/>}/>
-          <Route path="/employeeregister" element={<Register/>}/>
-          <Route path="/employeelogin" element={<Protectedrouteuser><EmployeeLogin/></Protectedrouteuser>}/>
+          <Route
+            path="/"
+            element={
+              <Protectedrouteadmin>
+                <AdminLogin />
+              </Protectedrouteadmin>
+            }
+          />
+          <Route path="/adminregister" element={<Registeradmin />} />
+          <Route path="/addlist" element={<AddList />} />
+          <Route path="/viewlist" element={<Viewlist />} />
+          <Route path="/bankform" element={<BankForm />} />
+          <Route path="/employeeregister" element={<Register />} />
+          <Route
+            path="/employeelogin"
+            element={
+              <Protectedrouteuser>
+                <EmployeeLogin />
+              </Protectedrouteuser>
+            }
+          />
           {/* <Route path="/filter" element={<Filter/>}/> */}
-          <Route path="/checkgrade" element={<Checkgrade/>}/>
-          <Route path="/filter" element={<Filtersdistrict/>}/>
-          <Route path="/filter/:district" element={<FIlterulb/>}/>
-          <Route path="/filter/:district/:ulb" element={<Filtertlf/>}/>
-          <Route path="/filter/:district/:ulb/:tlfname" element={<Filterslf/>}/>
-          <Route path="/filter/:district/:ulb/:tlfname/:slf" element={<Filtershg/>}/>
+          <Route path="/checkgrade" element={<Checkgrade />} />
+          <Route path="/filter" element={<Filtersdistrict />} />
+          <Route path="/filter/:district" element={<FIlterulb />} />
+          <Route path="/filter/:district/:ulb" element={<Filtertlf />} />
+          <Route
+            path="/filter/:district/:ulb/:tlfname"
+            element={<Filterslf />}
+          />
+          <Route
+            path="/filter/:district/:ulb/:tlfname/:slf"
+            element={<Filtershg />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
@@ -60,14 +78,13 @@ export default App;
 export function Protectedrouteadmin(props) {
   const dispatch = useDispatch();
 
-  const { user,isAuthenticated } = useSelector((state) => state.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   if (user) {
     if (user.role === "admin") {
       return <Navigate to="/addlist" />;
-    }
-    else if(user.role==="user"){
-      dispatch(logout())
-      return <Navigate to="/employeelogin" />
+    } else if (user.role === "user") {
+      dispatch(logout());
+      return <Navigate to="/employeelogin" />;
     }
   } else {
     return props.children;
@@ -76,15 +93,13 @@ export function Protectedrouteadmin(props) {
 export function Protectedrouteuser(props) {
   const dispatch = useDispatch();
 
-  const { user,isAuthenticated } = useSelector((state) => state.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   if (user) {
     if (user.role === "admin") {
-      dispatch(logout())
+      dispatch(logout());
       return <Navigate to="/employeelogin" />;
-    }
-    else if(user.role==="user"){
-      
-      return <Navigate to="/bankform" />
+    } else if (user.role === "user") {
+      return <Navigate to="/bankform" />;
     }
   } else {
     return props.children;
@@ -93,15 +108,14 @@ export function Protectedrouteuser(props) {
 export function Protectedadmin(props) {
   const dispatch = useDispatch();
 
-  const { user,isAuthenticated } = useSelector((state) => state.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   if (user) {
-    if(user.role==="user"){
-      dispatch(logout())
-      
-      return <Navigate to="/employeelogin" />
+    if (user.role === "user") {
+      dispatch(logout());
+
+      return <Navigate to="/employeelogin" />;
     }
   } else {
     return props.children;
   }
 }
-
