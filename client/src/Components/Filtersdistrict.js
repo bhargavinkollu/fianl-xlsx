@@ -7,16 +7,19 @@ import { Header } from "./Header";
 import { LOader } from "./LOader";
 import { SideNavigation } from "./SideNavigation";
 import "./filters.css";
+import { apidata } from "../action/apiaction";
 export const Filtersdistrict = () => {
+  
   const { loading, filedata } = useSelector((state) => state.apidata);
   const [year, setYear] = useState("");
-
+  
   const [data, setData] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
   const { user, isAuthenticated, error, success, isUpdated } = useSelector(
     (state) => state.user
-  );
-  const dispatch = useDispatch;
+    );
+    const dispatch = useDispatch;
+    dispatch(apidata());
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
@@ -162,6 +165,7 @@ export const Filtersdistrict = () => {
     }
     return financial_year;
   }
+  console.log(filedata);
   return (
     <div className="viewlisttop">
       <div className="viewlistboarder">

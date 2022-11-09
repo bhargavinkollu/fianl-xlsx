@@ -17,8 +17,6 @@ export const Filtershg = () => {
   const { user, isAuthenticated, error, loading, success, isUpdated } =
     useSelector((state) => state.user);
   const [newloading, setnewloading] = useState(false);
-  const [notuploaded, setNotuploaded] = useState();
-  
 
   useEffect(() => {
     if (user) {
@@ -31,38 +29,31 @@ export const Filtershg = () => {
     }
   }, [dispatch, isAuthenticated, navigate, user]);
   const [filterdata, setfilterdata] = useState([]);
+  const [notuplod, setNotuplod] = useState(false);
+  
   const { slf, district, ulb, tlfname } = useParams();
   // console.log(slf);
   const api = async () => {
     const res = await axios.get("/api/auth/searchall");
     setData(res.data);
   };
-  const searchdistrict = async (year) => {
-    if (year === undefined) {
-      year = getCurrentFinancialYear();
-    }
+  const searchdistrict = async (event) => {
     setnewloading(true);
     const res = await axios
       .post("/api/auth/searchall", {
         "SLF Name": slf,
-        // year:getCurrentFinancialYear(),
+        year,
       })
-      .then((res) => (setfilterdata(res.data), setnewloading(false)));
+      .then((res) => (setfilterdata(res.data), setnewloading(false),setNotuplod(false)));
 
     // console.log(res.data);
-    // setfilterdata(res.data);
+    setfilterdata(res.data);
   };
   const searchdis = async (event) => {
     // console.log(event.target.value);
-    let year;
-    if (event) {
-      year = event.target.value;
-    } else if (!event) {
-      year = getCurrentFinancialYear();
-    }
     const res = await axios.post("/api/auth/searchall", {
       "SLF Name": slf,
-      year: year
+      year: event.target.value,
     });
     // console.log(res.data);
     setfilterdata(res.data);
@@ -87,29 +78,29 @@ export const Filtershg = () => {
     }
     return financial_year;
   }
-  const fmap = (newdata) => {
-    let data;
-    if(year===undefined){
-      data=filterdata
+  const fmap = () => {
+    let datas
+    if(notuplod===true){
+      datas= filterdata[0]
     }
-    else {
-      data=newdata
+    else if(notuplod === false){
+      datas = filterdata
     }
-    console.log(newdata);
+  
     try {
       // console.log(data);
-      const ffmap = data.map((row, index) => {
+      const ffmap = datas.map((row, index) => {
         // console.log(row["SHG ID"]);
         return (
-          // {Object}.key(filterdata[0]),
+          // {Object}.key(datas),
           <tr>
-            {Object.keys(filterdata[0])
+            {Object.keys(datas[0])
               .filter((item, index) => {
                 return item !== "_id";
               })
               .map((key, index) => {
                 // console.log(row["SHG ID"]);
-                const rooo = Object.keys(filterdata[0]).filter(
+                const rooo = Object.keys(datas).filter(
                   (item, index) => {
                     // console. log(item);
                   }
@@ -125,8 +116,15 @@ export const Filtershg = () => {
     }
   };
   const hmap = () => {
+    let datas
+    if(notuplod===true){
+      datas= filterdata[0]
+    }
+    else if(notuplod === false){
+      datas = filterdata
+    }
     try {
-      const hhmap = Object.keys(filterdata[0])
+      const hhmap = Object.keys(datas[0])
         .filter((item, index) => {
           return item !== "_id";
         })
@@ -139,10 +137,20 @@ export const Filtershg = () => {
       console.log(error);
     }
   };
-  const fileType ="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+  const fileType =
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
   const fileExtension = ".xlsx";
   const downloadExcel = () => {
-    const ws = XLSX.utils.json_to_sheet(filterdata);
+    let datas
+    if(notuplod===true){
+      datas= filterdata[0];
+     
+    }
+    else if(notuplod === false){
+      datas = filterdata
+    }
+    console.log(datas);
+    const ws = XLSX.utils.json_to_sheet(datas);
     // console.log(ws);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
@@ -152,13 +160,31 @@ export const Filtershg = () => {
   const notuploadshgid = async () => {
     setnewloading(true);
 
+    await filterdata.map((items, index) => {
+      console.log(items["SHGID"]);
+    });
     const res = await axios
       .post("/api/auth/getxlsxfile", {
         "SLF Name": slf,
       })
-      .then((res) => (setNotuploaded(res.data), setnewloading(false)));
-    console.log(notuploaded);
-    fmap(notuploaded)
+      .then(
+        (res) => (
+          setfilterdata(
+            filterdata.map((items, index) => {
+              return res.data.filter((item, index) => {
+                console.log(items);
+                console.log(item);
+                return item["SHG Id"] !== items["SHGID"];
+              });
+            })
+          ),
+          setNotuplod(true),
+          setnewloading(false)
+        )
+        
+      );
+ 
+    // console.log(res.data);
   };
 
   return (
@@ -205,11 +231,10 @@ export const Filtershg = () => {
               </div>
               <label>Financial Year:</label>
               <select className="form-select-bg" required onChange={searchdis}>
-                <option se value={getCurrentFinancialYear()}>
+                <option selected value={getCurrentFinancialYear()}>
                   Current year:
                   <br />
                   {getCurrentFinancialYear()}
-                  year
                 </option>
                 <option value="2020-21">2020-21</option>
                 <option value="2021-22">2021-22</option>
