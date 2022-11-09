@@ -6,52 +6,56 @@ import { logout } from "../action/useraction";
 import { Header } from "./Header";
 import { LOader } from "./LOader";
 import { SideNavigation } from "./SideNavigation";
-import "./filters.css"
+import "./filters.css";
 export const Filtersdistrict = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
   const [year, setYear] = useState("");
-  
-  
+
   const [data, setData] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
-  const { user, isAuthenticated, error,  success, isUpdated } =
-  useSelector((state) => state.user);
-  const dispatch=useDispatch
-  const navigate=useNavigate()
+  const { user, isAuthenticated, error, success, isUpdated } = useSelector(
+    (state) => state.user
+  );
+  const dispatch = useDispatch;
+  const navigate = useNavigate();
   useEffect(() => {
     if (user) {
       if (user.role === "user") {
         dispatch(logout());
         navigate("/employeelogin");
       }
-    } else  {
+    } else {
       navigate("/");
     }
-  }, [dispatch, isAuthenticated, navigate, user])
+  }, [dispatch, isAuthenticated, navigate, user]);
   const api = async () => {
     const res = await axios.get("/api/auth/searchall");
     setData(res.data);
   };
 
-  const searchdistrict = async (e) => {
-    const res = await axios.post("/api/auth/searchall",{
-      year : getCurrentFinancialYear()
+  const searchdistrict = async (year) => {
+    if (year === undefined) {
+      year = getCurrentFinancialYear();
+    }
+    const res = await axios.post("/api/auth/getxlsxfile", {
+      year: year,
     });
     setfilterdata(res.data);
+    searchdistrictcount(year)
     // console.log(res.data.length);
   };
   const [uploadcount, setUploadcount] = useState([]);
   const searchdistrictcount = async (year) => {
     // let year
-    if(year === undefined){
-      year= getCurrentFinancialYear()
+    if (year === undefined) {
+      year = getCurrentFinancialYear();
     }
     // else if (year){
     //   year= event.target.value
     // }
     console.log(year);
-    const res = await axios.post("/api/auth/searchall",{
-      year:year
+    const res = await axios.post("/api/auth/searchall", {
+      year: year,
     });
     setUploadcount(res.data);
     // console.log(res.data.length);
@@ -69,25 +73,22 @@ export const Filtersdistrict = () => {
   useEffect(() => {
     api();
     searchdistrict();
-    searchdistrictcount()
   }, []);
-
 
   // console.log(obj);
   let loanobj = {};
   const searchdis = async (event) => {
     console.log(event.target.value);
-    let year
-    if(event){
-      year= event.target.value
-    }
-    else if (!event){
-      year= getCurrentFinancialYear()
+    let year;
+    if (event) {
+      year = event.target.value;
+    } else if (!event) {
+      year = getCurrentFinancialYear();
     }
     const res = await axios.post("/api/auth/searchall", {
       year: year,
     });
-    searchdistrictcount(year)
+    searchdistrictcount(year);
     // console.log(res.data);
     setfilterdata(res.data);
   };
@@ -101,13 +102,12 @@ export const Filtersdistrict = () => {
       loanobj[item["District"]] += 1;
     }
   });
-let Districtaa=""
+  let Districtaa = "";
   filedata.forEach((item) => {
-    Districtaa=item["District"];
+    Districtaa = item["District"];
     //console.log(loanobj[item.name]) this return as undefined
-   
   });
-// console.log(Districtaa);
+  // console.log(Districtaa);
   // console.log(loanobj);
 
   // console.log(filterdata);
@@ -121,102 +121,113 @@ let Districtaa=""
     // console.log(getUniqueBy(filterdata, "District"));
     try {
       // console.log(year);
-      const ffmap = getUniqueBy(filterdata, "District").map(
-        (row, index) => {
-          // console.log(obj[row["District"]]);
-          // console.log(loanobj[row["District"]]);
-          // console.log(row);
-          if(obj[row["District"]]=== undefined){
-            obj[row["District"]]=0
-          }
-          return (  
-            // {Object}.key(filterdata[0]),
-            <tr>
-              <td>{index+1}</td>
-              <Link to={row["District"]}>
-                <td>{row["District"]}</td>
-              </Link>
-              <td>{loanobj[row["District"]]}</td>
-              <td>{obj[row["District"]]}</td>
-              <td>{loanobj[row["District"]]-obj[row["District"]]}</td>
-            </tr>
-          );
+      const ffmap = getUniqueBy(filterdata, "District").map((row, index) => {
+        // console.log(obj[row["District"]]);
+        // console.log(loanobj[row["District"]]);
+        // console.log(row);
+        if (obj[row["District"]] === undefined) {
+          obj[row["District"]] = 0;
         }
-      );
+        return (
+          // {Object}.key(filterdata[0]),
+          <tr>
+            <td>{index + 1}</td>
+            <Link to={row["District"]}>
+              <td>{row["District"]}</td>
+            </Link>
+            <td>{loanobj[row["District"]]}</td>
+            <td>{obj[row["District"]]}</td>
+            <td>{loanobj[row["District"]] - obj[row["District"]]}</td>
+          </tr>
+        );
+      });
       return ffmap;
     } catch (error) {
       console.log(error);
     }
   };
-  const nsns=new Date ().getFullYear().toString()
+  const nsns = new Date().getFullYear().toString();
 
   function getCurrentFinancialYear() {
     var financial_year = "";
     var today = new Date();
-    if ((today.getMonth() + 1) <= 3) {
-        financial_year = (new Date ().getFullYear() - 1).toString().slice(2) + "-" + today.getFullYear()
+    if (today.getMonth() + 1 <= 3) {
+      financial_year =
+        (new Date().getFullYear() - 1).toString().slice(2) +
+        "-" +
+        today.getFullYear();
     } else {
-        financial_year = nsns+ "-" + (today.getFullYear() + 1).toString().slice(2) 
+      financial_year =
+        nsns + "-" + (today.getFullYear() + 1).toString().slice(2);
     }
     return financial_year;
-}
+  }
   return (
     <div className="viewlisttop">
-    <div className="viewlistboarder">
-      <SideNavigation />
-      <Header />
-      
-      <div className="AddFlex">
-        <div style={{ width: "70%", marginLeft: "30%" }}>
-          <div style={{ width: "50%" }}>
-            <div className="breadcum">
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
+      <div className="viewlistboarder">
+        <SideNavigation />
+        <Header />
+
+        <div className="AddFlex">
+          <div style={{ width: "70%", marginLeft: "30%" }}>
+            <div style={{ width: "50%" }}>
+              <div className="breadcum">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
                     <li class="breadcrumb-item active" aria-current="page">
                       Home
                     </li>
-                </ol>
-              </nav>
-            </div>
-            <label>Financial Year:</label>
-            <select required onChange={searchdis}>
-            <option selected  value={getCurrentFinancialYear()}>
-                      Current year:{getCurrentFinancialYear()}
-                    </option>
-                      
-                    <option value="2020-21">2020-21</option>
-                    <option value="2021-22">2021-22</option>
-                    <option value="2022-23">2022-23</option>
-                    <option value="2023-24">2023-24</option>
-                    <option value="2024-25">2024-25</option>
-                    <option value="2025-26">2025-26</option>
-                    <option value="2026-27">2026-27</option>
-                    <option value="2027-28">2027-28</option>
-                    <option value="2028-29">2028-29</option>
-                    <option value="2029-30">2029-30</option>
-                    <option value="2030-31">2030-31</option>
-            </select>
-            <div style={{ overflow: "scroll",overflowY:"hidden" }} className="table-responsive">
-                {loading ?(<LOader/>):(
-                filedata.length >= 1 ? (
+                  </ol>
+                </nav>
+              </div>
+              <label>Financial Year:</label>
+              <select required onChange={searchdis}>
+                <option selected value={getCurrentFinancialYear()}>
+                  Current year:{getCurrentFinancialYear()}
+                </option>
+
+                <option value="2020-21">2020-21</option>
+                <option value="2021-22">2021-22</option>
+                <option value="2022-23">2022-23</option>
+                <option value="2023-24">2023-24</option>
+                <option value="2024-25">2024-25</option>
+                <option value="2025-26">2025-26</option>
+                <option value="2026-27">2026-27</option>
+                <option value="2027-28">2027-28</option>
+                <option value="2028-29">2028-29</option>
+                <option value="2029-30">2029-30</option>
+                <option value="2030-31">2030-31</option>
+              </select>
+              <div
+                style={{ overflow: "scroll", overflowY: "hidden" }}
+                className="table-responsive"
+              >
+                {loading ? (
+                  <LOader />
+                ) : filedata.length >= 1 ? (
                   <>
-              <table className="table" responsive="true">
-                <thead>
-                  <tr>
-                    <th> S No </th>
-                    <th>District</th>
-                    <th>Total SHGs</th>
-                    <th>Uploaded SHGs</th>
-                    <th>Balance SHGs </th>
-                  </tr>
-                </thead>
-                    <tbody>{fmap()}</tbody>
-              </table>
+                    <table className="table" responsive="true">
+                      <thead>
+                        <tr>
+                          <th> S No </th>
+                          <th>District</th>
+                          <th>Total SHGs</th>
+                          <th>Uploaded SHGs</th>
+                          <th>Balance SHGs </th>
+                        </tr>
+                      </thead>
+                      <tbody>{fmap()}</tbody>
+                    </table>
                   </>
                 ) : (
-                  <><div> <h1>no data found</h1></div></>
-                ))}
-            </div>
+                  <>
+                    <div>
+                      {" "}
+                      <h1>no data found</h1>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>

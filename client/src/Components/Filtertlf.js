@@ -35,21 +35,32 @@ export const Filtertlf = () => {
   const [data, setData] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
 
-  const searchdistrict = async (e) => {
+  const searchdistrict = async (year) => {
+    if (year === undefined) {
+      year = getCurrentFinancialYear();
+    }
     const res = await axios.post("/api/auth/getxlsxfile", {
       "ULB Name": ulb,
       year: getCurrentFinancialYear(),
     });
+    
     // console.log(res.data);
     setfilterdata(res.data);
+    searchdistrictcount(year)
     // console.log(res.data);
   };
   useEffect(() => {
     searchdistrict();
   }, []);
   const [uploadcount, setUploadcount] = useState([]);
-  const searchdistrictcount = async (e) => {
-    const res = await axios.post("/api/auth/searchall");
+  const searchdistrictcount = async (year) => {
+    if (year === undefined) {
+      year = getCurrentFinancialYear();
+    }
+    const res = await axios.post("/api/auth/searchall",{
+      "ULB Name": ulb,
+      year: year,
+    });
     setUploadcount(res.data);
     // console.log(res.data.length);
   };

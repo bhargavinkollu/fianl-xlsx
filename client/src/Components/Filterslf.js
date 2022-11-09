@@ -36,13 +36,17 @@ export const Filterslf = () => {
     return arr.filter((o) => !set.has(o[prop]) && set.add(o[prop]));
   };
 
-  const searchdistrict = async (e) => {
+  const searchdistrict = async (year) => {
+    if (year === undefined) {
+      year = getCurrentFinancialYear();
+    }
     const res = await axios.post("/api/auth/getxlsxfile", {
       "TLF Name": tlfname,
       year: getCurrentFinancialYear(),
     });
     // console.log(res.data);
     setfilterdata(res.data);
+    searchdistrictcount(year)
     console.log(res.data);
   };
   useEffect(() => {
@@ -92,7 +96,7 @@ export const Filterslf = () => {
         if (obj[row["SLF Name"]] === undefined) {
           obj[row["SLF Name"]] = 0;
         }
-        console.log(row["SLF Name"]);
+        // console.log(row["SLF Name"]);
         return (
           // {Object}.key(filterdata[0]),
           <tr>

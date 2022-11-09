@@ -17,6 +17,8 @@ export const Filtershg = () => {
   const { user, isAuthenticated, error, loading, success, isUpdated } =
     useSelector((state) => state.user);
   const [newloading, setnewloading] = useState(false);
+  const [notuploaded, setNotuploaded] = useState();
+  
 
   useEffect(() => {
     if (user) {
@@ -35,23 +37,32 @@ export const Filtershg = () => {
     const res = await axios.get("/api/auth/searchall");
     setData(res.data);
   };
-  const searchdistrict = async (event) => {
+  const searchdistrict = async (year) => {
+    if (year === undefined) {
+      year = getCurrentFinancialYear();
+    }
     setnewloading(true);
     const res = await axios
       .post("/api/auth/searchall", {
         "SLF Name": slf,
-        year,
+        year:getCurrentFinancialYear(),
       })
       .then((res) => (setfilterdata(res.data), setnewloading(false)));
 
     // console.log(res.data);
-    setfilterdata(res.data);
+    // setfilterdata(res.data);
   };
   const searchdis = async (event) => {
     // console.log(event.target.value);
+    let year;
+    if (event) {
+      year = event.target.value;
+    } else if (!event) {
+      year = getCurrentFinancialYear();
+    }
     const res = await axios.post("/api/auth/searchall", {
       "SLF Name": slf,
-      year: event.target.value,
+      year: year
     });
     // console.log(res.data);
     setfilterdata(res.data);
@@ -76,10 +87,18 @@ export const Filtershg = () => {
     }
     return financial_year;
   }
-  const fmap = () => {
+  const fmap = (newdata) => {
+    let data;
+    if(year===undefined){
+      data=filterdata
+    }
+    else {
+      data=newdata
+    }
+    console.log(newdata);
     try {
       // console.log(data);
-      const ffmap = filterdata.map((row, index) => {
+      const ffmap = data.map((row, index) => {
         // console.log(row["SHG ID"]);
         return (
           // {Object}.key(filterdata[0]),
@@ -138,8 +157,9 @@ export const Filtershg = () => {
       .post("/api/auth/getxlsxfile", {
         "SLF Name": slf,
       })
-      .then((res) => (setfilterdata(res.data), setnewloading(false)));
-    // console.log(res.data);
+      .then((res) => (setNotuploaded(res.data), setnewloading(false)));
+    console.log(notuploaded);
+    fmap(notuploaded)
   };
 
   return (
@@ -186,10 +206,10 @@ export const Filtershg = () => {
               </div>
               <label>Financial Year:</label>
               <select className="form-select-bg" required onChange={searchdis}>
-                <option disabled value={getCurrentFinancialYear()}>
-                  {/* Current year:
+                <option selected value={getCurrentFinancialYear()}>
+                  Current year:
                   <br />
-                  {getCurrentFinancialYear()} */}
+                  {getCurrentFinancialYear()}
                   year
                 </option>
                 <option value="2020-21">2020-21</option>

@@ -13,7 +13,7 @@ export const Checkgrade = () => {
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [filterdata, setfilterdata] = useState([{}]);
+  const [filterdata, setfilterdata] = useState([]);
 
   const [sghid, setSghid] = useState("");
 
@@ -110,7 +110,7 @@ export const Checkgrade = () => {
     if (res.data.length === 0) {
       // alert("nodata");
     }
-    setfilterdata(res.data);
+    // setfilterdata(res.data);
   };
   const handledistrictSuggestionClick = async (suggest) => {
     let vl = suggest.suggest;
