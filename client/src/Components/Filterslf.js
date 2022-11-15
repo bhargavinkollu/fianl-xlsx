@@ -9,11 +9,11 @@ import { SideNavigation } from "./SideNavigation";
 
 export const Filterslf = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
+  const [newloading, setNewloading] = useState(false);
 
-  const { tlfname, district, ulb } = useParams();
+  const { tlfname, district, ulb,years } = useParams();
   // console.log(tlfname);
-  const [data, setData] = useState([]);
-  const [year, setYear] = useState("");
+  const [year, setYear] = useState(years);
   const dispatch = useDispatch;
   const navigate = useNavigate();
   const { user, isAuthenticated, error, success, isUpdated } = useSelector(
@@ -37,17 +37,24 @@ export const Filterslf = () => {
   };
 
   const searchdistrict = async (year) => {
-    if (year === undefined) {
+    if(years){
+      year= years
+    }
+    else if (year === undefined) {
       year = getCurrentFinancialYear();
     }
+    searchdistrictcount(year)
+    setNewloading(true)
+
     const res = await axios.post("/api/auth/getxlsxfile", {
       "TLF Name": tlfname,
       year: getCurrentFinancialYear(),
     });
     // console.log(res.data);
     setfilterdata(res.data);
-    searchdistrictcount(year)
     console.log(res.data);
+    setNewloading(false);
+
   };
   useEffect(() => {
     searchdistrict();
@@ -55,7 +62,10 @@ export const Filterslf = () => {
   }, []);
   const [uploadcount, setUploadcount] = useState([]);
   const searchdistrictcount = async (year) => {
-    if (year === undefined) {
+    if(year!==undefined){
+      year = year
+    }
+    else if (year === undefined) {
       year = getCurrentFinancialYear();
     }
     console.log(year);
@@ -102,7 +112,7 @@ export const Filterslf = () => {
           <tr>
             <td>{index + 1}</td>
 
-            <Link to={row["SLF Name"]}>
+            <Link to={`/filter/${district}/${ulb}/${tlfname}/${row["SLF Name"]}/${year}`}>
               <td>{row["SLF Name"]}</td>
             </Link>
             <td>{loanobj[row["SLF Name"]]}</td>
@@ -125,13 +135,16 @@ export const Filterslf = () => {
       year = getCurrentFinancialYear();
     }
     console.log(year);
-    // console.log(event.target.value);
-    const res = await axios.post("/api/auth/getxlsxfile", {
-      "TLF NAME": tlfname,
-      year: year,
-    });
     searchdistrictcount(year);
-    console.log(res.data);
+    setYear(year)
+    setNewloading(true)
+    // console.log(event.target.value);
+    // const res = await axios.post("/api/auth/getxlsxfile", {
+    //   "TLF NAME": tlfname,
+    //   year: year,
+    // });
+    // console.log(res.data);
+    setNewloading(false)
     // setfilterdata(res.data);
   };
   const nsns = new Date().getFullYear().toString();
@@ -181,14 +194,14 @@ export const Filterslf = () => {
                       {tlfname}
                     </li>
                   </ol>
-                  <Link to={`/filter/${district}/${ulb}`}>
+                  <Link to={`/filter/${district}/${ulb}/${years}`}>
                     <li class="breadcrumb-item active" aria-current="page">
                       <button className="btn btn-outline-dark">back</button>
                     </li>
                   </Link>
                 </div>
-                <select required onChange={searchdis}>
-                  <option selected value={getCurrentFinancialYear()}>
+                <select  value={year} required onChange={searchdis}>
+                  <option  value={getCurrentFinancialYear()}>
                   Current year:{getCurrentFinancialYear()}
                   </option>
 
@@ -212,7 +225,7 @@ export const Filterslf = () => {
                   }}
                   className="table-responsive"
                 >
-                  {loading ? (
+                  {loading  || newloading === true? (
                     <LOader />
                   ) : filedata.length >= 1 ? (
                     <>

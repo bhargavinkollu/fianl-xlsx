@@ -11,7 +11,9 @@ import { apidata } from "../action/apiaction";
 export const Filtersdistrict = () => {
   
   const { loading, filedata } = useSelector((state) => state.apidata);
-  const [year, setYear] = useState("");
+  const nsns = new Date().getFullYear().toString();
+
+  const [year, setYear] = useState(getCurrentFinancialYear);
   
   const [data, setData] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
@@ -50,13 +52,15 @@ export const Filtersdistrict = () => {
   const [uploadcount, setUploadcount] = useState([]);
   const searchdistrictcount = async (year) => {
     // let year
-    if (year === undefined) {
+    if(year!==undefined){
+      year = year
+    }
+    else if (year === undefined) {
       year = getCurrentFinancialYear();
     }
     // else if (year){
     //   year= event.target.value
     // }
-    console.log(year);
     const res = await axios.post("/api/auth/searchall", {
       year: year,
     });
@@ -66,7 +70,6 @@ export const Filtersdistrict = () => {
   let obj = {};
 
   uploadcount.forEach((item) => {
-    //console.log(obj[item.name]) this return as undefined
     if (!obj[item["District"]]) {
       obj[item["District"]] = 1;
     } else {
@@ -78,24 +81,24 @@ export const Filtersdistrict = () => {
     searchdistrict();
   }, []);
 
-  // console.log(obj);
   let loanobj = {};
   const searchdis = async (event) => {
-    console.log(event.target.value);
     let year;
     if (event) {
       year = event.target.value;
     } else if (!event) {
       year = getCurrentFinancialYear();
     }
-    const res = await axios.post("/api/auth/searchall", {
-      year: year,
-    });
+    setYear(year)
     searchdistrictcount(year);
-    // console.log(res.data);
-    setfilterdata(res.data);
-  };
 
+    // const res = await axios.post("/api/auth/getxlsxfile", {
+    //   year: year,
+    // });
+    // setfilterdata(res.data);
+  };
+  
+  console.log(year);
   filedata.forEach((item) => {
     // console.log(item);
     //console.log(loanobj[item.name]) this return as undefined
@@ -110,24 +113,15 @@ export const Filtersdistrict = () => {
     Districtaa = item["District"];
     //console.log(loanobj[item.name]) this return as undefined
   });
-  // console.log(Districtaa);
-  // console.log(loanobj);
 
-  // console.log(filterdata);
 
   const fmap = () => {
-    // console.log(filterdata.length);
     const getUniqueBy = (arr, prop) => {
       const set = new Set();
       return filedata.filter((o) => !set.has(o[prop]) && set.add(o[prop]));
     };
-    // console.log(getUniqueBy(filterdata, "District"));
     try {
-      // console.log(year);
       const ffmap = getUniqueBy(filterdata, "District").map((row, index) => {
-        // console.log(obj[row["District"]]);
-        // console.log(loanobj[row["District"]]);
-        // console.log(row);
         if (obj[row["District"]] === undefined) {
           obj[row["District"]] = 0;
         }
@@ -135,7 +129,7 @@ export const Filtersdistrict = () => {
           // {Object}.key(filterdata[0]),
           <tr>
             <td>{index + 1}</td>
-            <Link to={row["District"]}>
+            <Link to={`${row["District"]}/${year}`}>
               <td>{row["District"]}</td>
             </Link>
             <td>{loanobj[row["District"]]}</td>
@@ -149,7 +143,6 @@ export const Filtersdistrict = () => {
       console.log(error);
     }
   };
-  const nsns = new Date().getFullYear().toString();
 
   function getCurrentFinancialYear() {
     var financial_year = "";
@@ -165,7 +158,6 @@ export const Filtersdistrict = () => {
     }
     return financial_year;
   }
-  console.log(filedata);
   return (
     <div className="viewlisttop">
       <div className="viewlistboarder">

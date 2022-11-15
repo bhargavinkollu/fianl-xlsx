@@ -10,7 +10,8 @@ import { logout } from "../action/useraction";
 import { LOader } from "./LOader";
 export const Filtershg = () => {
   const [data, setData] = useState([]);
-  const [year, setYear] = useState();
+  const { slf, district, ulb, tlfname,years } = useParams();
+  const [year, setYear] = useState(years);
   // console.log(year);
   const dispatch = useDispatch;
   const navigate = useNavigate();
@@ -31,35 +32,38 @@ export const Filtershg = () => {
   const [filterdata, setfilterdata] = useState([]);
   const [notuplod, setNotuplod] = useState(false);
   
-  const { slf, district, ulb, tlfname } = useParams();
   // console.log(slf);
-  const api = async () => {
-    const res = await axios.get("/api/auth/searchall");
-    setData(res.data);
-  };
+ 
   const searchdistrict = async (event) => {
     setnewloading(true);
     const res = await axios
       .post("/api/auth/searchall", {
         "SLF Name": slf,
-        year,
+        year:year,
       })
       .then((res) => (setfilterdata(res.data), setnewloading(false),setNotuplod(false)));
 
-    // console.log(res.data);
-    setfilterdata(res.data);
+    console.log(res);
+    // setfilterdata(res.data);
   };
   const searchdis = async (event) => {
+    let year;
+    if (event) {
+      year = event.target.value;
+    } else if (!event) {
+      year = getCurrentFinancialYear();
+    }
+    setYear(year)
     // console.log(event.target.value);
     const res = await axios.post("/api/auth/searchall", {
       "SLF Name": slf,
-      year: event.target.value,
+      year:year,
     });
     // console.log(res.data);
     setfilterdata(res.data);
   };
   useEffect(() => {
-    api();
+   
     searchdistrict();
   }, []);
 
@@ -223,14 +227,14 @@ export const Filtershg = () => {
                     {slf}
                   </li>
                 </ol>
-                <Link to={`/filter/${district}/${ulb}/${tlfname}`}>
+                <Link to={`/filter/${district}/${ulb}/${tlfname}/${years}`}>
                   <li class="breadcrumb-item active" aria-current="page">
                     <button className="btn btn-outline-dark">back</button>
                   </li>
                 </Link>
               </div>
               <label>Financial Year:</label>
-              <select className="form-select-bg" required onChange={searchdis}>
+              <select className="form-select-bg"value={year} required onChange={searchdis}>
                 <option selected value={getCurrentFinancialYear()}>
                   Current year:
                   <br />

@@ -9,16 +9,18 @@ import { SideNavigation } from "./SideNavigation";
 
 export const FIlterulb = () => {
   const { loading, filedata } = useSelector((state) => state.apidata);
-  const { user, isAuthenticated, error, success, isUpdated } = useSelector(
+  const { user, isAuthenticated ,  error, success, isUpdated } = useSelector(
     (state) => state.user
   );
-  const [year, setYear] = useState();
   const dispatch = useDispatch;
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const { district,years } = useParams();
+  const [year, setYear] = useState(years);
   const [filterdata, setfilterdata] = useState([]);
-  const { district } = useParams();
   // console.log(district);
+  const [newloading, setNewloading] = useState(false);
+  
   useEffect(() => {
     if (user) {
       if (user.role === "user") {
@@ -29,25 +31,35 @@ export const FIlterulb = () => {
       navigate("/");
     }
   }, [dispatch, isAuthenticated, navigate, user]);
+
   const searchdistrict = async (year) => {
-    if (year === undefined) {
+    if(years){
+      year= years
+    }
+    else if (year === undefined) {
       year = getCurrentFinancialYear();
     }
+    setNewloading(true)
+
     const res = await axios.post("/api/auth/getxlsxfile", {
       District: district,
-      year: getCurrentFinancialYear(),
+      year: year,
     });
-    console.log(res.data);
     console.log(res.data.length);
 
     setfilterdata(res.data);
+    setNewloading(false);
     searchdistrictcount(year)
 
   };
   const [uploadcount, setUploadcount] = useState([]);
   const searchdistrictcount = async (year) => {
     // let year
-    if (year === undefined) {
+    console.log(year);
+    if(year!==undefined){
+      year = year
+    }
+    else if (year === undefined) {
       year = getCurrentFinancialYear();
     }
     console.log(year);
@@ -56,7 +68,6 @@ export const FIlterulb = () => {
       year: year,
     });
     setUploadcount(res.data);
-    console.log(res.data);
   };
   let obj = {};
 
@@ -70,7 +81,6 @@ export const FIlterulb = () => {
   });
   useEffect(() => {
     searchdistrict();
-    // searchdistrictcount();
   }, []);
   const getUniqueBy = (arr, prop) => {
     const set = new Set();
@@ -87,7 +97,7 @@ export const FIlterulb = () => {
         return (
           <tr>
             <td>{index + 1}</td>
-            <Link to={row["ULB Name"]}>
+            <Link to={`/filter/${district}/${row["ULB Name"]}/${year}`}>
               <td>{row["ULB Name"]}</td>
             </Link>
             <td>{loanobj[row["ULB Name"]]}</td>
@@ -123,14 +133,20 @@ export const FIlterulb = () => {
     } else if (!event) {
       year = getCurrentFinancialYear();
     }
-    console.log(year);
-    const res = await axios.post("/api/auth/getxlsxfile", {
-      District: district,
-      year: year,
-    });
+    searchdistrictcount(year)
+    setYear(year)
 
-    // console.log(res.data);
-    setfilterdata(res.data);
+    setNewloading(true)
+    console.log(year);
+    // const res = await axios.post("/api/auth/getxlsxfile", {
+    //   District: district,
+    //   year: year,
+    // });
+
+    // // console.log(res.data);
+    // setfilterdata(res.data);
+    setNewloading(false)
+
   };
   const nsns = new Date().getFullYear().toString();
 
@@ -148,6 +164,7 @@ export const FIlterulb = () => {
     }
     return financial_year;
   }
+  console.log(newloading);
   return (
     <div className="viewlisttop">
       <div className="viewlistboarder">
@@ -182,8 +199,8 @@ export const FIlterulb = () => {
                 className="table-responsive"
               >
                 <label>Financial Year:</label>
-                <select required onChange={searchdis}>
-                  <option selected value={getCurrentFinancialYear()}>
+                <select value={year} required onChange={searchdis}>
+                  <option  value={getCurrentFinancialYear()}>
                     Current year:{getCurrentFinancialYear()}
                   </option>
 
@@ -199,7 +216,7 @@ export const FIlterulb = () => {
                   <option value="2029-30">2029-30</option>
                   <option value="2030-31">2030-31</option>
                 </select>
-                {loading ? (
+                {loading || newloading === true  ? (
                   <LOader />
                 ) : filedata.length >= 1 ? (
                   <>

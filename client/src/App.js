@@ -57,14 +57,14 @@ function App() {
           {/* <Route path="/filter" element={<Filter/>}/> */}
           <Route path="/checkgrade" element={<Checkgrade />} />
           <Route path="/filter" element={<Filtersdistrict />} />
-          <Route path="/filter/:district" element={<FIlterulb />} />
-          <Route path="/filter/:district/:ulb" element={<Filtertlf />} />
+          <Route path="/filter/:district/:years" element={<FIlterulb />} />
+          <Route path="/filter/:district/:ulb/:years" element={<Filtertlf />} />
           <Route
-            path="/filter/:district/:ulb/:tlfname"
+            path="/filter/:district/:ulb/:tlfname/:years"
             element={<Filterslf />}
           />
           <Route
-            path="/filter/:district/:ulb/:tlfname/:slf"
+            path="/filter/:district/:ulb/:tlfname/:slf/:years"
             element={<Filtershg />}
           />
         </Routes>

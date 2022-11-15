@@ -13,6 +13,8 @@ export const Filtertlf = () => {
   const { user, isAuthenticated, error, success, isUpdated } = useSelector(
     (state) => state.user
   );
+  const [newloading, setNewloading] = useState(false);
+
   useEffect(() => {
     if (user) {
       if (user.role === "user") {
@@ -23,30 +25,37 @@ export const Filtertlf = () => {
       navigate("/");
     }
   }, [dispatch, isAuthenticated, navigate, user]);
-  const { ulb, district } = useParams();
+  const { ulb, district,years} = useParams();
   // console.log(ulb);
   const getUniqueBy = (arr, prop) => {
     const set = new Set();
     return arr.filter((o) => !set.has(o[prop]) && set.add(o[prop]));
   };
 
-  const [year, setYear] = useState("");
+  const [year, setYear] = useState(years);
 
   const [data, setData] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
 
   const searchdistrict = async (year) => {
-    if (year === undefined) {
+    if(years){
+      year= years
+    }
+    else if (year === undefined) {
       year = getCurrentFinancialYear();
     }
+    setNewloading(true)
+    searchdistrictcount(year)
+
     const res = await axios.post("/api/auth/getxlsxfile", {
       "ULB Name": ulb,
-      year: getCurrentFinancialYear(),
+      year: year,
     });
     
     // console.log(res.data);
     setfilterdata(res.data);
-    searchdistrictcount(year)
+    setNewloading(false);
+
     // console.log(res.data);
   };
   useEffect(() => {
@@ -54,7 +63,10 @@ export const Filtertlf = () => {
   }, []);
   const [uploadcount, setUploadcount] = useState([]);
   const searchdistrictcount = async (year) => {
-    if (year === undefined) {
+    if(year!==undefined){
+      year = year
+    }
+    else if (year === undefined) {
       year = getCurrentFinancialYear();
     }
     const res = await axios.post("/api/auth/searchall",{
@@ -103,7 +115,7 @@ export const Filtertlf = () => {
           <tr>
             <td>{index + 1}</td>
 
-            <Link to={row["TLF Name"]}>
+            <Link to={`/filter/${district}/${ulb}/${row["TLF Name"]}/${year}`}>
               <td>{row["TLF Name"]}</td>
             </Link>
             <td>{loanobj[row["TLF Name"]]}</td>
@@ -126,14 +138,18 @@ export const Filtertlf = () => {
     } else if (!event) {
       year = getCurrentFinancialYear();
     }
-    const res = await axios.post("/api/auth/getxlsxfile", {
-      "ULB Name": ulb,
-      year: year,
-    });
-    // console.log(res.data);
     searchdistrictcount(year);
+    setYear(year)
+    setNewloading(true)
 
-    setfilterdata(res.data);
+    // const res = await axios.post("/api/auth/getxlsxfile", {
+    //   "ULB Name": ulb,
+    //   year: year,
+    // });
+    // console.log(res.data);
+    setNewloading(false)
+
+    // setfilterdata(res.data);
   };
   const nsns = new Date().getFullYear().toString();
 
@@ -173,7 +189,7 @@ export const Filtertlf = () => {
                     {ulb}
                   </li>
                 </ol>
-                <Link to={`/filter/${district}`}>
+                <Link to={`/filter/${district}/${years}`}>
                   <li class="breadcrumb-item active" aria-current="page">
                     <button className="btn btn-outline-dark">back</button>
                   </li>
@@ -183,8 +199,8 @@ export const Filtertlf = () => {
                 style={{ overflow: "scroll", overflowY: "hidden" }}
                 className="table-responsive"
               >
-                <select required onChange={searchdis}>
-                  <option selected value={getCurrentFinancialYear()}>
+                <select  value={year} required onChange={searchdis}>
+                  <option  value={getCurrentFinancialYear()}>
                   Current year:{getCurrentFinancialYear()}
                   </option>
 
@@ -200,9 +216,9 @@ export const Filtertlf = () => {
                   <option value="2029-30">2029-30</option>
                   <option value="2030-31">2030-31</option>
                 </select>
-                {loading ? (
+                {loading || newloading === true ? (
                   <LOader />
-                ) : filterdata.length >= 1 ? (
+                ) : filedata.length >= 1 ? (
                   <>
                     <table className="table" responsive="true">
                       <thead>
