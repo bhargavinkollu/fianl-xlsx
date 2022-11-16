@@ -127,6 +127,7 @@ export const Filtershg = () => {
     else if(notuplod === false){
       datas = filterdata
     }
+    //console.log('printing data',datas)
     try {
       const hhmap = Object.keys(datas[0])
         .filter((item, index) => {
@@ -190,7 +191,18 @@ export const Filtershg = () => {
  
     // console.log(res.data);
   };
-
+  const allshgid = async () => {
+    setnewloading(true);
+    const re = await axios.post("/api/auth/getxlsxfile", {
+      "SLF Name": slf,
+    });
+    setfilterdata(re.data);
+    console.log('resdata',re.data);
+    //setNotuplod(true);
+    setnewloading(false);
+    console.log('printing everything',re);
+    console.log('filterdata',filterdata[0]);
+  };
   return (
     <div className="viewlisttop">
       <div className="viewlistboarder">
@@ -253,14 +265,17 @@ export const Filtershg = () => {
                 <option value="2030-31">2030-31</option>
               </select>
             </div>
-
+            <button className="btn btn-primary ml-1" onClick={allshgid}>
+              All
+            </button>
             <button className="btn btn-primary ml-1" onClick={searchdistrict}>
               {" "}
               Uploaded
             </button>
             <button className="btn btn-primary ml-1" onClick={notuploadshgid}>
-              notuploaded
+              Not Uploaded
             </button>
+            
             {loading ? (
               <LOader />
             ) : filterdata.length >= 1 ? (

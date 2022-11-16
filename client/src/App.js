@@ -81,7 +81,7 @@ export function Protectedrouteadmin(props) {
   const { user, isAuthenticated } = useSelector((state) => state.user);
   if (user) {
     if (user.role === "admin") {
-      return <Navigate to="/addlist" />;
+      return <Navigate to="/filter" />;
     } else if (user.role === "user") {
       dispatch(logout());
       return <Navigate to="/employeelogin" />;
