@@ -10,8 +10,10 @@ import { logout } from "../action/useraction";
 import { LOader } from "./LOader";
 export const Filtershg = () => {
   const [data, setData] = useState([]);
-  const { slf, district, ulb, tlfname,years } = useParams();
+  const { slf, district, ulb, tlfname, years } = useParams();
   const [year, setYear] = useState(years);
+  const [uploadblank, setuploadblank] = useState(false);
+
   // console.log(year);
   const dispatch = useDispatch;
   const navigate = useNavigate();
@@ -31,20 +33,23 @@ export const Filtershg = () => {
   }, [dispatch, isAuthenticated, navigate, user]);
   const [filterdata, setfilterdata] = useState([]);
   const [notuplod, setNotuplod] = useState(false);
-  
+
   // console.log(slf);
- 
+
   const searchdistrict = async (event) => {
     setnewloading(true);
+    setuploadblank(false)
     const res = await axios
       .post("/api/auth/searchall", {
         "SLF Name": slf,
-        year:year,
+        year: year,
       })
-      .then((res) => (setfilterdata(res.data), setnewloading(false),setNotuplod(false)));
-
+      .then(
+        (res) => (
+          setfilterdata(res.data), setnewloading(false), setNotuplod(false)
+        )
+      );
     console.log(res);
-    // setfilterdata(res.data);
   };
   const searchdis = async (event) => {
     let year;
@@ -53,17 +58,19 @@ export const Filtershg = () => {
     } else if (!event) {
       year = getCurrentFinancialYear();
     }
-    setYear(year)
+    setYear(year);
     // console.log(event.target.value);
     const res = await axios.post("/api/auth/searchall", {
       "SLF Name": slf,
-      year:year,
+      year: year,
     });
     // console.log(res.data);
-    setfilterdata(res.data);
+    if( uploadblank === false){
+
+      setfilterdata(res.data);
+    }
   };
   useEffect(() => {
-   
     searchdistrict();
   }, []);
 
@@ -83,18 +90,20 @@ export const Filtershg = () => {
     return financial_year;
   }
   const fmap = () => {
-    let datas
-    if(notuplod===true){
-      datas= filterdata[0]
+    let datas;
+    if (notuplod === true) {
+      datas = filterdata[0];
+    } else if (notuplod === false) {
+      datas = filterdata;
     }
-    else if(notuplod === false){
+    else if( uploadblank === true){
       datas = filterdata
     }
-  
+
+    console.log(uploadblank);
     try {
-      // console.log(data);
       const ffmap = datas.map((row, index) => {
-        // console.log(row["SHG ID"]);
+        console.log(row["SHG ID"]);
         return (
           // {Object}.key(datas),
           <tr>
@@ -104,11 +113,9 @@ export const Filtershg = () => {
               })
               .map((key, index) => {
                 // console.log(row["SHG ID"]);
-                const rooo = Object.keys(datas).filter(
-                  (item, index) => {
-                    // console. log(item);
-                  }
-                );
+                const rooo = Object.keys(datas).filter((item, index) => {
+                  // console. log(item);
+                });
                 return <td>{row[key]}</td>;
               })}
           </tr>
@@ -120,13 +127,15 @@ export const Filtershg = () => {
     }
   };
   const hmap = () => {
-    let datas
-    if(notuplod===true){
-      datas= filterdata[0]
-    }
-    else if(notuplod === false){
+    let datas;
+    if (notuplod === true) {
+      datas = filterdata[0];
+    } else if (notuplod === false) {
+      datas = filterdata;
+    }else if( uploadblank === true){
       datas = filterdata
     }
+    console.log(datas);
     //console.log('printing data',datas)
     try {
       const hhmap = Object.keys(datas[0])
@@ -146,13 +155,11 @@ export const Filtershg = () => {
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
   const fileExtension = ".xlsx";
   const downloadExcel = () => {
-    let datas
-    if(notuplod===true){
-      datas= filterdata[0];
-     
-    }
-    else if(notuplod === false){
-      datas = filterdata
+    let datas;
+    if (notuplod === true) {
+      datas = filterdata[0];
+    } else if (notuplod === false) {
+      datas = filterdata;
     }
     console.log(datas);
     const ws = XLSX.utils.json_to_sheet(datas);
@@ -164,7 +171,7 @@ export const Filtershg = () => {
   };
   const notuploadshgid = async () => {
     setnewloading(true);
-
+    setuploadblank(true)
     await filterdata.map((items, index) => {
       console.log(items["SHGID"]);
     });
@@ -172,21 +179,27 @@ export const Filtershg = () => {
       .post("/api/auth/getxlsxfile", {
         "SLF Name": slf,
       })
-      .then(
-        (res) => (
-          setfilterdata(
-            filterdata.map((items, index) => {
-              return res.data.filter((item, index) => {
-                console.log(items);
-                console.log(item);
-                return item["SHG Id"] !== items["SHGID"];
-              });
-            })
-          ),
-          setNotuplod(true),
-          setnewloading(false)
-        )
-        
+      .then((res) =>
+        filterdata.length >= 1
+          ? (setfilterdata(
+              filterdata.map((items, index) => {
+                return res.data.filter((item, index) => {
+                  console.log(items);
+                  console.log(item);
+                  return item["SHG Id"] !== items["SHGID"];
+                });
+              })
+            ),
+            setNotuplod(true),
+            setnewloading(false))
+          : // console.log("test2")
+            (setfilterdata(res.data),
+            setNotuplod(false),
+            setnewloading(false),
+            setuploadblank(true),
+            console.log("test1"),
+            console.log(filterdata)
+            )
       );
  
     // console.log(res.data);
@@ -246,7 +259,12 @@ export const Filtershg = () => {
                 </Link>
               </div>
               <label>Financial Year:</label>
-              <select className="form-select-bg"value={year} required onChange={searchdis}>
+              <select
+                className="form-select-bg"
+                value={year}
+                required
+                onChange={searchdis}
+              >
                 <option selected value={getCurrentFinancialYear()}>
                   Current year:
                   <br />
