@@ -206,15 +206,18 @@ export const Filtershg = () => {
   };
   const allshgid = async () => {
     setnewloading(true);
-    const re = await axios.post("/api/auth/getxlsxfile", {
+    const res = await axios.post("/api/auth/getxlsxfile", {
       "SLF Name": slf,
-    });
-    setfilterdata(re.data);
-    console.log('resdata',re.data);
+    }).then(
+      (res) => (
+        setfilterdata(res.data),
+        setnewloading(false),
+        setNotuplod(false),
+        setuploadblank(true)
+      )
+    );
+    console.log('resdata',res.data);
     //setNotuplod(true);
-    setnewloading(false);
-    console.log('printing everything',re);
-    console.log('filterdata',filterdata[0]);
   };
   return (
     <div className="viewlisttop">
@@ -235,26 +238,30 @@ export const Filtershg = () => {
                       Home
                     </li>
                   </Link>
-
+                  <Link to={`/filter`}>
                   <li class="breadcrumb-item active" aria-current="page">
                     {district}
                   </li>
-
+                  </Link>
+                  <Link to={`/filter/${district}/${years}`}>
                   <li class="breadcrumb-item active" aria-current="page">
                     {ulb}
                   </li>
-
+                  </Link>
+                  <Link to={`/filter/${district}/${ulb}/${years}`}>
                   <li class="breadcrumb-item active" aria-current="page">
                     {tlfname}
                   </li>
-
+                  </Link>
+                  <Link to={`/filter/${district}/${ulb}/${tlfname}/${years}`}>
                   <li class="breadcrumb-item active" aria-current="page">
                     {slf}
                   </li>
+                  </Link>
                 </ol>
                 <Link to={`/filter/${district}/${ulb}/${tlfname}/${years}`}>
                   <li class="breadcrumb-item active" aria-current="page">
-                    <button className="btn btn-outline-dark">back</button>
+                    <button className="btn btn-outline-dark">Back</button>
                   </li>
                 </Link>
               </div>
