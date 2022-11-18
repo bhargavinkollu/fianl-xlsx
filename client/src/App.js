@@ -1,9 +1,7 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
 
 import { useEffect, useState } from "react";
-import * as XLSX from "xlsx";
 
 import { AdminLogin } from "./Components/AdminLogin";
 import { useDispatch, useSelector } from "react-redux";

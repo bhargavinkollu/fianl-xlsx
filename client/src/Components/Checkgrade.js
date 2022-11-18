@@ -164,6 +164,7 @@ export const Checkgrade = () => {
     <div className="viewlisttop">
       <div className="viewlistboarder">
         <SideNavigation />
+        <div className="checkgradeheader"></div>
         <Header />
         <div className="AddFlex">
           <div className="viewlistmain">

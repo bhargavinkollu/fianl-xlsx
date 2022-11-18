@@ -35,8 +35,7 @@ export const BankForm = () => {
       dispatch(clearErrors());
     }
     if (isUpdated) {
-      alert.success(isUpdated.message);
-      dispatch(clearErrors());
+
       setBankdetail({
         sghid: "",
         bank_name: "",
@@ -119,7 +118,14 @@ export const BankForm = () => {
       });
       setGrade("");
     }
-  }, [error, isUpdated, alert, dispatch]);
+  }, [error, isUpdated, dispatch]);
+  useEffect(() => {
+  if(isUpdated){
+    alert.success(isUpdated.message);
+    dispatch(clearErrors());  
+  }
+  }, [isUpdated]);
+  
   const [checked, setChecked] = useState(false);
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(false);
@@ -311,6 +317,7 @@ export const BankForm = () => {
   };
   const inputB = (e) => {
     setSaving({ ...saving, [e.target.name]: e.target.value });
+    
   };
   const inputB_b = (e) => {
     setSlfloan({ ...slfloan, [e.target.name]: e.target.value });
@@ -594,6 +601,10 @@ export const BankForm = () => {
         parseInt(saving.opening_savings) +
         parseInt(saving.current_year_savings))
     );
+    
+  console.log("total_savings",saving.total_savings
+  ,saving);
+    
     setSlfloan(
       slfloan,
       (slfloan.total_loan_outstanding =
@@ -670,7 +681,7 @@ export const BankForm = () => {
         ))
     );
     setOpeningBankBalance(openingBankBalance);
-    console.log(SHGID);
+    console.log(saving.total_savings);
     dispatch(
       updateprofile([
         {
@@ -679,7 +690,7 @@ export const BankForm = () => {
           "Bank Name": bank_name,
           "Opening Savings": opening_savings,
           "Current Year Savings": current_year_savings,
-          "Total Savings": total_savings,
+          "Total Savings": saving.total_savings,
           year: year,
           "Opening Loans": opening_loans,
           "Slum Id": Slum_Id,
@@ -695,7 +706,7 @@ export const BankForm = () => {
           "Bank Linkage variation": bank_linkage_variation,
           "Current Year Sanctioned": current_year_sanctioned,
           "Current Year Recovery": current_year_recovery,
-          "Total Loan Outstanding": total_loan_outstanding,
+          "Total Loan Outstanding": slfloan.total_loan_outstanding,
           "Bank Opening Bank Loan": bank_opening_bank_loan,
           "Bank Current Year Sanctioned": bank_current_year_sanctioned,
           "bank Current Year Recovery": bank_current_year_recovery,
@@ -703,31 +714,31 @@ export const BankForm = () => {
           "Srinidhi Opening Loan": srinidhi_opening_loan,
           "Srinidhi Current Year Sanctioned": srinidhi_current_year_sanctioned,
           "Srinidhi Current Year ecovery": srinidhi_current_year_recovery,
-          "Srinidhi Total Loan Outstanding": srinidhi_total_loan_outstanding,
+          "Srinidhi Total Loan Outstanding": srinidhiLoan.srinidhi_total_loan_outstanding,
           "Covid Opening Loan": covid_opening_loan,
           "Covid Current Year Sanctioned": covid_current_year_sanctioned,
           "Covid Current Year Recovery": covid_current_year_recovery,
-          "Covid Total Loan Outstanding": covid_total_loan_outstanding,
+          "Covid Total Loan Outstanding": covidloan.covid_total_loan_outstanding,
           "Iml Opening Loan": iml_opening_loan,
           "Iml Current Year Sanctioned": iml_current_year_sanctioned,
           "Iml Current Year Recovery": iml_current_year_recovery,
-          "Iml Total Loan Outstanding": iml_total_loan_outstanding,
+          "Iml Total Loan Outstanding": internalMemberLoan.iml_total_loan_outstanding,
           "Slfm Opening Loan": slfm_opening_loan,
           "Slfm Current Year Sanctioned": slfm_current_year_sanctioned,
           "Slfm Current Year Recovery": slfm_current_year_recovery,
-          "Slfm Total Loan Outstanding": slfm_total_loan_outstanding,
+          "Slfm Total Loan Outstanding": slfMemberLoan.slfm_total_loan_outstanding,
           "Blml Opening Loan": blml_opening_loan,
           "Blml Current Year Sanctioned": blml_current_year_sanctioned,
           "Blml Current Year Recovery": blml_current_year_recovery,
-          "Blml Total Loan Outstanding": blml_total_loan_outstanding,
+          "Blml Total Loan Outstanding": bankLinkageMemberLoan.blml_total_loan_outstanding,
           "Srim Opening Loan": srim_opening_loan,
           "Srim Current Year Sanctioned": srim_current_year_sanctioned,
           "Srim Current Year Recovery": srim_current_year_recovery,
-          "Srim Total Loan Outstanding": srim_total_loan_outstanding,
+          "Srim Total Loan Outstanding": srinidhiMemberLoan.srim_total_loan_outstanding,
           "Cml Opening Loan": cml_opening_loan,
           "Cml Current Year Sanctioned": cml_current_year_sanctioned,
           "Cml Current Year Recovery": cml_current_year_recovery,
-          "Cml Total Loan Outstanding": cml_total_loan_outstanding,
+          "Cml Total Loan Outstanding": covidMemberLoans.cml_total_loan_outstanding,
           "Opening Bank Balance": opening_bank_balance,
           "Opening Cash": opening_cash,
           "Closing Bank Balance": closing_bank_balance,
