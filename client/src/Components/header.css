@@ -1,11 +1,11 @@
 .headertop{
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     /* width: 68%; */
     /* margin-left: 29%; */
     margin-right: 5%;
-
+margin-left: 5%;
     height: 5rem;
     border-bottom: 2px solid #E3F0FF;
     margin-bottom: 23px;

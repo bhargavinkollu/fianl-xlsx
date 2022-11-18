@@ -781,10 +781,10 @@ export const BankForm = () => {
             <LOader />
           ) : (
             <>
-            {user && user.role==="admin"?(<Link to="/">
-            <button className="btn btn-primary" style={{position:"absolute",top:"10%",left:"10%"}}>Home</button>
-            </Link>):("")}
               <div style={{ right: "40px" }} className="headertop">
+            {user && user.role==="admin"?(<Link to="/">
+            <button className="btn btn-primary">Home</button>
+            </Link>):("")}
                 {" "}
                 <span className="home_btn">
                   {isAuthenticated === true ? (
@@ -823,7 +823,7 @@ export const BankForm = () => {
                     placeholder="search by SHG ID"
                     name="search"
                   />
-                  <button className="btn" onClick={searchSHG}>
+                  <button className="btn btn-primary" style={{marginLeft:"2%"}}onClick={searchSHG}>
                     Search{" "}
                   </button>
                 </form>
