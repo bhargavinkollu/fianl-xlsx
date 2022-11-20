@@ -152,34 +152,39 @@ exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
 });
 exports.uploadform = catchAsyncerror(async (req, res, next) => {
   let data = req.body.data;
-  let sgid = data[0]["SHG ID"];
+  let sgid = data[0]["SHGID"];
+  let cyear = data[0]["year"];
+  
 
   try {
-    const user = await UploadFormData.findOne({ "SHG ID": sgid });
+    const user = await UploadFormData.findOne({ "SHGID": sgid });
     const year = await UploadFormData.findOne({
-      sghid: sgid,
+      SHGID: sgid,
       year: data[0]["year"],
+      
     });
+    //console.log('printing year',year)
     // console.log(user);/////
     if (data[0]["year"] === undefined) {
       return res
         .status(500)
-        .json({ message: "plz enter year", success: false });
+        .json({ message: "Please select the year", success: false });
     }
     if (year) {
+      //console.log('printing year',year)
       return res
         .status(500)
-        .json({ message: "already Sghid with same year", success: false });
+        .json({ message: "Grade details for the SHGID " + sgid + ", year" + cyear +" already uploaded", success: false });
     }
     if (user === "") {
       return res
         .status(500)
-        .json({ message: "Sghid already exist", success: false });
+        .json({ message: "SHGID already exists", success: false });
     } else {
       let savedData = await UploadFormData.insertMany(req.body.data);
       return res
         .status(201)
-        .json({ message: "data upload successfull", success: true });
+        .json({ message: "Data Upload successfull", success: true });
     }
     // });
   } catch (error) {

@@ -61,7 +61,7 @@ export const AdminLogin = () => {
 </nav>
           <div className="">
           <div className="contentAdmin">
-            <h4 style={{paddingTop:"10%"}}>Adimin Login </h4>
+            <h4 style={{paddingTop:"10%"}}>Admin Login </h4>
             <form action="" onSubmit={Submittion}>
               <div className="flexboxA">
                 <h5>User name</h5>

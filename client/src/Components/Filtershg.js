@@ -136,6 +136,7 @@ export const Filtershg = () => {
       datas = filterdata
     }
     console.log(datas);
+    //console.log('printing data',datas)
     try {
       const hhmap = Object.keys(datas[0])
         .filter((item, index) => {
@@ -200,8 +201,24 @@ export const Filtershg = () => {
             console.log(filterdata)
             )
       );
+ 
+    // console.log(res.data);
   };
-
+  const allshgid = async () => {
+    setnewloading(true);
+    const res = await axios.post("/api/auth/getxlsxfile", {
+      "SLF Name": slf,
+    }).then(
+      (res) => (
+        setfilterdata(res.data),
+        setnewloading(false),
+        setNotuplod(false),
+        setuploadblank(true)
+      )
+    );
+    console.log('resdata',res.data);
+    //setNotuplod(true);
+  };
   return (
     <div className="viewlisttop">
       <div className="viewlistboarder">
@@ -221,26 +238,30 @@ export const Filtershg = () => {
                       Home
                     </li>
                   </Link>
-
+                  <Link to={`/filter`}>
                   <li class="breadcrumb-item active" aria-current="page">
                     {district}
                   </li>
-
+                  </Link>
+                  <Link to={`/filter/${district}/${years}`}>
                   <li class="breadcrumb-item active" aria-current="page">
                     {ulb}
                   </li>
-
+                  </Link>
+                  <Link to={`/filter/${district}/${ulb}/${years}`}>
                   <li class="breadcrumb-item active" aria-current="page">
                     {tlfname}
                   </li>
-
+                  </Link>
+                  <Link to={`/filter/${district}/${ulb}/${tlfname}/${years}`}>
                   <li class="breadcrumb-item active" aria-current="page">
                     {slf}
                   </li>
+                  </Link>
                 </ol>
                 <Link to={`/filter/${district}/${ulb}/${tlfname}/${years}`}>
                   <li class="breadcrumb-item active" aria-current="page">
-                    <button className="btn btn-outline-dark">back</button>
+                    <button className="btn btn-outline-dark">Back</button>
                   </li>
                 </Link>
               </div>
@@ -269,14 +290,17 @@ export const Filtershg = () => {
                 <option value="2030-31">2030-31</option>
               </select>
             </div>
-
+            <button className="btn btn-primary ml-1" onClick={allshgid}>
+              All
+            </button>
             <button className="btn btn-primary ml-1" onClick={searchdistrict}>
               {" "}
               Uploaded
             </button>
             <button className="btn btn-primary ml-1" onClick={notuploadshgid}>
-              notuploaded
+              Not Uploaded
             </button>
+            
             {loading ? (
               <LOader />
             ) : filterdata.length >= 1 ? (

@@ -183,16 +183,17 @@ export const FIlterulb = () => {
                         Home
                       </li>
                     </Link>
-
+                    <Link to={'/filter'}>
                     <li class="breadcrumb-item active" aria-current="page">
                       {district}
                     </li>
+                    </Link>
                   </ol>
                 </nav>
 
-                <Link to="/filter">
+                <Link to={'/filter'}>
                   <li class="breadcrumb-item active" aria-current="page">
-                    <button className="btn btn-outline-dark">back</button>
+                    <button className="btn btn-outline-dark">Back</button>
                   </li>
                 </Link>
               </div>

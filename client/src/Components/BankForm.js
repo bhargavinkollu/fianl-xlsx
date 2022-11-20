@@ -51,72 +51,72 @@ export const BankForm = () => {
       });
       setsghid("");
       setSaving({
-        opening_savings: "",
-        current_year_savings: "",
-        total_savings: "",
+        opening_savings: "0",
+        current_year_savings: "0",
+        total_savings: "0",
       });
       setSlfloan({
-        opening_loans: "",
-        current_year_sanctioned: "",
-        current_year_recovery: "",
-        total_loan_outstanding: "",
+        opening_loans: "0",
+        current_year_sanctioned: "0",
+        current_year_recovery: "0",
+        total_loan_outstanding: "0",
       });
       setBankloan({
-        bank_opening_bank_loan: "",
-        bank_current_year_sanctioned: "",
-        bank_current_year_recovery: "",
-        bank_total_loan_outstanding: "",
+        bank_opening_bank_loan: "0",
+        bank_current_year_sanctioned: "0",
+        bank_current_year_recovery: "0",
+        bank_total_loan_outstanding: "0",
       });
       setSrinidhiLoan({
-        srinidhi_opening_loan: "",
-        srinidhi_current_year_sanctioned: "",
-        srinidhi_current_year_recovery: "",
-        srinidhi_total_loan_outstanding: "",
+        srinidhi_opening_loan: "0",
+        srinidhi_current_year_sanctioned: "0",
+        srinidhi_current_year_recovery: "0",
+        srinidhi_total_loan_outstanding: "0",
       });
       setCovidloan({
-        covid_opening_loan: "",
-        covid_current_year_sanctioned: "",
-        covid_current_year_recovery: "",
-        covid_total_loan_outstanding: "",
+        covid_opening_loan: "0",
+        covid_current_year_sanctioned: "0",
+        covid_current_year_recovery: "0",
+        covid_total_loan_outstanding: "0",
       });
       setInternalMemberLoan({
-        iml_opening_loan: "",
-        iml_current_year_sanctioned: "",
-        iml_current_year_recovery: "",
-        iml_total_loan_outstanding: "",
+        iml_opening_loan: "0",
+        iml_current_year_sanctioned: "0",
+        iml_current_year_recovery: "0",
+        iml_total_loan_outstanding: "0",
       });
       setSlfMemberLoan({
-        slfm_opening_loan: "",
-        slfm_current_year_sanctioned: "",
-        slfm_current_year_recovery: "",
-        slfm_total_loan_outstanding: "",
+        slfm_opening_loan: "0",
+        slfm_current_year_sanctioned: "0",
+        slfm_current_year_recovery: "0",
+        slfm_total_loan_outstanding: "0",
       });
       setBankLinkageMemberLoan({
-        blml_opening_loan: "",
-        blml_current_year_sanctioned: "",
-        blml_current_year_recovery: "",
-        blml_total_loan_outstanding: "",
+        blml_opening_loan: "0",
+        blml_current_year_sanctioned: "0",
+        blml_current_year_recovery: "0",
+        blml_total_loan_outstanding: "0",
       });
       setSrinidhiMemberLoan({
-        srim_opening_loan: "",
-        srim_current_year_sanctioned: "",
-        srim_current_year_recovery: "",
-        srim_total_loan_outstanding: "",
+        srim_opening_loan: "0",
+        srim_current_year_sanctioned: "0",
+        srim_current_year_recovery: "0",
+        srim_total_loan_outstanding: "0",
       });
       setCovidMemberLoans({
-        cml_opening_loan: "",
-        cml_current_year_sanctioned: "",
-        cml_current_year_recovery: "",
-        cml_total_loan_outstanding: "",
+        cml_opening_loan: "0",
+        cml_current_year_sanctioned: "0",
+        cml_current_year_recovery: "0",
+        cml_total_loan_outstanding: "0",
       });
       setOpeningBankBalance({
-        opening_bank_balance: "",
-        opening_cash: "",
-        closing_bank_balance: "",
-        closing_cash: "",
-        surplus: "",
+        opening_bank_balance: "0",
+        opening_cash: "0",
+        closing_bank_balance: "0",
+        closing_cash: "0",
+        surplus: "0",
       });
-      setGrade("");
+      setGrade("A");
     }
   }, [error, isUpdated, dispatch]);
   useEffect(() => {
@@ -138,6 +138,10 @@ export const BankForm = () => {
   const [checked9, setChecked9] = useState(false);
   const [checked10, setChecked10] = useState(false);
   const [SHGID, setsghid] = useState("");
+  const [cpbnkln,setcpbnkln] = useState(false);
+  const [cpslfln, setcpslfln] = useState(false);
+  const [cpsndhln, setcpsndhln] = useState(false);
+  const [cpcvdln, setcpcvdln] = useState(false);
 
   const [bankdetail, setBankdetail] = useState({
     bank_name: "",
@@ -146,70 +150,70 @@ export const BankForm = () => {
   const [year, setYear] = useState();
 
   const [saving, setSaving] = useState({
-    opening_savings: "",
-    current_year_savings: "",
-    total_savings: "",
+    opening_savings: "0",
+    current_year_savings: "0",
+    total_savings: "0",
   });
   const [slfloan, setSlfloan] = useState({
-    opening_loans: "",
-    current_year_sanctioned: "",
-    current_year_recovery: "",
-    total_loan_outstanding: "",
+    opening_loans: "0",
+    current_year_sanctioned: "0",
+    current_year_recovery: "0",
+    total_loan_outstanding: "0",
   });
   const [bankloan, setBankloan] = useState({
-    bank_opening_bank_loan: "",
-    bank_current_year_sanctioned: "",
-    bank_current_year_recovery: "",
-    bank_total_loan_outstanding: "",
+    bank_opening_bank_loan: "0",
+    bank_current_year_sanctioned: "0",
+    bank_current_year_recovery: "0",
+    bank_total_loan_outstanding: "0",
   });
   const [srinidhiLoan, setSrinidhiLoan] = useState({
-    srinidhi_opening_loan: "",
-    srinidhi_current_year_sanctioned: "",
-    srinidhi_current_year_recovery: "",
-    srinidhi_total_loan_outstanding: "",
+    srinidhi_opening_loan: "0",
+    srinidhi_current_year_sanctioned: "0",
+    srinidhi_current_year_recovery: "0",
+    srinidhi_total_loan_outstanding: "0",
   });
   const [covidloan, setCovidloan] = useState({
-    covid_opening_loan: "",
-    covid_current_year_sanctioned: "",
-    covid_current_year_recovery: "",
-    covid_total_loan_outstanding: "",
+    covid_opening_loan: "0",
+    covid_current_year_sanctioned: "0",
+    covid_current_year_recovery: "0",
+    covid_total_loan_outstanding: "0",
   });
   const [internalMemberLoan, setInternalMemberLoan] = useState({
-    iml_opening_loan: "",
-    iml_current_year_sanctioned: "",
-    iml_current_year_recovery: "",
-    iml_total_loan_outstanding: "",
+    iml_opening_loan: "0",
+    iml_current_year_sanctioned: "0",
+    iml_current_year_recovery: "0",
+    iml_total_loan_outstanding: "0",
   });
   const [slfMemberLoan, setSlfMemberLoan] = useState({
-    slfm_opening_loan: "",
-    slfm_current_year_sanctioned: "",
-    slfm_current_year_recovery: "",
-    slfm_total_loan_outstanding: "",
+    slfm_opening_loan: "0",
+    slfm_current_year_sanctioned: "0",
+    slfm_current_year_recovery: "0",
+    slfm_total_loan_outstanding: "0",
   });
   const [bankLinkageMemberLoan, setBankLinkageMemberLoan] = useState({
-    blml_opening_loan: "",
-    blml_current_year_sanctioned: "",
-    blml_current_year_recovery: "",
-    blml_total_loan_outstanding: "",
+    blml_opening_loan: "0",
+    blml_current_year_sanctioned: "0",
+    blml_current_year_recovery: "0",
+    blml_total_loan_outstanding: "0",
   });
   const [srinidhiMemberLoan, setSrinidhiMemberLoan] = useState({
-    srim_opening_loan: "",
-    srim_current_year_sanctioned: "",
-    srim_current_year_recovery: "",
-    srim_total_loan_outstanding: "",
+    srim_opening_loan: "0",
+    srim_current_year_sanctioned: "0",
+    srim_current_year_recovery: "0",
+    srim_total_loan_outstanding: "0",
   });
   const [covidMemberLoans, setCovidMemberLoans] = useState({
-    cml_opening_loan: "",
-    cml_current_year_sanctioned: "",
-    cml_current_year_recovery: "",
-    cml_total_loan_outstanding: "",
+    cml_opening_loan: "0",
+    cml_current_year_sanctioned: "0",
+    cml_current_year_recovery: "0",
+    cml_total_loan_outstanding: "0",
   });
   const [openingBankBalance, setOpeningBankBalance] = useState({
-    opening_bank_balance: "",
-    opening_cash: "",
-    closing_bank_balance: "",
-    closing_cash: "",
-    surplus: "",
+    opening_bank_balance: "0",
+    opening_cash: "0",
+    closing_bank_balance: "0",
+    closing_cash: "0",
+    surplus: "0",
   });
   const [Grade, setGrade] = useState();
 
@@ -321,16 +325,20 @@ export const BankForm = () => {
   };
   const inputB_b = (e) => {
     setSlfloan({ ...slfloan, [e.target.name]: e.target.value });
+    //setSlfMemberLoan({ ...slfMemberLoan, [e.target.name]: e.target.value });
   };
   const inputC = (e) => {
     setBankloan({ ...bankloan, [e.target.name]: e.target.value });
     // console.log(bankloan);
+    
   };
   const inputC_c = (e) => {
     setSrinidhiLoan({ ...srinidhiLoan, [e.target.name]: e.target.value });
+    
   };
   const inputD = (e) => {
     setCovidloan({ ...covidloan, [e.target.name]: e.target.value });
+    
   };
   const inputD_d = (e) => {
     setInternalMemberLoan({
@@ -367,190 +375,52 @@ export const BankForm = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const bnkln = () => {
+    let bankloan = document.getElementById("bnkln");
+    if( bankloan.checked === true){
+      setBankLinkageMemberLoan({
+        blml_opening_loan: bank_opening_bank_loan,
+        blml_current_year_sanctioned: bank_current_year_sanctioned,
+        blml_current_year_recovery: bank_current_year_recovery,
+      });
+    }
+
+  };
+  const slfln = () => {
+    let slfln = document.getElementById("slfln");
+    if( slfln.checked === true){
+      setSlfMemberLoan({
+        slfm_opening_loan: slfloan.opening_loans,
+        slfm_current_year_sanctioned: slfloan.current_year_sanctioned,
+        slfm_current_year_recovery: slfloan.current_year_recovery,
+      });
+    }
+
+  };
+  const sndhln = () => {
+    let sndhln = document.getElementById("sndhln");
+    if( sndhln.checked === true){
+      setSrinidhiMemberLoan({
+        srim_opening_loan: srinidhiLoan.srinidhi_opening_loan,
+        srim_current_year_sanctioned: srinidhiLoan.srinidhi_current_year_sanctioned,
+        srim_current_year_recovery: srinidhiLoan.srinidhi_current_year_recovery,
+      });
+    }
+
+  };
+  const cvdln = () => {
+    let covidln = document.getElementById("cvdln");
+    if( covidln.checked === true){
+      setCovidMemberLoans({
+        cml_opening_loan: covidloan.covid_opening_loan,
+        cml_current_year_sanctioned: covidloan.covid_current_year_sanctioned,
+        cml_current_year_recovery: covidloan.covid_current_year_recovery,
+      });
+    }
+
+  };
   // console.log(Grade);
   // console.log(variation);
-  const chkb1 = (e) => {
-    let checkboxB1 = document.getElementById("chkB1");
-    if (checkboxB1.checked === true) {
-      setSaving({
-        opening_savings: "0",
-        current_year_savings: "0",
-        total_savings: "0",
-      });
-    } else {
-      setSaving({
-        opening_savings: "",
-        current_year_savings: "",
-        total_savings: "",
-      });
-    }
-  };
-  const chkb2 = () => {
-    let checkboxB2 = document.getElementById("chkB2");
-    if (checkboxB2.checked === true) {
-      setSlfMemberLoan({
-        slfm_opening_loan: "0",
-        slfm_current_year_sanctioned: "0",
-        slfm_current_year_recovery: "0",
-      });
-    } else {
-      setSlfMemberLoan({
-        slfm_opening_loan: "",
-        slfm_current_year_sanctioned: "",
-        slfm_current_year_recovery: "",
-      });
-    }
-  };
-  const chkc1 = () => {
-    let checkboxC1 = document.getElementById("chkC1");
-    if (checkboxC1.checked === true) {
-      setBankloan({
-        bank_opening_bank_loan: "0",
-        bank_current_year_sanctioned: "0",
-        bank_current_year_recovery: "0",
-      });
-    } else {
-      setBankloan({
-        bank_opening_bank_loan: "",
-        bank_current_year_sanctioned: "",
-        bank_current_year_recovery: "",
-      });
-    }
-  };
-  const chkc2 = () => {
-    let checkboxC2 = document.getElementById("chkC2");
-    if (checkboxC2.checked === true) {
-      setSrinidhiMemberLoan({
-        srim_opening_loan: "0",
-        srim_current_year_sanctioned: "0",
-        srim_current_year_recovery: "0",
-      });
-    } else {
-      setSrinidhiMemberLoan({
-        srim_opening_loan: "",
-        srim_current_year_sanctioned: "",
-        srim_current_year_recovery: "",
-      });
-    }
-  };
-  const chkd1 = () => {
-    let checkboxD1 = document.getElementById("chkD1");
-    if (checkboxD1.checked === true) {
-      setCovidloan({
-        covid_opening_loan: "0",
-        covid_current_year_sanctioned: "0",
-        covid_current_year_recovery: "0",
-      });
-    } else {
-      setCovidloan({
-        covid_opening_loan: "",
-        covid_current_year_sanctioned: "",
-        covid_current_year_recovery: "",
-      });
-    }
-  };
-  const chkd2 = () => {
-    let checkboxD2 = document.getElementById("chkD2");
-    if (checkboxD2.checked === true) {
-      setInternalMemberLoan({
-        iml_opening_loan: "0",
-        iml_current_year_sanctioned: "0",
-        iml_current_year_recovery: "0",
-      });
-    } else {
-      setInternalMemberLoan({
-        iml_opening_loan: "",
-        iml_current_year_sanctioned: "",
-        iml_current_year_recovery: "",
-      });
-    }
-  };
-  const chke1 = () => {
-    let checkboxE1 = document.getElementById("chkE1");
-    if (checkboxE1.checked === true) {
-      setSlfloan({
-        opening_loans: "0",
-        current_year_sanctioned: "0",
-        current_year_recovery: "0",
-      });
-    } else {
-      setSlfloan({
-        opening_loans: "",
-        current_year_sanctioned: "",
-        current_year_recovery: "",
-      });
-    }
-  };
-
-  const chke2 = () => {
-    let checkboxE2 = document.getElementById("chkE2");
-    if (checkboxE2.checked === true) {
-      setBankLinkageMemberLoan({
-        blml_opening_loan: "0",
-        blml_current_year_sanctioned: "0",
-        blml_current_year_recovery: "0",
-      });
-    } else {
-      setBankLinkageMemberLoan({
-        blml_opening_loan: "",
-        blml_current_year_sanctioned: "",
-        blml_current_year_recovery: "",
-      });
-    }
-  };
-
-  const chkf1 = () => {
-    let checkboxF1 = document.getElementById("chkF1");
-    if (checkboxF1.checked === true) {
-      setSrinidhiLoan({
-        srinidhi_opening_loan: "0",
-        srinidhi_current_year_sanctioned: "0",
-        srinidhi_current_year_recovery: "0",
-      });
-    } else {
-      setSrinidhiLoan({
-        srinidhi_opening_loan: "",
-        srinidhi_current_year_sanctioned: "",
-        srinidhi_current_year_recovery: "",
-      });
-    }
-  };
-  const chkf2 = () => {
-    let checkboxF2 = document.getElementById("chkF2");
-    if (checkboxF2.checked === true) {
-      setCovidMemberLoans({
-        cml_opening_loan: "0",
-        cml_current_year_sanctioned: "0",
-        cml_current_year_recovery: "0",
-      });
-    } else {
-      setCovidMemberLoans({
-        cml_opening_loan: "",
-        cml_current_year_sanctioned: "",
-        cml_current_year_recovery: "",
-      });
-    }
-  };
-  const chkg1 = () => {
-    let checkboxG1 = document.getElementById("chkG1");
-    if (checkboxG1.checked === true) {
-      setOpeningBankBalance({
-        opening_bank_balance: "0",
-        opening_cash: "0",
-        closing_bank_balance: "0",
-        closing_cash: "0",
-        surplus: "0",
-      });
-    } else {
-      setOpeningBankBalance({
-        opening_bank_balance: "",
-        opening_cash: "",
-        closing_bank_balance: "",
-        closing_cash: "",
-        surplus: "",
-      });
-    }
-  };
   const searchSHG = async (e) => {
     e.preventDefault();
     const res = await axios.post("/api/auth/finddata", {
@@ -593,7 +463,7 @@ export const BankForm = () => {
 
   const form_submit = (e) => {
     e.preventDefault();
-
+    
     setBankdetail(bankdetail);
     setSaving(
       saving,
@@ -748,18 +618,12 @@ export const BankForm = () => {
         },
       ])
     );
-
-    setChecked(false);
-    setChecked1(false);
-    setChecked2(false);
-    setChecked3(false);
-    setChecked4(false);
-    setChecked5(false);
-    setChecked6(false);
-    setChecked7(false);
-    setChecked8(false);
-    setChecked9(false);
-    setChecked10(false);
+    
+    setcpbnkln(false);
+    setcpslfln(false);
+    setcpsndhln(false);
+    setcpcvdln(false);
+    
   };
 
   // console.log(bankloan.bank_total_loan_outstanding);
@@ -794,7 +658,7 @@ export const BankForm = () => {
             <>
               <div style={{ right: "40px" }} className="headertop">
             {user && user.role==="admin"?(<Link to="/">
-            <button className="btn btn-primary">Home</button>
+            <button className="btn btn-primary" style={{position:"absolute",top:"10%",left:"10%"}}>Back</button>
             </Link>):("")}
                 {" "}
                 <span className="home_btn">
@@ -837,6 +701,29 @@ export const BankForm = () => {
                   <button className="btn btn-primary" style={{marginLeft:"2%"}}onClick={searchSHG}>
                     Search{" "}
                   </button>
+                  
+                  <select className="year"
+                          required
+                          onChange={(e) => {
+                            setYear(e.target.value);
+                          }}
+                        >
+                          <option selected disabled>
+                            year
+                          </option>
+                            
+                    <option value="2020-21">2020-21</option>
+                    <option value="2021-22">2021-22</option>
+                    <option value="2022-23">2022-23</option>
+                    <option value="2023-24">2023-24</option>
+                    <option value="2024-25">2024-25</option>
+                    <option value="2025-26">2025-26</option>
+                    <option value="2026-27">2026-27</option>
+                    <option value="2027-28">2027-28</option>
+                    <option value="2028-29">2028-29</option>
+                    <option value="2029-30">2029-30</option>
+                    <option value="2030-31">2030-31</option>
+                        </select>
                 </form>
                 <form
                   action=""
@@ -880,17 +767,6 @@ export const BankForm = () => {
                       <div className="flexBX">
                         <div className="flexT">
                           <h4>Saving</h4>
-                          <div className="flexD">
-                            <input
-                              type="checkbox"
-                              name="default"
-                              id="chkB1"
-                              onClick={chkb1}
-                              checked={checked}
-                              onChange={(e) => setChecked(e.target.checked)}
-                            />
-                            <p>Default Value</p>
-                          </div>
                         </div>
                         <div className="flexC">
                           <p>Opening Savings</p>
@@ -930,17 +806,6 @@ export const BankForm = () => {
                       <div className="flexBaX">
                         <div className="flexT">
                           <h4>Internal Member Loan</h4>
-                          <div className="flexD">
-                            <input
-                              type="checkbox"
-                              name="default"
-                              id="chkD2"
-                              onClick={chkd2}
-                              checked={checked5}
-                              onChange={(e) => setChecked5(e.target.checked)}
-                            />
-                            <p>Default Value</p>
-                          </div>
                         </div>
                         <div className="flexC">
                           <p>Opening Loan </p>
@@ -995,17 +860,6 @@ export const BankForm = () => {
                       <div className="flexBX">
                         <div className="flexT">
                           <h4>Bank Loans</h4>
-                          <div className="flexD">
-                            <input
-                              type="checkbox"
-                              name="default"
-                              id="chkC1"
-                              onClick={chkc1}
-                              checked={checked2}
-                              onChange={(e) => setChecked2(e.target.checked)}
-                            />
-                            <p>Default Value</p>
-                          </div>
                         </div>
 
                         <div className="flexC">
@@ -1055,15 +909,15 @@ export const BankForm = () => {
                         <div className="flexT">
                           <h4>Bank Linkage Member Loans</h4>
                           <div className="flexD">
-                            <input
+                            <input 
                               type="checkbox"
-                              name="default"
-                              id="chkE2"
-                              onClick={chke2}
-                              checked={checked7}
-                              onChange={(e) => setChecked7(e.target.checked)}
+                              name="copy"
+                              id="bnkln"
+                              onClick={bnkln}
+                              checked={cpbnkln}
+                              onChange={(e) => setcpbnkln(e.target.checked)}
                             />
-                            <p>Default Value</p>
+                            <p>Copy</p>
                           </div>
                         </div>
                         <div className="flexC">
@@ -1135,17 +989,6 @@ export const BankForm = () => {
                       <div className="flexBX">
                         <div className="flexT">
                           <h4>SLF Loans</h4>
-                          <div className="flexD">
-                            <input
-                              type="checkbox"
-                              name="default"
-                              id="chkE1"
-                              onClick={chke1}
-                              checked={checked6}
-                              onChange={(e) => setChecked6(e.target.checked)}
-                            />
-                            <p>Default Value</p>
-                          </div>
                         </div>
                         <div className="flexC">
                           <p>Opening Loans </p>
@@ -1202,14 +1045,13 @@ export const BankForm = () => {
                           <div className="flexD">
                             <input 
                               type="checkbox"
-                              name="default"
-                              id="chkB2"
-                              onClick={chkb2}
-                              className="chkbox"
-                              checked={checked1}
-                              onChange={(e) => setChecked1(e.target.checked)}
+                              name="copy"
+                              id="slfln"
+                              onClick={slfln}
+                              checked={cpslfln}
+                              onChange={(e) => setcpslfln(e.target.checked)}
                             />
-                            <p>Default Value</p>
+                            <p>Copy</p>
                           </div>
                         </div>
 
@@ -1273,17 +1115,6 @@ export const BankForm = () => {
                       <div className="flexBX">
                         <div className="flexT">
                           <h4>Srinidhi Loans</h4>
-                          <div className="flexD">
-                            <input 
-                              type="checkbox"
-                              name="default"
-                              id="chkF1"
-                              onClick={chkf1}
-                              checked={checked8}
-                              onChange={(e) => setChecked8(e.target.checked)}
-                            />
-                            <p>Default Value</p>
-                          </div>
                         </div>
                         <div className="flexC">
                           <p>Opening Loan </p>
@@ -1344,13 +1175,13 @@ export const BankForm = () => {
                           <div className="flexD">
                             <input 
                               type="checkbox"
-                              name="default"
-                              id="chkC2"
-                              onClick={chkc2}
-                              checked={checked3}
-                              onChange={(e) => setChecked3(e.target.checked)}
+                              name="copy"
+                              id="sndhln"
+                              onClick={sndhln}
+                              checked={cpsndhln}
+                              onChange={(e) => setcpsndhln(e.target.checked)}
                             />
-                            <p>Default Value</p>
+                            <p>Copy</p>
                           </div>
                         </div>
 
@@ -1418,20 +1249,7 @@ export const BankForm = () => {
                       <div className="flexBX">
                         <div className="flexT">
                           <h4>Covid Loans</h4>
-
-                          <div className="flexD">
-                            <input 
-                              type="checkbox"
-                              name="default"
-                              id="chkD1"
-                              onClick={chkd1}
-                              checked={checked4}
-                              onChange={(e) => setChecked4(e.target.checked)}
-                            />
-                            <p>Default Value</p>
-                          </div>
                         </div>
-
                         <div className="flexC">
                           <p>Opening Loans</p>
                           <input
@@ -1489,13 +1307,13 @@ export const BankForm = () => {
                           <div className="flexD">
                             <input 
                               type="checkbox"
-                              name="default"
-                              id="chkF2"
-                              onClick={chkf2}
-                              checked={checked9}
-                              onChange={(e) => setChecked9(e.target.checked)}
+                              name="copy"
+                              id="cvdln"
+                              onClick={cvdln}
+                              checked={cpcvdln}
+                              onChange={(e) => setcpcvdln(e.target.checked)}
                             />
-                            <p>Default Value</p>
+                            <p>Copy</p>
                           </div>
                         </div>
                         <div className="flexC">
@@ -1551,6 +1369,7 @@ export const BankForm = () => {
                       </div>
                     </div>
                   </div>
+                  
                   {/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
                   {/* sectionG */}
                   <div className="sectionG">
@@ -1558,17 +1377,6 @@ export const BankForm = () => {
                       <div className="flexBX">
                         <div className="flexT">
                           <h4>Balances</h4>
-                          <div className="flexD">
-                            <input 
-                              type="checkbox"
-                              name="default"
-                              id="chkG1"
-                              onClick={chkg1}
-                              checked={checked10}
-                              onChange={(e) => setChecked10(e.target.checked)}
-                            />
-                            <p>Default Value</p>
-                          </div>
                         </div>
                         <div className="flexC">
                           <p>Opening Cash in Hand</p>
@@ -1619,28 +1427,7 @@ export const BankForm = () => {
                             value={openingBankBalance.surplus}
                           />
                         </div>
-                        <select
-                          required
-                          onChange={(e) => {
-                            setYear(e.target.value);
-                          }}
-                        >
-                          <option selected disabled>
-                            year
-                          </option>
-                            
-                    <option value="2020-21">2020-21</option>
-                    <option value="2021-22">2021-22</option>
-                    <option value="2022-23">2022-23</option>
-                    <option value="2023-24">2023-24</option>
-                    <option value="2024-25">2024-25</option>
-                    <option value="2025-26">2025-26</option>
-                    <option value="2026-27">2026-27</option>
-                    <option value="2027-28">2027-28</option>
-                    <option value="2028-29">2028-29</option>
-                    <option value="2029-30">2029-30</option>
-                    <option value="2030-31">2030-31</option>
-                        </select>
+                        
                       </div>
                       <div className="flexBaX">
                         <div className="flexC">

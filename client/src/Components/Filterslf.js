@@ -183,22 +183,25 @@ export const Filterslf = () => {
                         Home
                       </li>
                     </Link>
-
+                    <Link to={`/filter`}>
                     <li class="breadcrumb-item active" aria-current="page">
                       {district}
                     </li>
-
+                    </Link>
+                    <Link to={`/filter/${district}/${ulb}/${years}`}>
                     <li class="breadcrumb-item active" aria-current="page">
                       {ulb}
                     </li>
-
+                    </Link>
+                    <Link to={`/filter/${district}/${ulb}/${years}`}>
                     <li class="breadcrumb-item active" aria-current="page">
                       {tlfname}
                     </li>
+                    </Link>
                   </ol>
                   <Link to={`/filter/${district}/${ulb}/${years}`}>
                     <li class="breadcrumb-item active" aria-current="page">
-                      <button className="btn btn-outline-dark">back</button>
+                      <button className="btn btn-outline-dark">Back</button>
                     </li>
                   </Link>
                 </div>

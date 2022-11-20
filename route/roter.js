@@ -50,7 +50,7 @@ const uploadXLSX = async (req, res, next) => {
     ) {
       return res
         .status(500)
-        .json({ message: "heading not match", success: false });
+        .json({ message: "headers do not match with the system format", success: false });
     }
     // return
     let savedData = await Excell.insertMany(jsonData);
