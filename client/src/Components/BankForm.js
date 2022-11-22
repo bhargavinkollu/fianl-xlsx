@@ -23,9 +23,7 @@ export const BankForm = () => {
   const { user, isAuthenticated, error, isUpdated, loading } = useSelector(
     (state) => state.user
   );
-  if (user === null) {
-    navigate("/employeelogin");
-  }
+  
   // console.log(isAuthenticated);
 
   useEffect(() => {
@@ -34,6 +32,10 @@ export const BankForm = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
+    if (user === null) {
+      navigate("/employeelogin");
+    }
+    console.log(user);
     if (isUpdated) {
 
       setBankdetail({
@@ -798,7 +800,7 @@ export const BankForm = () => {
             </Link>):("")}
                 {" "}
                 <span className="home_btn">
-                  {isAuthenticated === true ? (
+                  {isAuthenticated === true &&user ? (
                     <>
                       <div>
                         <ul className="navbar-nav top-btn ml-auto flex-row">

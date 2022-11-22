@@ -124,7 +124,7 @@ export const Register = () => {
               </div>
                 <input
                   type="submit"
-                  value="Login"
+                  value="Register"
                   className="btn btn-success"
                   id="buttonSubmit"
                 />

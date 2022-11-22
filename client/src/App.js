@@ -39,11 +39,11 @@ function App() {
               </Protectedrouteadmin>
             }
           />
-          <Route path="/adminregister" element={<Registeradmin />} />
+          <Route path="/adminregister" element={<Protectedrouteadmin><Registeradmin /></Protectedrouteadmin>} />
           <Route path="/addlist" element={<AddList />} />
           <Route path="/viewlist" element={<Viewlist />} />
           <Route path="/bankform" element={<BankForm />} />
-          <Route path="/employeeregister" element={<Register />} />
+          <Route path="/employeeregister" element={<Protectedrouteuser><Register /></Protectedrouteuser>} />
           <Route
             path="/employeelogin"
             element={
@@ -93,6 +93,7 @@ export function Protectedrouteuser(props) {
 
   const { user, isAuthenticated } = useSelector((state) => state.user);
   if (user) {
+    console.log(user);
     if (user.role === "admin") {
       dispatch(logout());
       return <Navigate to="/employeelogin" />;

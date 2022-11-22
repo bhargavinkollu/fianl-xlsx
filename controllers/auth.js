@@ -200,6 +200,7 @@ exports.logout = catchAsyncerror(async (req, res, next) => {
 
 exports.isAuthuser = catchAsyncerror(async (req, res, next) => {
   const { token } = req.cookies;
+  console.log(token);
   if (!token) {
     return res
       .status(401)
@@ -207,6 +208,10 @@ exports.isAuthuser = catchAsyncerror(async (req, res, next) => {
   } else {
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
     req.user = await User.findById(decodedData.id);
+    if(req.user=== null){
+      req.user = await Employy.findById(decodedData.id);
+
+    }
     next();
   }
 });
@@ -217,8 +222,11 @@ exports.dashboard = catchAsyncerror(async (req, res, next) => {
       .json({ message: "plese login to access this resource" });
   }
 
-  const user = await User.findById(req.user.id);
+  let user = await User.findById(req.user.id);
+  if(user=== null){
+   user = await Employy.findById(req.user.id);
 
+}
   res.status(200).json({
     sucess: true,
     user,
