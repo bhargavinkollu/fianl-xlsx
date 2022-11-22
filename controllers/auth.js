@@ -26,7 +26,7 @@ exports.employregister = catchAsyncerror(async (req, res, next) => {
     Employy.findOne({ email }, async (err, user) => {
       const { valid, reason, validators } = await isEmailValid(email);
       // console.log(validators);
-console.log(user);
+      console.log(user);
       if (user) {
         return res.status(500).json("user already registered");
       } else {
@@ -140,7 +140,7 @@ exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
   console.log(sghid);
 
   const data = await UploadFormData.find(sghid, { _id: 0, __v: 0 });
-// console.log(data);
+  // console.log(data);
   return res.status(200).json(data);
 });
 exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
@@ -152,30 +152,31 @@ exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
 });
 exports.uploadform = catchAsyncerror(async (req, res, next) => {
   let data = req.body.data;
-  let sgid = data[0]["SHG ID"];
-
+  
+  let sgid = data[0]["SHGID"];
   try {
-    const user = await UploadFormData.findOne({ "SHG ID": sgid });
-    const year = await UploadFormData.findOne({
-      sghid: sgid,
-      year: data[0]["year"],
-    });
-    // console.log(user);/////
-    if (data[0]["year"] === undefined) {
+    if (data[0]["year"] === undefined || data[0]["year"] === "") {
+      return res
+      .status(500)
+      .json({ message: "plz enter year", success: false });
+    }
+    const user = await UploadFormData.findOne({ SHGID: sgid });
+    if (user === "") {
       return res
         .status(500)
-        .json({ message: "plz enter year", success: false });
+        .json({ message: "Sghid already exist", success: false });
     }
+    const year = await UploadFormData.findOne({
+      SHGID: sgid,
+      year: data[0]["year"],
+    });
     if (year) {
       return res
         .status(500)
         .json({ message: "already Sghid with same year", success: false });
     }
-    if (user === "") {
-      return res
-        .status(500)
-        .json({ message: "Sghid already exist", success: false });
-    } else {
+    
+     else {
       let savedData = await UploadFormData.insertMany(req.body.data);
       return res
         .status(201)
@@ -208,9 +209,8 @@ exports.isAuthuser = catchAsyncerror(async (req, res, next) => {
   } else {
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
     req.user = await User.findById(decodedData.id);
-    if(req.user=== null){
+    if (req.user === null) {
       req.user = await Employy.findById(decodedData.id);
-
     }
     next();
   }
@@ -223,10 +223,9 @@ exports.dashboard = catchAsyncerror(async (req, res, next) => {
   }
 
   let user = await User.findById(req.user.id);
-  if(user=== null){
-   user = await Employy.findById(req.user.id);
-
-}
+  if (user === null) {
+    user = await Employy.findById(req.user.id);
+  }
   res.status(200).json({
     sucess: true,
     user,

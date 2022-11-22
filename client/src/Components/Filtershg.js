@@ -38,7 +38,7 @@ export const Filtershg = () => {
 
   const searchdistrict = async (event) => {
     setnewloading(true);
-    setuploadblank(false)
+    setuploadblank(false);
     const res = await axios
       .post("/api/auth/searchall", {
         "SLF Name": slf,
@@ -65,8 +65,7 @@ export const Filtershg = () => {
       year: year,
     });
     // console.log(res.data);
-    if( uploadblank === false){
-
+    if (uploadblank === false) {
       setfilterdata(res.data);
     }
   };
@@ -95,28 +94,34 @@ export const Filtershg = () => {
       datas = filterdata[0];
     } else if (notuplod === false) {
       datas = filterdata;
-    }
-    else if( uploadblank === true){
-      datas = filterdata
+    } else if (uploadblank === true) {
+      datas = filterdata;
     }
 
     console.log(uploadblank);
     try {
-      const ffmap = datas.map((row, index) => {
+      const ffmap = datas.map((row, indexs) => {
         console.log(row["SHG ID"]);
+        console.log(indexs)
         return (
           // {Object}.key(datas),
           <tr>
+            <td>{indexs + 1}</td>
             {Object.keys(datas[0])
               .filter((item, index) => {
                 return item !== "_id";
               })
               .map((key, index) => {
+                
                 // console.log(row["SHG ID"]);
                 const rooo = Object.keys(datas).filter((item, index) => {
                   // console. log(item);
                 });
-                return <td>{row[key]}</td>;
+                return (
+                  <>
+                    <td>{row[key]}</td>
+                  </>
+                );
               })}
           </tr>
         );
@@ -132,8 +137,8 @@ export const Filtershg = () => {
       datas = filterdata[0];
     } else if (notuplod === false) {
       datas = filterdata;
-    }else if( uploadblank === true){
-      datas = filterdata
+    } else if (uploadblank === true) {
+      datas = filterdata;
     }
     console.log(datas);
     try {
@@ -141,10 +146,14 @@ export const Filtershg = () => {
         .filter((item, index) => {
           return item !== "_id";
         })
-        .map((heading) => {
-          // console.log(heading);
-          return <th>{heading}</th>;
+        .map((heading, index) => {
+          return (
+            <>
+              <th>{heading}</th>
+            </>
+          );
         });
+      <th>s.no</th>;
       return hhmap;
     } catch (error) {
       console.log(error);
@@ -170,7 +179,7 @@ export const Filtershg = () => {
   };
   const notuploadshgid = async () => {
     setnewloading(true);
-    setuploadblank(true)
+    setuploadblank(true);
     await filterdata.map((items, index) => {
       console.log(items["SHGID"]);
     });
@@ -197,8 +206,7 @@ export const Filtershg = () => {
             setnewloading(false),
             setuploadblank(true),
             console.log("test1"),
-            console.log(filterdata)
-            )
+            console.log(filterdata))
       );
   };
 
@@ -290,7 +298,10 @@ export const Filtershg = () => {
                   >
                     <table className="table" responsive="true">
                       <thead>
-                        <tr>{hmap()}</tr>
+                        <tr>
+                          <th>S.no</th>
+                          {hmap()}
+                        </tr>
                       </thead>
                       <tbody>{fmap()}</tbody>
                     </table>

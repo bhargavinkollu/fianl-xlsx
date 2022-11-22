@@ -23,8 +23,6 @@ export const BankForm = () => {
   const { user, isAuthenticated, error, isUpdated, loading } = useSelector(
     (state) => state.user
   );
-  
-  // console.log(isAuthenticated);
 
   useEffect(() => {
     if (error) {
@@ -32,12 +30,10 @@ export const BankForm = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
-    if (user === null) {
+    if (isAuthenticated === false) {
       navigate("/employeelogin");
     }
-    console.log(user);
     if (isUpdated) {
-
       setBankdetail({
         sghid: "",
         bank_name: "",
@@ -119,15 +115,16 @@ export const BankForm = () => {
         surplus: "",
       });
       setGrade("");
+      setYear("");
     }
   }, [error, isUpdated, dispatch]);
   useEffect(() => {
-  if(isUpdated){
-    alert.success(isUpdated.message);
-    dispatch(clearErrors());  
-  }
+    if (isUpdated) {
+      alert.success(isUpdated.message);
+      dispatch(clearErrors());
+    }
   }, [isUpdated]);
-  
+
   const [checked, setChecked] = useState(false);
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(false);
@@ -146,7 +143,7 @@ export const BankForm = () => {
     acc_number: "",
   });
   const [year, setYear] = useState();
-
+  console.log(year);
   const [saving, setSaving] = useState({
     opening_savings: "",
     current_year_savings: "",
@@ -319,7 +316,6 @@ export const BankForm = () => {
   };
   const inputB = (e) => {
     setSaving({ ...saving, [e.target.name]: e.target.value });
-    
   };
   const inputB_b = (e) => {
     setSlfloan({ ...slfloan, [e.target.name]: e.target.value });
@@ -603,10 +599,9 @@ export const BankForm = () => {
         parseInt(saving.opening_savings) +
         parseInt(saving.current_year_savings))
     );
-    
-  console.log("total_savings",saving.total_savings
-  ,saving);
-    
+
+    console.log("total_savings", saving.total_savings, saving);
+
     setSlfloan(
       slfloan,
       (slfloan.total_loan_outstanding =
@@ -716,31 +711,38 @@ export const BankForm = () => {
           "Srinidhi Opening Loan": srinidhi_opening_loan,
           "Srinidhi Current Year Sanctioned": srinidhi_current_year_sanctioned,
           "Srinidhi Current Year ecovery": srinidhi_current_year_recovery,
-          "Srinidhi Total Loan Outstanding": srinidhiLoan.srinidhi_total_loan_outstanding,
+          "Srinidhi Total Loan Outstanding":
+            srinidhiLoan.srinidhi_total_loan_outstanding,
           "Covid Opening Loan": covid_opening_loan,
           "Covid Current Year Sanctioned": covid_current_year_sanctioned,
           "Covid Current Year Recovery": covid_current_year_recovery,
-          "Covid Total Loan Outstanding": covidloan.covid_total_loan_outstanding,
+          "Covid Total Loan Outstanding":
+            covidloan.covid_total_loan_outstanding,
           "Iml Opening Loan": iml_opening_loan,
           "Iml Current Year Sanctioned": iml_current_year_sanctioned,
           "Iml Current Year Recovery": iml_current_year_recovery,
-          "Iml Total Loan Outstanding": internalMemberLoan.iml_total_loan_outstanding,
+          "Iml Total Loan Outstanding":
+            internalMemberLoan.iml_total_loan_outstanding,
           "Slfm Opening Loan": slfm_opening_loan,
           "Slfm Current Year Sanctioned": slfm_current_year_sanctioned,
           "Slfm Current Year Recovery": slfm_current_year_recovery,
-          "Slfm Total Loan Outstanding": slfMemberLoan.slfm_total_loan_outstanding,
+          "Slfm Total Loan Outstanding":
+            slfMemberLoan.slfm_total_loan_outstanding,
           "Blml Opening Loan": blml_opening_loan,
           "Blml Current Year Sanctioned": blml_current_year_sanctioned,
           "Blml Current Year Recovery": blml_current_year_recovery,
-          "Blml Total Loan Outstanding": bankLinkageMemberLoan.blml_total_loan_outstanding,
+          "Blml Total Loan Outstanding":
+            bankLinkageMemberLoan.blml_total_loan_outstanding,
           "Srim Opening Loan": srim_opening_loan,
           "Srim Current Year Sanctioned": srim_current_year_sanctioned,
           "Srim Current Year Recovery": srim_current_year_recovery,
-          "Srim Total Loan Outstanding": srinidhiMemberLoan.srim_total_loan_outstanding,
+          "Srim Total Loan Outstanding":
+            srinidhiMemberLoan.srim_total_loan_outstanding,
           "Cml Opening Loan": cml_opening_loan,
           "Cml Current Year Sanctioned": cml_current_year_sanctioned,
           "Cml Current Year Recovery": cml_current_year_recovery,
-          "Cml Total Loan Outstanding": covidMemberLoans.cml_total_loan_outstanding,
+          "Cml Total Loan Outstanding":
+            covidMemberLoans.cml_total_loan_outstanding,
           "Opening Bank Balance": opening_bank_balance,
           "Opening Cash": opening_cash,
           "Closing Bank Balance": closing_bank_balance,
@@ -795,12 +797,15 @@ export const BankForm = () => {
           ) : (
             <>
               <div style={{ right: "40px" }} className="headertop">
-            {user && user.role==="admin"?(<Link to="/">
-            <button className="btn btn-primary">Home</button>
-            </Link>):("")}
-                {" "}
+                {user && user.role === "admin" ? (
+                  <Link to="/">
+                    <button className="btn btn-primary">Home</button>
+                  </Link>
+                ) : (
+                  ""
+                )}{" "}
                 <span className="home_btn">
-                  {isAuthenticated === true &&user ? (
+                  {isAuthenticated === true && user ? (
                     <>
                       <div>
                         <ul className="navbar-nav top-btn ml-auto flex-row">
@@ -836,7 +841,11 @@ export const BankForm = () => {
                     placeholder="search by SHG ID"
                     name="search"
                   />
-                  <button className="btn btn-primary" style={{marginLeft:"2%"}}onClick={searchSHG}>
+                  <button
+                    className="btn btn-primary"
+                    style={{ marginLeft: "2%" }}
+                    onClick={searchSHG}
+                  >
                     Search{" "}
                   </button>
                 </form>
@@ -853,7 +862,8 @@ export const BankForm = () => {
                         <div className="flexTopX ">
                           <div className="flexC givmargin givpad">
                             <p>Bank name</p>
-                            <input required
+                            <input
+                              required
                               type="text"
                               name="bank_name"
                               onChange={inputA}
@@ -863,7 +873,8 @@ export const BankForm = () => {
                           </div>
                           <div className="flexC givmargin givpadd">
                             <p>Account Number</p>
-                            <input required
+                            <input
+                              required
                               readOnly
                               type="text"
                               name="acc_number"
@@ -1202,7 +1213,7 @@ export const BankForm = () => {
                         <div className="flexT">
                           <h4>SLF Member Loans</h4>
                           <div className="flexD">
-                            <input 
+                            <input
                               type="checkbox"
                               name="default"
                               id="chkB2"
@@ -1276,7 +1287,7 @@ export const BankForm = () => {
                         <div className="flexT">
                           <h4>Srinidhi Loans</h4>
                           <div className="flexD">
-                            <input 
+                            <input
                               type="checkbox"
                               name="default"
                               id="chkF1"
@@ -1344,7 +1355,7 @@ export const BankForm = () => {
                         <div className="flexT">
                           <h4>Srinidhi Member Loans</h4>
                           <div className="flexD">
-                            <input 
+                            <input
                               type="checkbox"
                               name="default"
                               id="chkC2"
@@ -1422,7 +1433,7 @@ export const BankForm = () => {
                           <h4>Covid Loans</h4>
 
                           <div className="flexD">
-                            <input 
+                            <input
                               type="checkbox"
                               name="default"
                               id="chkD1"
@@ -1489,7 +1500,7 @@ export const BankForm = () => {
                         <div className="flexT">
                           <h4>Covid Member Loans</h4>
                           <div className="flexD">
-                            <input 
+                            <input
                               type="checkbox"
                               name="default"
                               id="chkF2"
@@ -1561,7 +1572,7 @@ export const BankForm = () => {
                         <div className="flexT">
                           <h4>Balances</h4>
                           <div className="flexD">
-                            <input 
+                            <input
                               type="checkbox"
                               name="default"
                               id="chkG1"
@@ -1604,7 +1615,8 @@ export const BankForm = () => {
                         </div>
                         <div className="flexC">
                           <p>Closing Bank Balance</p>
-                          <input required
+                          <input
+                            required
                             type="number"
                             name="closing_bank_balance"
                             onChange={inputG}
@@ -1630,24 +1642,25 @@ export const BankForm = () => {
                           <option selected disabled>
                             year
                           </option>
-                            
-                    <option value="2020-21">2020-21</option>
-                    <option value="2021-22">2021-22</option>
-                    <option value="2022-23">2022-23</option>
-                    <option value="2023-24">2023-24</option>
-                    <option value="2024-25">2024-25</option>
-                    <option value="2025-26">2025-26</option>
-                    <option value="2026-27">2026-27</option>
-                    <option value="2027-28">2027-28</option>
-                    <option value="2028-29">2028-29</option>
-                    <option value="2029-30">2029-30</option>
-                    <option value="2030-31">2030-31</option>
+
+                          <option value="2020-21">2020-21</option>
+                          <option value="2021-22">2021-22</option>
+                          <option value="2022-23">2022-23</option>
+                          <option value="2023-24">2023-24</option>
+                          <option value="2024-25">2024-25</option>
+                          <option value="2025-26">2025-26</option>
+                          <option value="2026-27">2026-27</option>
+                          <option value="2027-28">2027-28</option>
+                          <option value="2028-29">2028-29</option>
+                          <option value="2029-30">2029-30</option>
+                          <option value="2030-31">2030-31</option>
                         </select>
                       </div>
                       <div className="flexBaX">
                         <div className="flexC">
                           <label>Total fund Received</label>
-                          <input required
+                          <input
+                            required
                             type="number"
                             readOnly
                             value={Total_fund_Recived}
@@ -1656,7 +1669,7 @@ export const BankForm = () => {
                         <div className="flexC">
                           <label>Total fund Available</label>
                           <input
-                          required
+                            required
                             type="number"
                             readOnly
                             value={total_fund_Available}
@@ -1664,13 +1677,18 @@ export const BankForm = () => {
                         </div>
                         <div className="flexC">
                           <label>variation</label>
-                          
-                          <input required type="number" readOnly value={variation} />
+
+                          <input
+                            required
+                            type="number"
+                            readOnly
+                            value={variation}
+                          />
                         </div>
                         <div className="flexC">
                           <label>Bank linkage variation</label>
                           <input
-                          required
+                            required
                             type="number"
                             readOnly
                             value={bank_linkage_variation}

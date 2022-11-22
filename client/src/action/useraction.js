@@ -101,7 +101,7 @@ catch(error){
 }
 export const updateprofile = (updatedata) => async (dispatch) => {
   try {
-    // console.log(updatedata)
+    console.log(updatedata) 
     // return
     dispatch({ type: UPDATE_PROFIE_REQUEST });
     const config = { headers: { "Content-Type": "application/json" } };
