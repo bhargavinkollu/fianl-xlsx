@@ -45,10 +45,10 @@ export const Filtershg = () => {
         "SLF Name": slf,
         year: year,
       })
-      .then(
-        (res) => (
-          setfilterdata(res.data), setnewloading(false), setNotuplod(false)
-        )
+      .then((res) =>
+        (setfilterdata(res.data),
+        setnewloading(false),
+        setNotuplod(false))
       );
     console.log(res);
   };
@@ -92,12 +92,14 @@ export const Filtershg = () => {
   let datas;
   const fmap = () => {
     if (notuplod === true) {
-      datas = currentRecords[0];
+      datas = filterdata[0].slice(indexOfFirstRecord, indexOfLastRecord)
+      
     } else if (notuplod === false) {
-      datas = currentRecords;
+      datas = filterdata.slice(indexOfFirstRecord, indexOfLastRecord);
     } else if (uploadblank === true) {
-      datas = currentRecords;
+      datas = filterdata.slice(indexOfFirstRecord, indexOfLastRecord);
     }
+
 
     try {
       const ffmap = datas.map((row, indexs) => {
@@ -189,8 +191,6 @@ export const Filtershg = () => {
           ? (setfilterdata(
               filterdata.map((items, index) => {
                 return res.data.filter((item, index) => {
-                  console.log(items);
-                  console.log(item);
                   return item["SHG Id"] !== items["SHGID"];
                 });
               })
@@ -207,21 +207,12 @@ export const Filtershg = () => {
       );
   };
   //pagination
-  console.log(filterdata);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [recordsPerPage] = useState(10);
-    const indexOfLastRecord = currentPage * recordsPerPage;
-      const nPages = Math.ceil(filterdata.length / recordsPerPage);
-      const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  
-      let currentRecords = filterdata.slice(indexOfFirstRecord, indexOfLastRecord);
-      console.log(nPages);
-      console.log(filterdata.slice(indexOfFirstRecord, indexOfLastRecord));
-    
-   
-  // if (datas.length >= 10) {
-  // }
-  //pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(10);
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const nPages = Math.ceil(filterdata.length / recordsPerPage);
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+
   return (
     <>
       <div className="viewlisttop">
@@ -320,6 +311,7 @@ export const Filtershg = () => {
                       </table>
                     </div>
                   )}
+             
                 </>
               ) : (
                 <>
@@ -330,16 +322,14 @@ export const Filtershg = () => {
                 </>
               )}
             </div>
-           {filterdata.length>=0?(
-             <Pagination
-             nPages={nPages}
-             currentPage={currentPage}
-             setCurrentPage={setCurrentPage}
-             disabledClass
-           />
-           ):("")}
           </div>
         </div>
+        <Pagination
+                    nPages={nPages}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    
+                  />
       </div>
     </>
   );
