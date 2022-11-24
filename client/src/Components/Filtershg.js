@@ -142,7 +142,6 @@ export const Filtershg = () => {
     } else if (uploadblank === true) {
       datas = filterdata;
     }
-    console.log(datas);
     try {
       const hhmap = Object.keys(datas[0])
         .filter((item, index) => {
@@ -168,13 +167,10 @@ export const Filtershg = () => {
     let datas;
     if (notuplod === true) {
       datas = filterdata[0];
-      console.log(datas);
     } else if (notuplod === false) {
       datas = filterdata;
-      console.log(datas);
     } else if (uploadblank === true) {
       datas = filterdata;
-      console.log(datas);
     }
     const ws = XLSX.utils.json_to_sheet(datas);
     // console.log(ws);
@@ -208,9 +204,8 @@ export const Filtershg = () => {
             setNotuplod(false),
             setnewloading(false),
             setuploadblank(true),
-            console.log("test1"),
-            setnPages(Math.ceil(res.data.length / recordsPerPage)),
-            console.log(filterdata))
+            setnPages(Math.ceil(res.data.length / recordsPerPage))
+            )
       );
   };
   //pagination
@@ -222,11 +217,7 @@ const [nPages, setnPages ] = useState();
 
   // const nPages = Math.ceil(filterdata.length / recordsPerPage);
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  console.log(nPages);
-  console.log(currentPage);
-  console.log(recordsPerPage);
-  console.log(indexOfFirstRecord);
-  console.log(indexOfFirstRecord);
+
 
   return (
     <>
