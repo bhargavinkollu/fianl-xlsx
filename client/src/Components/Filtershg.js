@@ -48,9 +48,10 @@ export const Filtershg = () => {
       .then((res) =>
         (setfilterdata(res.data),
         setnewloading(false),
+        setnPages(Math.ceil(res.data.length / recordsPerPage)),
         setNotuplod(false))
+
       );
-    console.log(res);
   };
   const searchdis = async (event) => {
     let year;
@@ -130,6 +131,7 @@ export const Filtershg = () => {
       console.log(error);
     }
   };
+  
   const hmap = () => {
     let datas;
     if (notuplod === true) {
@@ -165,10 +167,14 @@ export const Filtershg = () => {
     let datas;
     if (notuplod === true) {
       datas = filterdata[0];
+      console.log(datas);
     } else if (notuplod === false) {
       datas = filterdata;
+      console.log(datas);
+    } else if (uploadblank === true) {
+      datas = filterdata;
+      console.log(datas);
     }
-    console.log(datas);
     const ws = XLSX.utils.json_to_sheet(datas);
     // console.log(ws);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
@@ -179,9 +185,7 @@ export const Filtershg = () => {
   const notuploadshgid = async () => {
     setnewloading(true);
     setuploadblank(true);
-    await filterdata.map((items, index) => {
-      console.log(items["SHGID"]);
-    });
+  
     const res = await axios
       .post("/api/auth/getxlsxfile", {
         "SLF Name": slf,
@@ -196,6 +200,7 @@ export const Filtershg = () => {
               })
             ),
             setNotuplod(true),
+            setnPages(Math.ceil(res.data.length / recordsPerPage)),
             setnewloading(false))
           : // console.log("test2")
             (setfilterdata(res.data),
@@ -203,6 +208,7 @@ export const Filtershg = () => {
             setnewloading(false),
             setuploadblank(true),
             console.log("test1"),
+            setnPages(Math.ceil(res.data.length / recordsPerPage)),
             console.log(filterdata))
       );
   };
@@ -210,8 +216,16 @@ export const Filtershg = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
   const indexOfLastRecord = currentPage * recordsPerPage;
-  const nPages = Math.ceil(filterdata.length / recordsPerPage);
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+const [nPages, setnPages ] = useState();
+const [indexOfFirstRecord, setindexOfFirstRecord ] = useState(indexOfLastRecord - recordsPerPage);
+
+  // const nPages = Math.ceil(filterdata.length / recordsPerPage);
+  // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  console.log(nPages);
+  console.log(currentPage);
+  console.log(recordsPerPage);
+  console.log(indexOfFirstRecord);
+  console.log(indexOfFirstRecord);
 
   return (
     <>
@@ -309,6 +323,12 @@ export const Filtershg = () => {
                         </thead>
                         <tbody>{fmap()}</tbody>
                       </table>
+                      {filterdata.length <=10?( <Pagination
+                    nPages={nPages}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    
+                  />):("")}
                     </div>
                   )}
              
@@ -324,12 +344,7 @@ export const Filtershg = () => {
             </div>
           </div>
         </div>
-        <Pagination
-                    nPages={nPages}
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                    
-                  />
+       
       </div>
     </>
   );
