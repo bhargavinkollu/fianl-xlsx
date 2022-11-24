@@ -40,6 +40,7 @@ export const Filtershg = () => {
   const searchdistrict = async (event) => {
     setnewloading(true);
     setuploadblank(false);
+    setCurrentPage(1)
     const res = await axios
       .post("/api/auth/searchall", {
         "SLF Name": slf,
@@ -217,10 +218,10 @@ export const Filtershg = () => {
   const [recordsPerPage] = useState(10);
   const indexOfLastRecord = currentPage * recordsPerPage;
 const [nPages, setnPages ] = useState();
-const [indexOfFirstRecord, setindexOfFirstRecord ] = useState(indexOfLastRecord - recordsPerPage);
+// const [indexOfFirstRecord, setindexOfFirstRecord ] = useState(indexOfLastRecord - recordsPerPage);
 
   // const nPages = Math.ceil(filterdata.length / recordsPerPage);
-  // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   console.log(nPages);
   console.log(currentPage);
   console.log(recordsPerPage);
@@ -323,12 +324,12 @@ const [indexOfFirstRecord, setindexOfFirstRecord ] = useState(indexOfLastRecord 
                         </thead>
                         <tbody>{fmap()}</tbody>
                       </table>
-                      {filterdata.length <=10?( <Pagination
+                      <Pagination
                     nPages={nPages}
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                     
-                  />):("")}
+                  />
                     </div>
                   )}
              
